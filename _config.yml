@@ -106,7 +106,7 @@ content:
 
 # Footer
 footer_show_references: true
-# references_title: References on request (Override references text)
+references_title: Via Roma, 56 53100 Siena - Italia.
 
 # Build settings
 remote_theme: sproogen/resume-theme
