@@ -7,9 +7,9 @@ version: 2
 
 # Personal info
 name: Kamyar Zeinalipour
-title: PhD Candidate and reaserch felow in Artificial intekigence 
+title: PhD Candidate and Research Fellow in Artificial Intelligence at the University of Siena (SAILab)
 email: kamyar.zeinalipour@unisi.it
-website: www.github.com/sproogen/resume-theme
+website: https://sailab.diism.unisi.it/people/kamyar-zeinalipour
 
 # Dark Mode (true/false/never)
 darkmode: false
@@ -31,10 +31,10 @@ orcid_username: 0009-0006-3014-2511
 googlescholar_username: RewxhZwAAAAJ
 
 # Additional icon links
-additional_links:
-- title: itsgoingto.be
-  icon: fas fa-globe
-  url: https://www.itsgoingto.be
+#additional_links:
+#- title: itsgoingto.be
+#  icon: fas fa-globe
+#  url: https://www.itsgoingto.be
 # - title: another link
 #   icon: font awesome brand icon name (eg. fab fa-twitter) (https://fontawesome.com/icons?d=gallery&m=free)
 #   url: Link url (eg. https://google.com)
