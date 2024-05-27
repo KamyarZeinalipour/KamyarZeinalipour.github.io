@@ -178,10 +178,43 @@ content:
     content:
 
       - layout: top-middle
+        title: A Turkish Educational Crossword Puzzle Generator
+        link: https://arxiv.org/abs/2405.07035
+        quote: >
+          Kamyar Zeinalipour, Yusuf Gökberk Keptiğ, Marco Maggini, Leonardo Rigutini, Marco Gori | 2024
+
+
+      - layout: top-middle
+        title: Clue-Instruct Text-Based Clue Generation for Educational Crossword Puzzles
+        link: https://aclanthology.org/2024.lrec-main.297/
+        quote: >
+          Andrea Zugarini, Kamyar Zeinalipour, Surya Sai Kadali, Marco Maggini, Marco Gori, Leonardo Rigutini | 2024
+
+
+      - layout: top-middle
+        title: Building Bridges of Knowledge Innovating Education with Automated Crossword Generation
+        link: https://ieeexplore.ieee.org/abstract/document/10459980/
+        quote: >
+          Kamyar Zeinalipour, Tommaso Iaquinta, Giovanni Angelini, Leonardo Rigutini, Marco Maggini, Marco Gori | 2023
+
+
+      - layout: top-middle
+        title: ArabIcros AI-Powered Arabic Crossword Puzzle Generation for Educational Applications
+        link: https://aclanthology.org/2023.arabicnlp-1.23/
+        quote: >
+          Kamyar Zeinalipour, Mohamed Zaky Saad, Marco Maggini, Marco Gori | 2023
+
+
+
+
+      - layout: top-middle
         title: The WebCrow French Crossword Solver
         link: https://link.springer.com/chapter/10.1007/978-3-031-55722-4_14
         quote: >
           Giovanni Angelini, Marco Ernandes, Tommaso Iaquinta, Caroline Stehlé, Fanny Simões, Kamyar Zeinalipour, Andrea Zugarini, Marco Gori | 2023
+
+
+          
 
 
 
