@@ -173,12 +173,12 @@ content:
            As a dedicated statistician, I leveraged SPSS, Python, and R to conduct comprehensive statistical analyses for surveys, providing accurate and actionable insights. My expertise included designing, implementing, and interpreting complex survey data with a variety of techniques such as descriptive and inferential statistics, and predictive modeling. I ensured data integrity through meticulous cleaning and validation while creating clear visualizations and reports to communicate findings effectively. Committed to methodological rigor, I continuously enhanced my skills and stayed updated with the latest advancements in statistical methodologies and software.
 
 
-  - title: Projects # Title for the section
+  - title: Publications # Title for the section
     layout: list # Type of content section (list/text)
     content:
       - layout: top-middle
-        title: Super awesome project
-        link: github.com/sproogen
+        title: Graph Neural Networks for Topological Feature Extraction in ECG Classification
+        link: https://link.springer.com/chapter/10.1007/978-981-99-3592-5_2
         # link_text: Project Website
         additional_links:
           - title:  sproogen/modern-resume-theme
