@@ -97,24 +97,39 @@ content:
   - title: Experience # Title for the section
     layout: list # Type of content section (list/text)
     content:
+
       - layout: left
         title: University of Siena
-        link: boringcompany.com
+        #link: boringcompany.com
         # link_text: boringcompany.com
-        sub_title: Senior Network System Administrator
-        caption: November 2017 - Present
-        quote: >
-          Solving 21st century problems by diging holes and making game changing products like the *not a flamethrower*
+        sub_title: Researcher Phd Candidate 
+        caption: Apr 2022 - Present | Siena, Italy
+        #quote: >
+        #  Solving 21st century problems by diging holes and making game changing products like the *not a flamethrower*
         description: | # this will include new lines to allow paragraphs
-            Every company needs its networks properly administered and The Boring Compay is no exception. Digging holes is hard and I play my part making sure the whole company stays connected. I lead a team of 5 people and enjoy driving the company to try new technologies.
+           I specialized in creating crossword puzzles for educational use and developed a sophisticated crossword generator utilizing NLP techniques and large language models (LLMs). This generator supports multiple languages, including English, Italian, Arabic, and Turkish. Currently, my research is centered on generating knowledge graphs from text. During my Ph.D. journey, I have collaborated with notable companies such as Baker Hughes, Expert.ai, and Leonardo S.p.A.
+
+
+
+
+      - layout: left
+        title: University of Siena
+        #link: boringcompany.com
+        # link_text: boringcompany.com
+        sub_title: Teacher Assistant
+        caption: Oct 2022 - Present | Siena, Italy
+      #  quote: >
+        #  Solving 21st century problems by diging holes and making game changing products like the *not a flamethrower*
+        description: | # this will include new lines to allow paragraphs
+           As a Machine Learning course Teaching Assistant at the University of Siena, I had the opportunity to work closely with the course instructor to create a dynamic and engaging learning environment. My responsibilities included guiding students through course material and assisting them with assignments, projects, and lab exercises. I focused on fostering a collaborative learning atmosphere by encouraging student interaction and participation. In addition to providing one-on-one assistance and conducting small group sessions, I helped develop and refine educational materials to enhance the learning experience. Monitoring student progress and offering constructive feedback were key parts of my role, all while contributing to a positive and inclusive classroom atmosphere. This position allowed me to leverage my expertise in machine learning and strengthen my communication and interpersonal skills.
 
            
       - layout: left
         title: University of Siena
         #link: boringcompany.com
         # link_text: boringcompany.com
-        sub_title: Machine Learning Specialist | Siena, Italy
-        caption: Apr 2022 - May 2023
+        sub_title: Machine Learning Specialist
+        caption: Apr 2022 - May 2023 | Siena, Italy
         #quote: >
         #  Solving 21st century problems by diging holes and making game changing products like the *not a flamethrower*
         description: | # this will include new lines to allow paragraphs
