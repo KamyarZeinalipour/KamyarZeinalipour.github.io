@@ -182,7 +182,7 @@ content:
         # link_text: Project Website
         additional_links:
           - title:  Graph Neural Networks for Topological Feature Extraction in ECG Classification
-            icon: fab fa-googlescholar
+            icon: images/favicon.ico
             url: https://link.springer.com/chapter/10.1007/978-981-99-3592-5_2
           # - title:  Github page for project (eg. sproogen/modern-resume-theme)
           #   icon: fab fa-github
