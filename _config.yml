@@ -181,28 +181,28 @@ content:
         title: A Turkish Educational Crossword Puzzle Generator
         link: https://arxiv.org/abs/2405.07035
         quote: >
-          Kamyar Zeinalipour, Yusuf Gökberk Keptiğ, Marco Maggini, Leonardo Rigutini, Marco Gori | 2024
+          Kamyar Zeinalipour, Yusuf Gökberk Keptiğ, Marco Maggini, Leonardo Rigutini, Marco Gori | ISPR 2024| 2024
 
 
       - layout: top-middle
         title: Clue-Instruct Text-Based Clue Generation for Educational Crossword Puzzles
         link: https://aclanthology.org/2024.lrec-main.297/
         quote: >
-          Andrea Zugarini, Kamyar Zeinalipour, Surya Sai Kadali, Marco Maggini, Marco Gori, Leonardo Rigutini | 2024
+          Andrea Zugarini, Kamyar Zeinalipour, Surya Sai Kadali, Marco Maggini, Marco Gori, Leonardo Rigutini | LREC-COLING 2024 | 2024
 
 
       - layout: top-middle
         title: Building Bridges of Knowledge Innovating Education with Automated Crossword Generation
         link: https://ieeexplore.ieee.org/abstract/document/10459980/
         quote: >
-          Kamyar Zeinalipour, Tommaso Iaquinta, Giovanni Angelini, Leonardo Rigutini, Marco Maggini, Marco Gori | 2023
+          Kamyar Zeinalipour, Tommaso Iaquinta, Giovanni Angelini, Leonardo Rigutini, Marco Maggini, Marco Gori | ICMLA 2024 | 2023
 
 
       - layout: top-middle
         title: ArabIcros AI-Powered Arabic Crossword Puzzle Generation for Educational Applications
         link: https://aclanthology.org/2023.arabicnlp-1.23/
         quote: >
-          Kamyar Zeinalipour, Mohamed Zaky Saad, Marco Maggini, Marco Gori | 2023
+          Kamyar Zeinalipour, Mohamed Zaky Saad, Marco Maggini, Marco Gori | Arabic NLP 2023 | 2023
 
 
 
@@ -211,7 +211,7 @@ content:
         title: The WebCrow French Crossword Solver
         link: https://link.springer.com/chapter/10.1007/978-3-031-55722-4_14
         quote: >
-          Giovanni Angelini, Marco Ernandes, Tommaso Iaquinta, Caroline Stehlé, Fanny Simões, Kamyar Zeinalipour, Andrea Zugarini, Marco Gori | 2023
+          Giovanni Angelini, Marco Ernandes, Tommaso Iaquinta, Caroline Stehlé, Fanny Simões, Kamyar Zeinalipour, Andrea Zugarini, Marco Gori | EAI INTETAIN 2023 |  2023
 
 
           
@@ -222,7 +222,7 @@ content:
         title: Italian Crossword Generator Enhancing Education through Interactive Word Puzzles
         link: https://arxiv.org/abs/2311.15723
         quote: >
-          Kamyar Zeinalipour, Asya Zanollo, Giovanni Angelini, Leonardo Rigutini, Marco Maggini, Marco Gori | 2023
+          Kamyar Zeinalipour, Asya Zanollo, Giovanni Angelini, Leonardo Rigutini, Marco Maggini, Marco Gori | CLiC-it 2023 | 2023
       
 
 
@@ -238,7 +238,7 @@ content:
           #   icon: fab fa-github
           #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
         quote: >
-          Kamyar Zeinalipour, Marco Gori | 2023
+          Kamyar Zeinalipour, Marco Gori | WIRN 2022 | 2023
        # description: | # this will include new lines to allow paragraphs
         #  I started this project as a way if learning <mark>React</mark> and it has since grown into a fully fledged app. I have learned many skills through this and been I'm very proud of having this in my portfolio. If you don't have a project as awesome as this I would advise you make one.    
 
