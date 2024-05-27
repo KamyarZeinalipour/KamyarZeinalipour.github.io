@@ -138,7 +138,7 @@ content:
 
       - layout: left
         title: Baker Hughes
-        link: boringcompany.com
+        #link: boringcompany.com
         # link_text: boringcompany.com
         sub_title: Data Scientist
         caption: Jan 2022 - Mar 2023 | Florance, Italy
@@ -155,8 +155,8 @@ content:
         # link_text: boringcompany.com
         sub_title: Data Analyst
         caption: Jun 2016 - Mar 2017 | Bandarabbas, Iran
-        quote: >
-          Bandarabbas, Iran
+        #quote: >
+        #  Bandarabbas, Iran
         description: | # this will include new lines to allow paragraphs
             As a Demographic and Statistical Analyst, I performed comprehensive demographic and statistical analyses using Excel, SPSS, and R. My role involved gathering and managing datasets from various sources, ensuring their accuracy and relevance, as well as cleaning and preprocessing data for in-depth analysis. Utilizing advanced statistical methods, I conducted descriptive, inferential, and regression analyses to identify trends, patterns, and insights. Additionally, I analyzed population demographics to provide insights into current trends and forecast future changes, ultimately supporting strategic decision-making and research initiatives.
 
