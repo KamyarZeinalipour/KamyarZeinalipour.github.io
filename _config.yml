@@ -176,6 +176,23 @@ content:
   - title: Publications # Title for the section
     layout: list # Type of content section (list/text)
     content:
+
+      - layout: top-middle
+        title: The WebCrow French Crossword Solver
+        link: https://link.springer.com/chapter/10.1007/978-3-031-55722-4_14
+        quote: >
+          Giovanni Angelini, Marco Ernandes, Tommaso Iaquinta, Caroline Stehlé, Fanny Simões, Kamyar Zeinalipour, Andrea Zugarini, Marco Gori | 2023
+
+
+
+      - layout: top-middle
+        title: Italian Crossword Generator Enhancing Education through Interactive Word Puzzles
+        link: https://arxiv.org/abs/2311.15723
+        quote: >
+          Kamyar Zeinalipour, Asya Zanollo, Giovanni Angelini, Leonardo Rigutini, Marco Maggini, Marco Gori | 2023
+      
+
+
       - layout: top-middle
         title: Graph Neural Networks for Topological Feature Extraction in ECG Classification
         link: https://link.springer.com/chapter/10.1007/978-981-99-3592-5_2
@@ -188,7 +205,7 @@ content:
           #   icon: fab fa-github
           #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
         quote: >
-          K Zeinalipour, M Gori | 2023
+          Kamyar Zeinalipour, Marco Gori | 2023
        # description: | # this will include new lines to allow paragraphs
         #  I started this project as a way if learning <mark>React</mark> and it has since grown into a fully fledged app. I have learned many skills through this and been I'm very proud of having this in my portfolio. If you don't have a project as awesome as this I would advise you make one.    
 
