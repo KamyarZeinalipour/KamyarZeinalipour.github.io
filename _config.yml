@@ -133,16 +133,7 @@ content:
             Every company needs its networks properly administered and The Boring Compay is no exception. Digging holes is hard and I play my part making sure the whole company stays connected. I lead a team of 5 people and enjoy driving the company to try new technologies.
 
            
-      - layout: left
-        title: The Boring Company
-        link: boringcompany.com
-        # link_text: boringcompany.com
-        sub_title: Senior Network System Administrator
-        caption: November 2017 - Present
-        quote: >
-          Solving 21st century problems by diging holes and making game changing products like the *not a flamethrower*
-        description: | # this will include new lines to allow paragraphs
-            Every company needs its networks properly administered and The Boring Compay is no exception. Digging holes is hard and I play my part making sure the whole company stays connected. I lead a team of 5 people and enjoy driving the company to try new technologies.   
+
 
       - layout: left
         title: State manegement and planing organization 
@@ -155,6 +146,17 @@ content:
         description: | # this will include new lines to allow paragraphs
             As a Demographic and Statistical Analyst, I performed comprehensive demographic and statistical analyses using Excel, SPSS, and R. My role involved gathering and managing datasets from various sources, ensuring their accuracy and relevance, as well as cleaning and preprocessing data for in-depth analysis. Utilizing advanced statistical methods, I conducted descriptive, inferential, and regression analyses to identify trends, patterns, and insights. Additionally, I analyzed population demographics to provide insights into current trends and forecast future changes, ultimately supporting strategic decision-making and research initiatives.
 
+
+      - layout: left
+        title: Gilda Research Company
+        #link: boringcompany.com
+        # link_text: boringcompany.com
+        sub_title: Statistican
+        caption: Feb 2015 - May 2017
+        quote: >
+          Bandarabbas, Iran
+        description: | # this will include new lines to allow paragraphs
+           As a dedicated statistician, I leveraged SPSS, Python, and R to conduct comprehensive statistical analyses for surveys, providing accurate and actionable insights. My expertise included designing, implementing, and interpreting complex survey data with a variety of techniques such as descriptive and inferential statistics, and predictive modeling. I ensured data integrity through meticulous cleaning and validation while creating clear visualizations and reports to communicate findings effectively. Committed to methodological rigor, I continuously enhanced my skills and stayed updated with the latest advancements in statistical methodologies and software.
 
 
   - title: Projects # Title for the section
