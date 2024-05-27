@@ -152,9 +152,9 @@ content:
         #link: boringcompany.com
         # link_text: boringcompany.com
         sub_title: Statistican
-        caption: Feb 2015 - May 2017
-        quote: >
-          Bandarabbas, Iran
+        caption: Feb 2015 - May 2017 | Bandarabbas, Iran
+        #quote: >
+          
         description: | # this will include new lines to allow paragraphs
            As a dedicated statistician, I leveraged SPSS, Python, and R to conduct comprehensive statistical analyses for surveys, providing accurate and actionable insights. My expertise included designing, implementing, and interpreting complex survey data with a variety of techniques such as descriptive and inferential statistics, and predictive modeling. I ensured data integrity through meticulous cleaning and validation while creating clear visualizations and reports to communicate findings effectively. Committed to methodological rigor, I continuously enhanced my skills and stayed updated with the latest advancements in statistical methodologies and software.
 
