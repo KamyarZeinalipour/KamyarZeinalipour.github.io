@@ -139,7 +139,7 @@ content:
         title: State manegement and planing organization 
        # link: boringcompany.com
         # link_text: boringcompany.com
-        sub_title: Senior Network System Administrator
+        sub_title: Data Analyst
         caption: Jun 2016 - Mar 2017
         quote: >
           Bandarabbas, Iran
@@ -152,7 +152,8 @@ content:
         #link: boringcompany.com
         # link_text: boringcompany.com
         sub_title: Statistican
-        caption: Feb 2015 - May 2017 | Bandarabbas, Iran
+        caption: Feb 2015 - May 2017 \n
+         Bandarabbas, Iran
         #quote: >
           
         description: | # this will include new lines to allow paragraphs
