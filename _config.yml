@@ -181,9 +181,9 @@ content:
         link: https://link.springer.com/chapter/10.1007/978-981-99-3592-5_2
         # link_text: Project Website
         additional_links:
-          - title:  sproogen/modern-resume-theme
-            icon: fab fa-github
-            url: github.com/sproogen/modern-resume-theme
+          - title:  Graph Neural Networks for Topological Feature Extraction in ECG Classification
+            icon: fab fa-googlescholar
+            url: https://link.springer.com/chapter/10.1007/978-981-99-3592-5_2
           # - title:  Github page for project (eg. sproogen/modern-resume-theme)
           #   icon: fab fa-github
           #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
