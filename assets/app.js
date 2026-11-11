@@ -1,6 +1,6 @@
 import { PUZZLE, PAPERS, TOPICS, RELEASES, PATH, BUILT, TEACHING, UPDATES, SERVICE, TALKS, CERTS } from "./data.js";
 import { buildFigures } from "./figures.js";
-import { buildGraph } from "./graph.js";
+import { buildStage } from "./stage.js";
 
 /* A stable anchor for each paper: the part of the title before the colon, plus the year. */
 const slug = (p) => (p.t.split(":")[0] + " " + p.y).toLowerCase()
@@ -531,7 +531,7 @@ try {
   buildTalks();
   buildCerts();
   buildFigures();
-  buildGraph();
+  buildStage();
 } catch (err) {
   console.error(err);
   const msg = () => {

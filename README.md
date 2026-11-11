@@ -17,6 +17,9 @@ assets/data.js      ALL content: papers, releases, projects, news, teaching, fig
 assets/app.js       renders the content into whichever page is open
 assets/figures.js   the interactive figures on the research page
 assets/graph.js     the home page graph of papers, lines of work and languages
+assets/stage.js     the home page story: one chapter and one animated scene per research area
+assets/mol3d.js     the 3D protein and drug scenes (3Dmol.js, loaded only when opened)
+assets/pdb/         real structures from the Protein Data Bank: 1UBQ and 1IEP
 assets/style.css    tokens, light and dark themes, layout
 ```
 

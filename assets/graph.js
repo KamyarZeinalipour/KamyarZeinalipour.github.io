@@ -101,8 +101,7 @@ function layout({ nodes, edges }) {
   }
 }
 
-export function buildGraph() {
-  const mount = $("#fig-graph");
+export function buildGraph(mount = $("#fig-graph")) {
   if (!mount) return;
   const model = buildModel();
   layout(model);
@@ -197,7 +196,11 @@ export function buildGraph() {
     buttons.set(n.id, b);
     row.append(b);
   }
-  document.addEventListener("keydown", (ev) => { if (ev.key === "Escape" && active) clear(); });
+  const onKey = (ev) => {
+    if (!mount.isConnected) { document.removeEventListener("keydown", onKey); return; }
+    if (ev.key === "Escape" && active) clear();
+  };
+  document.addEventListener("keydown", onKey);
 
   mount.append(svg, status, row);
 
