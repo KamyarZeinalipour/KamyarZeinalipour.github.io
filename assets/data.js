@@ -636,3 +636,42 @@ export const MULTI = [
   { code: "ES", lang: "Español", text: "Explica en dos frases por qué el cielo es azul." },
   { code: "FR", lang: "Français", text: "Explique en deux phrases pourquoi le ciel est bleu." },
 ];
+
+/* ---------- the work as a graph (home page) ----------
+   Languages are linked to a paper only where the paper's language is certain.
+   Keys are the start of a paper title. */
+export const LANGS = {
+  it: { native: "Italiano", name: "Italian" },
+  ar: { native: "العربية", name: "Arabic" },
+  fa: { native: "فارسی", name: "Farsi" },
+  tr: { native: "Türkçe", name: "Turkish" },
+  sd: { native: "سنڌي", name: "Sindhi" },
+  en: { native: "English", name: "English" },
+  fr: { native: "Français", name: "French" },
+  de: { native: "Deutsch", name: "German" },
+  es: { native: "Español", name: "Spanish" },
+};
+
+export const PAPER_LANGS = {
+  "PharmaQA.IT": ["it"],
+  "Enabling Structured Reasoning in Sindhi": ["sd"],
+  "TalkFa": ["fa"],
+  "Multi-SFT": ["en", "it", "de", "es", "fr"],
+  "Challenging the Abilities of Large Language Models in Italian": ["it"],
+  "FarSense": ["fa"],
+  "Shawarma Chats": ["ar"],
+  "ArabicSense": ["ar"],
+  "PersianMCQ-Instruct": ["fa"],
+  "From Arabic Text to Puzzles": ["ar"],
+  "Surprisal and Crossword Clues Difficulty": ["it"],
+  "Italian Crossword Generator: An In-depth": ["it"],
+  "Clue-Instruct": ["en"],
+  "Automating Turkish Educational Quiz": ["tr"],
+  "A Turkish Educational Crossword": ["tr"],
+  "Harnessing LLMs for Educational Content-Driven Italian": ["it"],
+  "Advancing Student Writing": ["en"],
+  "ECWCA": ["it"],
+  "ArabIcros": ["ar"],
+  "Italian Crossword Generator: Enhancing": ["it"],
+  "The WebCrow French Crossword Solver": ["fr"],
+};

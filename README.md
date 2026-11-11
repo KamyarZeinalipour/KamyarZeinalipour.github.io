@@ -16,6 +16,7 @@ crossword.html      a playable crossword built from the research vocabulary
 assets/data.js      ALL content: papers, releases, projects, news, teaching, figures
 assets/app.js       renders the content into whichever page is open
 assets/figures.js   the interactive figures on the research page
+assets/graph.js     the home page graph of papers, lines of work and languages
 assets/style.css    tokens, light and dark themes, layout
 ```
 
@@ -32,5 +33,7 @@ Everything lives in `assets/data.js`, and each entry shows up on every page it b
 - **Announcing a paper or project in one step:** give its `PAPERS` or `BUILT` entry a
   `news: { when, date, text }` field. It is added to Updates automatically.
 - **Teaching:** add to `TEACHING`.
+- **The home page graph** reads `PAPERS` and `TOPICS` directly. To link a paper to a language,
+  add its title start to `PAPER_LANGS`.
 
 Run it locally with `python3 -m http.server 8000` and open `http://localhost:8000`.
