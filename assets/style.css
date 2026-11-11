@@ -783,3 +783,9 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .st-tile { transform-box: fill-box; transform-origin: center; }
 .st-tile rect { fill: var(--cell); stroke: var(--accent); stroke-width: 1.2; }
 .st-tile text { font: 700 10.5px var(--sans); fill: var(--ink); }
+/* protein pipeline steps and honest notes */
+.m3-steps { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; margin: 0 0 0.7rem; counter-reset: step; }
+.m3-steps li { counter-increment: step; font-size: 0.82rem; color: var(--ink-2); border: 1px solid var(--rule-strong); border-radius: 999px; padding: 0.25rem 0.7rem; transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease; }
+.m3-steps li::before { content: counter(step) "  "; font-weight: 700; }
+.m3-steps li.on { background: var(--accent-soft); color: var(--ink); border-color: var(--accent); }
+.m3-note { font-size: 0.8rem; color: var(--ink-2); margin: 0.5rem 0 0; max-width: 60ch; }

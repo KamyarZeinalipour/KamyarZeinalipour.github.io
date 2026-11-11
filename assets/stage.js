@@ -501,7 +501,7 @@ const SCENES = [
     links: [{ href: "https://aclanthology.org/2025.clicit-1.50/", label: "CLiC-it 2025 paper" }, { href: "https://huggingface.co/datasets/Kamyar-zeinalipour/Crossword-Surprisal-IT", label: "The data" }],
     build: sceneMeasuring, hold: 6500 },
   { id: "protein", tab: "Proteins", sub: "Sequence to structure", title: "From a sentence to a fold",
-    text: "To a language model, a protein is a sentence in a twenty-letter alphabet. The letters are ubiquitin's sequence; the ribbon is how it really folds, coloured by the same position along the chain. Hover the ribbon to find its letter.",
+    text: "To a language model, a protein is a sentence in a twenty-letter alphabet. In the paper, fine-tuned models write new sequences, AlphaFold 2 folds them, and pLDDT and TM-score judge the fold. Shown here: a real folded protein, coloured by position along the chain.",
     links: [{ href: "https://aclanthology.org/2024.langmol-1.5/", label: "Design proteins with LLMs" }, { href: "https://www.rcsb.org/structure/1UBQ", label: "PDB 1UBQ" }],
     build: (m, a) => sceneProtein3D(m, a, sceneProtein), hold: 10000 },
   { id: "drug", tab: "Drugs", sub: "Targets and molecules", title: "A drug in its target",

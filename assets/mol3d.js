@@ -91,8 +91,16 @@ export function sceneProtein3D(mount, alive, fallback) {
     strip.append(sp);
     return sp;
   });
-  mount.append(strip);
+  const steps = el("ol", { className: "m3-steps" }, [
+    el("li", { textContent: "A model writes a sequence" }),
+    el("li", { textContent: "AlphaFold 2 folds it" }),
+    el("li", { textContent: "pLDDT and TM-score check the fold" }),
+  ]);
+  const light = (k) => [...steps.children].forEach((li, j) => li.classList.toggle("on", j <= k));
+  mount.append(steps, strip);
+  light(0);
   const f = frame(mount, alive, "The folded 3D structure of ubiquitin, PDB 1UBQ, shown as a ribbon coloured from teal at the start of the chain to amber at the end.");
+  mount.append(el("p", { className: "m3-note", textContent: "Shown: ubiquitin, a natural protein (PDB 1UBQ). The paper folds model-written sequences the same way and scores them." }));
 
   const typing = calm() ? 0 : SEQ.length * 28;
   letters.forEach((sp, i) => {
@@ -118,6 +126,8 @@ export function sceneProtein3D(mount, alive, fallback) {
         v.zoom(1.45);
         v.render();
         f.box.classList.add("ready");
+        light(1);
+        setTimeout(() => { if (alive()) light(2); }, calm() ? 0 : 1600);
         f.spinFor(22000);
       }, typing);
     })
@@ -133,7 +143,7 @@ export function sceneDrug3D(mount, alive, fallback) {
     el("span", { className: "key drug", textContent: "imatinib" }),
     el("span", { className: "key pocket", textContent: "residues touching the drug" }),
   ]);
-  mount.append(legend);
+  mount.append(legend, el("p", { className: "m3-note", textContent: "An example structure from the Protein Data Bank (PDB 1IEP), not taken from the paper." }));
 
   Promise.all([loadLib(), fetch("assets/pdb/1iep.pdb").then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); })])
     .then(([$3Dmol, pdb]) => {
