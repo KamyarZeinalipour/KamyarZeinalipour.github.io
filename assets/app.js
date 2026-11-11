@@ -1,4 +1,4 @@
-import { PUZZLE, PAPERS, TOPICS, RELEASES, PATH, BUILT, TEACHING, UPDATES } from "./data.js";
+import { PUZZLE, PAPERS, TOPICS, RELEASES, PATH, BUILT, TEACHING, UPDATES, SERVICE, TALKS, CERTS } from "./data.js";
 import { buildFigures } from "./figures.js";
 
 /* A stable anchor for each paper: the part of the title before the colon, plus the year. */
@@ -467,6 +467,37 @@ function buildTeaching() {
   mount.replaceChildren(ol);
 }
 
+/* ---------------- service, talks, certificates ---------------- */
+function buildRows(mountId, items, toRow) {
+  const mount = $(mountId);
+  if (!mount) return;
+  const ol = el("ol", { className: "path" });
+  for (const it of items) {
+    const { when, title, where, note, links } = toRow(it);
+    const li = el("li");
+    li.append(el("p", { className: "when", textContent: when }));
+    const right = el("div");
+    right.append(el("h3", {}, [document.createTextNode(title + ", "), el("span", { className: "where", textContent: where })]));
+    if (note) right.append(el("p", { textContent: note }));
+    if (links && links.length) right.append(linkList(links));
+    li.append(right);
+    ol.append(li);
+  }
+  mount.replaceChildren(ol);
+}
+
+function buildService() {
+  buildRows("#service-out", SERVICE, (x) => ({ when: x.when, title: x.role, where: x.where, note: x.note,
+    links: x.href ? [{ href: x.href, label: "Page" }] : [] }));
+}
+function buildTalks() {
+  buildRows("#talks-out", TALKS, (x) => ({ when: x.when, title: x.what, where: x.where,
+    links: x.href ? [{ href: x.href, label: x.hrefLabel || "More" }] : [] }));
+}
+function buildCerts() {
+  buildRows("#certs-out", CERTS, (x) => ({ when: x.year, title: x.name, where: x.by, note: x.parts ? `Courses: ${x.parts}.` : "" }));
+}
+
 /* ---------------- path ---------------- */
 function buildPath() {
   const ol = $("#path-out");
@@ -495,6 +526,9 @@ try {
   buildUpdates();
   buildTeaching();
   buildPath();
+  buildService();
+  buildTalks();
+  buildCerts();
   buildFigures();
 } catch (err) {
   console.error(err);
@@ -509,7 +543,7 @@ try {
     );
     return p;
   };
-  for (const id of ["#papers-out", "#releases-out", "#built-out", "#updates-out", "#teaching-out"]) {
+  for (const id of ["#papers-out", "#releases-out", "#built-out", "#updates-out", "#teaching-out", "#service-out", "#talks-out", "#certs-out"]) {
     const node = $(id);
     if (node && !node.querySelector("table, ul, ol, article")) node.replaceChildren(msg());
   }

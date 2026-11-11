@@ -536,3 +536,9 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
   .kg.done * { opacity: 1; }
 }
 @keyframes kgin { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* built and shipped, research page */
+.built-grid { display: grid; gap: 0 clamp(1.5rem, 4vw, 3rem); margin-top: 1.6rem; }
+@media (min-width: 52rem) { .built-grid { grid-template-columns: 1fr 1fr; } }
+.built-grid .built { border-bottom: 1px solid var(--rule); margin-bottom: 0; padding: 1.2rem 0 1.4rem; }
+.built-grid .built:last-child { border-bottom: 1px solid var(--rule); }
