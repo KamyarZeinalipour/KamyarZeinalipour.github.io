@@ -731,3 +731,55 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 }
 @media (max-width: 59.99rem) { .st-story { padding: 0.9rem 0 0; } }
 .intro .lede { max-width: 66ch; }
+/* knowledge graph scene: the paper's Komodo dragon example */
+.st-hub { fill: var(--ink); }
+.st-hub-t { font: 600 14px var(--serif); fill: var(--paper); }
+.st-track { fill: var(--rule); }
+.st-sim.keep { fill: var(--accent); }
+.st-sim.drop { fill: var(--ink-2); }
+.st-simval { font: 600 12px var(--sans); fill: var(--ink-2); }
+.st-verdict { font: 700 12px var(--sans); }
+.st-verdict.keep { fill: var(--accent); }
+.st-verdict.drop { fill: var(--ink-2); }
+.st-kg-card .st-card { transition: stroke 300ms ease; }
+.st-kg-card.keep.decided .st-card { stroke: var(--accent); stroke-width: 2; }
+.st-kg-card.drop.decided { opacity: 0.62 !important; }
+.st-sent-t { font-size: 13.5px; }
+
+/* ---------- scene styles, round 3 ---------- */
+.st-dot { fill: var(--rule-strong); transition: fill 200ms ease; }
+.st-dot.on { fill: var(--accent); }
+/* Multi-SFT cards */
+.st-msft-card { fill: var(--cell); stroke: var(--rule); }
+.st-msft-code { font: 700 12px var(--sans); fill: var(--accent); }
+.st-msft-src { font: 500 11.5px var(--sans); fill: var(--ink-2); }
+.st-qa { font: 700 12px var(--sans); fill: var(--ink-2); }
+.st-qa.a { fill: var(--accent); }
+.st-q { font: 500 13px var(--sans); fill: var(--ink); }
+.st-a { font: 400 13px var(--serif); fill: var(--ink-2); font-style: italic; }
+.st-caret { fill: var(--accent); }
+/* Clue-Instruct */
+.st-ci-src { fill: var(--cell); stroke: var(--rule); }
+.st-ci-text { font: 400 13.5px var(--serif); fill: var(--ink); }
+.st-ci .st-key { transition: fill 300ms ease; }
+.st-ci.found .st-key { fill: var(--accent); font-weight: 700; }
+.st-clue-n { font: 700 12px var(--sans); fill: var(--accent); }
+.st-clue-line { font: 400 15px var(--serif); fill: var(--ink); }
+.st-letter.big { font: 700 24px var(--sans); fill: var(--ink); }
+/* ArabicSense */
+.st-sense-box { fill: var(--cell); stroke: var(--rule-strong); transition: stroke 300ms ease, fill 300ms ease; }
+.st-scan { fill: var(--accent); fill-opacity: 0.16; }
+.st-absurd { transition: fill 300ms ease; }
+.st-sense.hit .st-absurd { fill: var(--accent); font-weight: 700; }
+.st-sense.is-sense .st-sense-box { stroke: var(--accent); stroke-width: 2.4; }
+.st-sense.is-nonsense .st-sense-box { fill: var(--paper-2); }
+.st-sense.is-nonsense .st-ar, .st-sense.is-nonsense .st-gloss { opacity: 0.75; }
+.st-stamp { transform-box: fill-box; transform-origin: center; }
+.st-stamp rect { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+.st-stamp text { font: 800 13px var(--sans); fill: var(--accent); letter-spacing: 0.04em; }
+.st-sense.is-sense .st-stamp rect { fill: var(--accent); }
+.st-sense.is-sense .st-stamp text { fill: var(--paper); }
+/* measuring tiles */
+.st-tile { transform-box: fill-box; transform-origin: center; }
+.st-tile rect { fill: var(--cell); stroke: var(--accent); stroke-width: 1.2; }
+.st-tile text { font: 700 10.5px var(--sans); fill: var(--ink); }

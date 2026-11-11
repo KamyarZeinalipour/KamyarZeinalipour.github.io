@@ -521,21 +521,27 @@ export const SENSE = [
     "b": "إيمانويل ماكرون هو أصغر رئيس في تاريخ فرنسا، حيث انتخب عندما كان عمره 39 عامًا.",
     "ok": 1,
     "ga": "Emmanuel Macron can fly over the Eiffel Tower without any help.",
-    "gb": "Emmanuel Macron is the youngest president in the history of France, elected at 39."
+    "gb": "Emmanuel Macron is the youngest president in the history of France, elected at 39.",
+    "absurd": "يستطيع التحليق فوق برج إيفل دون أي مساعدة",
+    "absurdGloss": "can fly over the Eiffel Tower without any help"
   },
   {
     "a": "تعلم الآلة يستخدم بشكل واسع في مجالات متعددة مثل الطب والهندسة لتحليل البيانات والاستفادة منها.",
     "b": "يمكن لتعلم الآلة التفاعل مع الأشجار وتعلم لغتها لتحسين نمو النباتات.",
     "ok": 0,
     "ga": "Machine learning is widely used in fields such as medicine and engineering to analyse data and put it to use.",
-    "gb": "Machine learning can talk with trees and learn their language to help plants grow."
+    "gb": "Machine learning can talk with trees and learn their language to help plants grow.",
+    "absurd": "التفاعل مع الأشجار وتعلم لغتها",
+    "absurdGloss": "talk with trees and learn their language"
   },
   {
     "a": "بيل باورمان يُصنع الأحذية من شوكلاك بشكل سري في مختبره تحت الأرض.",
     "b": "بيل باورمان هو مؤسس مشارك لشركة نايكي الرياضية.",
     "ok": 1,
     "ga": "Bill Bowerman secretly makes shoes out of chocolate in his underground laboratory.",
-    "gb": "Bill Bowerman is a co-founder of the sportswear company Nike."
+    "gb": "Bill Bowerman is a co-founder of the sportswear company Nike.",
+    "absurd": "يُصنع الأحذية من شوكلاك",
+    "absurdGloss": "makes shoes out of chocolate"
   },
   {
     "a": "في بعض الأحيان، يمكن للكلاب أن تعلم البشر كيفية البرمجة باستخدام أجهزة الكمبيوتر.",
@@ -675,3 +681,34 @@ export const PAPER_LANGS = {
   "Italian Crossword Generator: Enhancing": ["it"],
   "The WebCrow French Crossword Solver": ["fr"],
 };
+
+/* Real examples from the Multi-SFT paper (arXiv 2610.22086, appendix A.3),
+   one per language: an instruction and the start of the answer a model learns from. */
+export const MSFT = [
+  { code: "FR", lang: "fr", src: "multi-dolly-15k",
+    q: "Pourquoi Pluton n'est-elle pas considérée comme une planète?",
+    a: "L'UAI (Union astronomique internationale) considère qu'un objet… Pluton répond aux deux premiers critères mais ne satisfait pas au troisième." },
+  { code: "IT", lang: "it", src: "multi-mentorES",
+    q: "Inventa una ricetta con porro, salmone, formaggio cremoso e brodo di verdure.",
+    a: "Zuppa cremosa di salmone - Ingredienti: 2 porri, 2 filetti di salmone, 150 g di formaggio cremoso…" },
+  { code: "DE", lang: "de", src: "Multi-SciRIFF",
+    q: "Fassen Sie den Hauptbeitrag der Arbeit in einem Satz zusammen.",
+    a: "Wir ermöglichen sowohl die kulturelle Evolution der Sprache als auch die genetische Evolution der Agenten in einem Referenzspiel…" },
+  { code: "ES", lang: "es", src: "multi-smol_rewrite",
+    q: "Redacta el texto de entrada para hacerlo más conciso, manteniendo su significado principal.",
+    a: "Estimada doctora Patel, Espero que esté bien. Soy Emilia, estudiante de 7º grado…" },
+  { code: "EN", lang: "en", src: "multi-smol_summarize",
+    q: "Provide a concise and objective summary of the input text, including all key details, in the form of a bulleted list.",
+    a: "Reviewed outline; praised as strong starting point. Added suggestions and own ideas in attached doc…" },
+];
+
+/* Real rows from the Clue-Instruct dataset (huggingface.co/datasets/azugarini/clue-instruct):
+   a Wikipedia passage, the answer, and the clues in the dataset. */
+export const CLUES = [
+  { answer: "GREBE", context: "Grebes are aquatic diving birds in the order Podicipediformes. Grebes are widely distributed freshwater birds.",
+    clues: ["Aquatic diving bird in the order Podicipediformes", "Closely related to flamingos", "Known for courtship displays and synchronized dances"] },
+  { answer: "REAMER", context: "A reamer is a type of rotary cutting tool used in metalworking. Precision reamers enlarge the size of a previously formed hole.",
+    clues: ["A precision tool used to enlarge holes with accuracy", "Used in metalworking to leave smooth sides", "Can be used as a hand tool or in a machine tool"] },
+  { answer: "FLAP", context: "A flap is a high-lift device used to reduce the stalling speed of an aircraft wing at a given weight.",
+    clues: ["Device used to reduce stalling speed of an aircraft wing", "Alters the spanwise lift distribution on the wing", "Increases the camber of the wing"] },
+];

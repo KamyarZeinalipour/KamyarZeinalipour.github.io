@@ -196,23 +196,23 @@ function figKG() {
     return n;
   };
   const svg = make("svg", { viewBox: "0 0 640 250", class: "kg", role: "img",
-    "aria-label": "A small knowledge graph with two facts is written out as a sentence, then parsed back into a graph, and both facts are recovered." });
+    "aria-label": "The paper's example: two facts about the Komodo dragon are written out as a sentence, then read back into a graph, with a round-trip similarity of 0.80." });
 
   const graph = (x0, cls) => {
     const g = make("g", { class: cls });
     // Node centres. Boxes are 92 wide, so the outer edges sit at x0 + 4 and x0 + 204.
     const nodes = [
-      { x: x0 + 104, y: 50, t: "Gas turbine" },
-      { x: x0 + 50, y: 175, t: "Compressor" },
-      { x: x0 + 158, y: 175, t: "NOx" },
+      { x: x0 + 104, y: 50, t: "Komodo dragon" },
+      { x: x0 + 50, y: 175, t: "Indonesia" },
+      { x: x0 + 158, y: 175, t: "largest lizard" },
     ];
     const edge = (a, b, label) => {
       g.append(make("line", { x1: a.x, y1: a.y + 15, x2: b.x, y2: b.y - 15, class: "kg-edge" }));
       g.append(make("text", { x: (a.x + b.x) / 2 + (b.x > a.x ? 9 : -9), y: (a.y + b.y) / 2 + 4,
         class: "kg-rel", "text-anchor": b.x > a.x ? "start" : "end" }, label));
     };
-    edge(nodes[0], nodes[1], "has part");
-    edge(nodes[0], nodes[2], "emits");
+    edge(nodes[0], nodes[1], "native to");
+    edge(nodes[0], nodes[2], "known as");
     for (const n of nodes) {
       g.append(make("rect", { x: n.x - 46, y: n.y - 15, width: 92, height: 30, rx: 3, class: "kg-node" }));
       g.append(make("text", { x: n.x, y: n.y + 5, class: "kg-label", "text-anchor": "middle" }, n.t));
@@ -227,12 +227,12 @@ function figKG() {
   svg.append(arrow(214, 244, 118, "a1"));
   const textG = make("g", { class: "kg-text" });
   textG.append(make("rect", { x: 250, y: 80, width: 140, height: 76, rx: 3, class: "kg-card" }));
-  ["The gas turbine", "has a compressor", "and emits NOx."].forEach((line, i) =>
+  ["The Komodo dragon,", "native to Indonesia,", "is the largest lizard."].forEach((line, i) =>
     textG.append(make("text", { x: 262, y: 106 + i * 18, class: "kg-sent" }, line)));
   svg.append(textG);
   svg.append(arrow(396, 426, 118, "a2"));
   svg.append(graph(432, "kg-right"));
-  svg.append(make("text", { x: 536, y: 236, class: "kg-score", "text-anchor": "middle" }, "2 of 2 facts recovered"));
+  svg.append(make("text", { x: 536, y: 236, class: "kg-score", "text-anchor": "middle" }, "round-trip similarity 0.80"));
 
   const replay = el("button", { type: "button", className: "chip", textContent: "Run the round trip" });
   const play = () => {
