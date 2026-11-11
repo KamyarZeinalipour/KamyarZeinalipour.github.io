@@ -851,3 +851,26 @@ export const LEARN = {
     usual: "With the usual rule, * first, the same expression gives 22.",
   },
 };
+
+/* Languages chapter, beyond Multi-SFT. Numbers and examples are from the papers. */
+export const CALAMITA = {
+  challenges: 22, subtasks: 95,
+  // Table 1: ability, challenges, subtasks. A challenge can count in more than one category.
+  abilities: [
+    ["Linguistic knowledge", 14, 60], ["Commonsense reasoning", 10, 42], ["Factual knowledge", 8, 29],
+    ["Formal reasoning", 7, 22], ["Fairness and bias", 3, 16], ["Machine translation", 2, 15],
+    ["Summarization", 2, 4], ["Code generation", 1, 1],
+  ],
+  mine: "Commonsense reasoning",
+};
+export const BANANAS = {
+  // Section 1.1: three conditions, from least to most plural-dominant.
+  ladder: [
+    { code: "PD", name: "Plural dominant", sg: "eyelash", pl: "eyelashes", note: "The plural is simply more frequent." },
+    { code: "sPT", name: "Semantic plurale tantum", sg: "banana", sgGloss: "fruit", pl: "bananas", plGloss: "crazy", note: "Same form, but the plural means something else." },
+    { code: "mPT", name: "Morphological plurale tantum", lang: "ru", sg: "выбор", sgGloss: "choice", pl: "выборы", plGloss: "elections", note: "In this sense the plural has no singular at all." },
+  ],
+  // Section 6.2, Italian corpus 1910 to 2005.
+  case: { sg: "rifiuto", sgGloss: "refusal", pl: "rifiuti", plGloss: "waste", from: 1910, to: 2005, at: 1930 },
+  kept: [["Italian", 70], ["Russian", 60], ["English", 241]],
+};

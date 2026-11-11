@@ -864,3 +864,20 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .icl-step-t { font: 600 16px var(--sans); fill: var(--ink); }
 .icl-step.on rect { fill: var(--accent-soft); stroke: var(--accent); }
 .sl-card .st-bar { fill: var(--accent); }
+
+/* languages slides */
+.cal-bar { fill: var(--ink-2); opacity: 0.5; }
+.cal-row.mine .cal-bar { opacity: 1; }
+.cal-row.mine .cal-bar { fill: var(--accent); }
+.cal-val { font: 600 12px var(--sans); fill: var(--ink-2); dominant-baseline: middle; transform: translateY(-5px); }
+.cal-row.mine .cal-val, .cal-row.mine .st-clue-it { fill: var(--ink); font-weight: 700; }
+.pt-chip rect { fill: var(--cell); stroke: var(--rule); }
+.pt-chip.pl rect { stroke: var(--accent); }
+.pt-word { font: 600 16px var(--serif); fill: var(--ink); }
+.pt-lab { font: 600 11px var(--sans); fill: var(--ink-2); }
+.pt-link { stroke: var(--ink-2); stroke-width: 2; fill: none; }
+.pt-link.l1 { stroke-dasharray: 5 4; }
+.pt-link.l2 { stroke-dasharray: 2 6; }
+.pt-axis { stroke: var(--rule); stroke-width: 6; stroke-linecap: round; fill: none; }
+.pt-grow { stroke: var(--accent); stroke-width: 6; stroke-linecap: round; fill: none; }
+.pt-dot { fill: var(--accent); stroke: var(--cell); stroke-width: 2; }

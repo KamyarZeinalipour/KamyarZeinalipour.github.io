@@ -2,7 +2,7 @@
    It plays a single tour through the scenes, then stops on the first one. Tabs
    jump to any scene, a button pauses or replays the tour, and under
    prefers-reduced-motion every scene is drawn in its finished state. */
-import { PUZZLE, PROTEIN, SENSE, SURPRISAL, MSFT, CLUES, BENCH, CROSS, LEARN } from "./data.js";
+import { PUZZLE, PROTEIN, SENSE, SURPRISAL, MSFT, CLUES, BENCH, CROSS, LEARN, CALAMITA, BANANAS } from "./data.js";
 import { buildGraph } from "./graph.js";
 import { sceneProtein3D, sceneDrug3D } from "./mol3d.js";
 
@@ -59,51 +59,44 @@ function spanMask(text, span) {
   return mask;
 }
 
-/* ---------------- scene: Multi-SFT, five real examples ---------------- */
-function sceneLanguages(mount, alive) {
-  const svg = stageSvg("Five real examples from the Multi-SFT instruction data, one each in French, Italian, German, Spanish and English: an instruction, then the answer a model learns from.");
-  mount.append(svg);
+/* ---------------- Multi-SFT, five real examples (a slide in the Languages chapter) ---------------- */
+function slideMSFT(g) {
   const rows = MSFT.map((m, i) => {
     const y = 10 + i * 97;
-    const g = s("g", { class: "st-msft" });
-    g.append(s("rect", { x: 14, y, width: 612, height: 88, rx: 8, class: "st-msft-card" }));
-    g.append(s("text", { x: 30, y: y + 21, class: "st-msft-code" }, m.code));
-    g.append(s("text", { x: 58, y: y + 21, class: "st-msft-src" }, m.src));
-    g.append(s("text", { x: 30, y: y + 44, class: "st-qa" }, "Q"));
-    g.append(s("text", { x: 30, y: y + 75, class: "st-qa a" }, "A"));
-    const qLines = wrapWords(m.q, 76).slice(0, 2);
-    const q = qLines.map((ln, k) => {
+    const r = s("g", { class: "st-msft" });
+    r.append(s("rect", { x: 14, y, width: 612, height: 88, rx: 8, class: "st-msft-card" }));
+    r.append(s("text", { x: 30, y: y + 21, class: "st-msft-code" }, m.code));
+    r.append(s("text", { x: 58, y: y + 21, class: "st-msft-src" }, m.src));
+    r.append(s("text", { x: 30, y: y + 44, class: "st-qa" }, "Q"));
+    r.append(s("text", { x: 30, y: y + 75, class: "st-qa a" }, "A"));
+    const q = wrapWords(m.q, 76).slice(0, 2).map((ln, k) => {
       const t = s("text", { x: 50, y: y + 44 + k * 16, class: "st-q", lang: m.lang }, "");
-      g.append(t);
+      r.append(t);
       return { t, ln };
     });
     const aLine = wrapWords(m.a, 80)[0];
     const at = s("text", { x: 50, y: y + 75, class: "st-a", lang: m.lang }, "");
     const caret = s("rect", { y: y + 64, width: 7, height: 14, rx: 1, class: "st-caret" });
-    g.append(at, caret);
-    g.style.opacity = 0;
-    svg.append(g);
-    return { g, q, at, aLine, caret, y };
+    r.append(at, caret);
+    r.style.opacity = 0;
+    g.append(r);
+    return { r, q, at, aLine, caret };
   });
   const per = 1150;
-  run(alive, (ms) => {
-    rows.forEach((r, i) => {
+  return (ms) => {
+    rows.forEach((row, i) => {
       const local = ms === Infinity ? 99999 : ms - i * per;
-      const t = clamp01(local / 380);
-      r.g.style.opacity = t;
-      r.g.style.transform = `translateY(${(1 - ease(t)) * 10}px)`;
-      const qTotal = r.q.reduce((n, x) => n + x.ln.length, 0);
+      reveal(row.r, clamp01(local / 380), 10);
+      const qTotal = row.q.reduce((n, x) => n + x.ln.length, 0);
       let budget = Math.floor(clamp01((local - 200) / 520) * qTotal);
-      r.q.forEach(({ t: el2, ln }) => { const n = Math.min(ln.length, budget); el2.textContent = ln.slice(0, n); budget -= n; });
-      const words = r.aLine.split(" ");
-      const k = Math.floor(clamp01((local - 760) / 600) * words.length);
-      r.at.textContent = words.slice(0, k).join(" ");
+      row.q.forEach(({ t, ln }) => { const n = Math.min(ln.length, budget); t.textContent = ln.slice(0, n); budget -= n; });
+      const words = row.aLine.split(" ");
+      row.at.textContent = words.slice(0, Math.floor(clamp01((local - 760) / 600) * words.length)).join(" ");
       const streaming = local > 760 && local < 1500 && ms !== Infinity;
-      r.caret.style.opacity = streaming ? 1 : 0;
-      if (streaming && r.at.getComputedTextLength) r.caret.setAttribute("x", 52 + r.at.getComputedTextLength());
+      row.caret.style.opacity = streaming ? 1 : 0;
+      if (streaming && row.at.getComputedTextLength) row.caret.setAttribute("x", 52 + row.at.getComputedTextLength());
     });
-    return ms < rows.length * per + 800;
-  });
+  };
 }
 
 /* ---------------- scene: Clue-Instruct, passage to clues to grid ---------------- */
@@ -1054,6 +1047,107 @@ const LEARN_SLIDES = [
 
 function sceneLearning(mount, alive) { slideScene(mount, alive, LEARN_SLIDES); }
 
+/* ---------------- languages, paper by paper ---------------- */
+/* CALAMITA: a community benchmark for Italian, by ability (Table 1 of the paper). */
+function slideCalamita(g) {
+  const d = CALAMITA;
+  const top = s("g");
+  top.append(s("text", { x: 20, y: 44, class: "cw-count sm" }, `${d.challenges} challenges, ${d.subtasks} subtasks`));
+  top.append(s("text", { x: 20, y: 68, class: "st-gloss" }, "Written in and for Italian by research groups across Italy and beyond."));
+  g.append(top);
+  const max = Math.max(...d.abilities.map((a) => a[1]));
+  const mineIdx = d.abilities.findIndex((a) => a[0] === d.mine);
+  const plural = (n, w) => `${n} ${w}${n === 1 ? "" : "s"}`;
+  const rows = d.abilities.map(([name, ch, t], i) => {
+    const y = 100 + i * 40 + (i > mineIdx ? 24 : 0);
+    const r = s("g", { class: name === d.mine ? "cal-row mine" : "cal-row" });
+    r.append(s("text", { x: 20, y: y + 14, class: "st-clue-it" }, name));
+    const bar = s("rect", { x: 210, y, width: 0, height: 18, rx: 3, class: "cal-bar" });
+    const val = s("text", { x: 216, y: y + 14, class: "cal-val" }, `${plural(ch, "challenge")}, ${plural(t, "subtask")}`);
+    r.append(bar, val);
+    g.append(r);
+    return { r, bar, val, w: (ch / max) * 250 };
+  });
+  const my = 100 + mineIdx * 40;
+  const note = s("text", { x: 210, y: my + 38, class: "fb-loop-t" }, "One of these is ECWCA, my crossword challenge.");
+  g.append(note, s("text", { x: 20, y: 470, class: "st-gloss" }, "A challenge can count in more than one ability."));
+  return (ms) => {
+    reveal(top, clamp01(ms / 380));
+    rows.forEach((row, i) => {
+      reveal(row.r, clamp01((ms - 300 - i * 120) / 300), 4);
+      const t = ease(clamp01((ms - 400 - i * 120) / 600));
+      row.bar.setAttribute("width", (row.w * t).toFixed(1));
+      row.val.setAttribute("x", (216 + row.w * t).toFixed(1));
+    });
+    note.style.opacity = clamp01((ms - 1800) / 400);
+  };
+}
+
+/* Elections go bananas: three steps by which a plural drifts away from its singular. */
+function slideBananas(g) {
+  const d = BANANAS;
+  const chip = (parent, x, y, word, gloss, lang, cls) => {
+    const c = s("g", { class: `pt-chip ${cls}` });
+    c.append(s("rect", { x, y, width: 120, height: 46, rx: 6 }));
+    c.append(s("text", { x: x + 60, y: y + (gloss ? 21 : 28), "text-anchor": "middle", class: "pt-word", lang: lang || "en" }, word));
+    if (gloss) c.append(s("text", { x: x + 60, y: y + 38, "text-anchor": "middle", class: "st-gloss" }, `‘${gloss}’`));
+    parent.append(c);
+    return c;
+  };
+  const rows = d.ladder.map((st, i) => {
+    const y = 14 + i * 98;
+    const r = s("g", { class: "pt-row" });
+    r.append(s("text", { x: 20, y: y + 22, class: "st-msft-code" }, st.code));
+    r.append(s("text", { x: 58, y: y + 22, class: "st-clue-it" }, st.name));
+    wrapWords(st.note, 36).forEach((ln, k) => r.append(s("text", { x: 20, y: y + 46 + k * 17, class: "st-gloss" }, ln)));
+    const sg = chip(r, 340, y + 4, st.sg, st.sgGloss, st.lang, "sg");
+    const link = s("path", { d: `M 460 ${y + 27} H 500`, class: `pt-link l${i}` });
+    r.append(link);
+    chip(r, 500, y + 4, st.pl, st.plGloss, st.lang, "pl");
+    r.append(s("text", { x: 400, y: y + 66, "text-anchor": "middle", class: "pt-lab" }, "singular"), s("text", { x: 560, y: y + 66, "text-anchor": "middle", class: "pt-lab" }, "plural"));
+    g.append(r);
+    return { r, sg, link, i };
+  });
+  // Italian case study on a 1910 to 2005 time line.
+  const c = d.case, cy = 318;
+  const card = s("g", { class: "sl-card" });
+  card.append(s("rect", { x: 20, y: cy, width: 600, height: 150, rx: 8 }), s("text", { x: 36, y: cy + 24, class: "st-kicker" }, "Italian, from the paper's case study"));
+  const sx = (yr) => 60 + ((yr - c.from) / (c.to - c.from)) * 520;
+  card.append(s("text", { x: 36, y: cy + 54, class: "pt-word", lang: "it" }, c.sg), s("text", { x: 108, y: cy + 54, class: "st-gloss" }, `‘${c.sgGloss}’`));
+  card.append(s("text", { x: 330, y: cy + 54, class: "pt-word", lang: "it" }, c.pl), s("text", { x: 390, y: cy + 54, class: "st-gloss" }, `‘${c.plGloss}’, almost only in the plural`));
+  card.append(s("path", { d: `M ${sx(c.from)} ${cy + 96} H ${sx(c.to)}`, class: "pt-axis" }));
+  [c.from, c.at, c.to].forEach((yr) => card.append(s("text", { x: sx(yr), y: cy + 120, "text-anchor": "middle", class: "pt-lab" }, String(yr))));
+  const grow = s("path", { d: `M ${sx(c.at)} ${cy + 96} H ${sx(c.to)}`, class: "pt-grow" });
+  const dot = s("circle", { cx: sx(c.at), cy: cy + 96, r: 6, class: "pt-dot" });
+  const mark = s("text", { x: sx(c.at) + 12, y: cy + 86, class: "fb-loop-t" }, "the sense ‘waste’ appears");
+  card.append(grow, dot, mark);
+  card.append(s("text", { x: 36, y: cy + 142, class: "st-gloss" }, `Words kept for study: ${d.kept.map(([l, n]) => `${l} ${n}`).join(", ")}.`));
+  g.append(card);
+  const len = sx(c.to) - sx(c.at);
+  grow.setAttribute("stroke-dasharray", `${len} ${len}`);
+  return (ms) => {
+    rows.forEach((row) => {
+      const t0 = row.i * 650;
+      reveal(row.r, clamp01((ms - t0) / 320), 6);
+      // the bond between singular and plural weakens down the ladder
+      const loosen = clamp01((ms - t0 - 350) / 500);
+      if (row.i === 2) row.sg.style.opacity = 1 - 0.55 * loosen;
+      row.link.style.opacity = row.i === 0 ? 1 : 1 - (row.i === 1 ? 0.35 : 0.85) * loosen;
+    });
+    reveal(card, clamp01((ms - 2100) / 380));
+    grow.setAttribute("stroke-dashoffset", (len * (1 - ease(clamp01((ms - 2600) / 900)))).toFixed(1));
+    dot.style.opacity = clamp01((ms - 2500) / 300);
+    mark.style.opacity = clamp01((ms - 2700) / 400);
+  };
+}
+
+const LANG_SLIDES = [
+  { paper: "Multi-SFT", venue: "arXiv 2026", href: "https://arxiv.org/abs/2610.22086", task: "Instruction data in Europe's languages, behind Villanova2.", label: "five real Multi-SFT examples in French, Italian, German, Spanish and English, each an instruction and its answer", build: slideMSFT, dur: 7400 },
+  { paper: "CALAMITA", venue: "IJCoL 2026", href: "https://arxiv.org/abs/2512.04759", task: "A community benchmark for Italian.", label: "22 challenges and 95 subtasks grouped by the ability they test, with ECWCA under commonsense reasoning", build: slideCalamita, dur: 4200 },
+  { paper: "Elections go bananas", venue: "EACL 2026", href: "https://aclanthology.org/2026.eacl-long.308/", task: "How a plural drifts away from its singular, read by LLMs in Italian, Russian and English corpora.", label: "eyelash and eyelashes, banana and bananas meaning crazy, and the Russian plural for elections, then the Italian rifiuti meaning waste appearing around 1930", build: slideBananas, dur: 5200 },
+];
+function sceneLanguages2(mount, alive) { slideScene(mount, alive, LANG_SLIDES); }
+
 /* ---------------- scene: the work as a graph ---------------- */
 function sceneGraph(mount) { buildGraph(mount); }
 
@@ -1061,10 +1155,10 @@ const SCENES = [
   { id: "work", tab: "The work", sub: "31 papers, connected", title: "Every paper, connected",
     text: "Thirty-one papers, four lines of work, nine languages. This map shows how they connect: pick a language or a line of work, and the papers behind it light up.",
     links: [{ href: "publications.html", label: "All publications" }], build: sceneGraph, hold: 8000 },
-  { id: "langs", tab: "Languages", sub: "Villanova and Multi-SFT", title: "Open models for Europe's languages",
-    text: "Most open models are strongest in English. At Villanova.AI we train them in Italy for Europe's own languages. These are real examples from Multi-SFT, our instruction data: one per language, each an instruction and the answer a model learns from.",
+  { id: "langs", tab: "Languages", sub: "Three papers, Europe's languages", title: "Open models for Europe's languages",
+    text: "Most open models are strongest in English. At Villanova.AI we train them in Italy for Europe's own languages, starting from the data they learn from. Three papers: the instruction data, a community benchmark for Italian, and what LLMs can tell us about how words change.",
     links: [{ href: "https://arxiv.org/abs/2610.22086", label: "Multi-SFT paper" }, { href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", label: "Villanova2" }],
-    build: sceneLanguages, hold: 7000 },
+    build: sceneLanguages2, hold: 18000 },
   { id: "bench", tab: "Benchmarks", sub: "Six papers, six languages", title: "Benchmarks for languages that have none",
     text: "Before a model can be trusted in Arabic, Farsi or Sindhi, someone has to test it there. Each slide is a real item from one of the benchmarks I built, one paper at a time; pick a paper above the scene to jump to it.",
     links: [{ href: "https://huggingface.co/datasets/Kamyar-zeinalipour/ArabicSense", label: "ArabicSense" }, { href: "https://aclanthology.org/2025.ijcnlp-long.187/", label: "FarSense" }],
