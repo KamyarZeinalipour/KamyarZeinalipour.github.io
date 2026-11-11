@@ -355,7 +355,7 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 
 /* ---------- about ---------- */
 .about-grid { display: grid; gap: clamp(1.8rem, 4vw, 3rem); margin-top: 1.5rem; }
-@media (min-width: 55rem) { .about-grid { grid-template-columns: 15rem minmax(0, 1fr); align-items: start; } }
+@media (min-width: 55rem) { .about-grid { grid-template-columns: 19rem minmax(0, 1fr); align-items: start; } }
 .portrait {
   width: 100%; max-width: 15rem; height: auto; display: block;
   border: 1px solid var(--rule-strong);
@@ -549,3 +549,12 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 /* a page title followed directly by content needs less air between them */
 .page-head + .band { padding-top: clamp(1rem, 3vw, 1.8rem); }
 .page-head + .band .built-grid { margin-top: 0; }
+
+/* about photo: the UNESCO talk, shown in colour */
+.stage { margin: 0; max-width: 22rem; }
+.stage img { display: block; width: 100%; height: auto; border-radius: 2px; }
+.stage figcaption {
+  margin-top: 0.7rem; padding-top: 0.6rem; border-top: 2px solid var(--accent);
+  font-size: 0.9rem; color: var(--ink-2);
+}
+.stage figcaption b { color: var(--ink); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.02em; }
