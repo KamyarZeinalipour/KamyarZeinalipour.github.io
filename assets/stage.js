@@ -2,7 +2,7 @@
    It plays a single tour through the scenes, then stops on the first one. Tabs
    jump to any scene, a button pauses or replays the tour, and under
    prefers-reduced-motion every scene is drawn in its finished state. */
-import { PUZZLE, PROTEIN, SENSE, SURPRISAL, MSFT, CLUES } from "./data.js";
+import { PUZZLE, PROTEIN, SENSE, SURPRISAL, MSFT, CLUES, BENCH } from "./data.js";
 import { buildGraph } from "./graph.js";
 import { sceneProtein3D, sceneDrug3D } from "./mol3d.js";
 
@@ -477,6 +477,240 @@ function sceneMeasuring(mount, alive) {
   });
 }
 
+/* ---------------- paper by paper: a slide engine ----------------
+   A chapter becomes a run of slides, one per paper. Each slide names its paper
+   (with a link) and plays one real example from it. Buttons jump between papers. */
+function slideScene(mount, alive, slides) {
+  const head = el("p", { className: "sl-paper" });
+  const svg = stageSvg("");
+  const pills = el("div", { className: "sl-pills" });
+  pills.setAttribute("role", "group");
+  pills.setAttribute("aria-label", "Papers in this chapter");
+  mount.append(head, svg, pills);
+  let idx = 0, auto = !calm(), started = 0, step = null, raf = 0;
+  const buttons = slides.map((sl, i) => {
+    const b = el("button", { type: "button", className: "sl-pill", textContent: sl.paper });
+    b.addEventListener("click", () => { auto = false; go(i); });
+    pills.append(b);
+    return b;
+  });
+  function go(i) {
+    idx = i;
+    const sl = slides[i];
+    buttons.forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));
+    head.replaceChildren(el("a", { href: sl.href, textContent: sl.paper }), document.createTextNode(`, ${sl.venue}. ${sl.task}`));
+    svg.setAttribute("aria-label", `${sl.paper}: ${sl.label}`);
+    svg.replaceChildren();
+    const g = s("g", { class: "sl-g" });
+    svg.append(g);
+    step = sl.build(g);
+    started = performance.now();
+    if (calm()) { step(Infinity); return; }
+    cancelAnimationFrame(raf);
+    const frame = (ts) => {
+      if (!alive()) return;
+      const local = ts - started;
+      step(local);
+      g.style.opacity = clamp01(local / 300) * (auto && i < slides.length - 1 ? 1 - clamp01((local - sl.dur + 300) / 300) : 1);
+      if (auto && local >= sl.dur && idx < slides.length - 1) { go(idx + 1); return; }
+      if (local < sl.dur + 400 || auto) raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+  }
+  go(0);
+}
+
+/* RTL text line made of word tspans; `mask` marks words to highlight. */
+function rtlLine(parent, x, y, text, cls, mask = []) {
+  const t = s("text", { x, y, class: cls, "text-anchor": "start", direction: "rtl" });
+  text.split(" ").forEach((w, j) => {
+    if (j) t.append(document.createTextNode(" "));
+    t.append(s("tspan", { class: mask[j] ? "st-absurd" : "" }, w));
+  });
+  parent.append(t);
+  return t;
+}
+const reveal = (node, v, dy = 8) => { node.style.opacity = v; node.style.transform = `translateY(${((1 - ease(v)) * dy).toFixed(1)}px)`; };
+
+/* ArabicSense: one pair, the impossible phrase found and stamped. */
+function slideArabicSense(g) {
+  const p = SENSE[0];
+  const mk = (y, ar, gloss, bad) => {
+    const c = s("g", { class: "st-sense" });
+    const arL = wrapWords(ar, 58), glL = wrapWords(gloss, 76);
+    const h = 26 + arL.length * 27 + glL.length * 17 + 12;
+    c.append(s("rect", { x: 20, y, width: 600, height: h, rx: 8, class: "st-sense-box" }));
+    const mask = bad ? spanMask(ar, p.absurd) : [];
+    let off = 0;
+    arL.forEach((ln, i) => { const n = ln.split(" ").length; rtlLine(c, 600, y + 30 + i * 27, ln, "st-ar", mask.slice(off, off + n)); off += n; });
+    const gm = bad ? spanMask(gloss, p.absurdGloss) : [];
+    let go2 = 0;
+    glL.forEach((ln, i) => {
+      const t = s("text", { x: 36, y: y + 30 + arL.length * 27 + i * 17, class: "st-gloss" });
+      ln.split(" ").forEach((w, j) => { if (j) t.append(document.createTextNode(" ")); t.append(s("tspan", { class: gm[go2++] ? "st-absurd" : "" }, w)); });
+      c.append(t);
+    });
+    const scan = s("rect", { x: 560, y: y + 4, width: 56, height: h - 8, rx: 6, class: "st-scan" });
+    const stamp = s("g", { class: "st-stamp" });
+    stamp.append(s("rect", { x: 470, y: y - 13, width: 132, height: 26, rx: 4 }), s("text", { x: 536, y: y + 5, "text-anchor": "middle" }, bad ? "impossible" : "makes sense"));
+    c.append(scan, stamp);
+    g.append(c);
+    return { c, scan, stamp, h, bad };
+  };
+  const a = mk(40, p.a, p.ga, p.ok !== 0);
+  const b = mk(40 + a.h + 26, p.b, p.gb, p.ok !== 1);
+  return (ms) => [a, b].forEach((c, j) => {
+    reveal(c.c, clamp01((ms - j * 120) / 420));
+    const sc = clamp01((ms - 500) / 1000);
+    c.scan.style.opacity = sc > 0 && sc < 1 ? 0.9 : 0;
+    c.scan.setAttribute("x", (560 - sc * 540).toFixed(1));
+    c.c.classList.toggle("hit", ms > 1600 && c.bad);
+    c.c.classList.toggle("is-sense", ms > 2200 && !c.bad);
+    c.c.classList.toggle("is-nonsense", ms > 2200 && c.bad);
+    const st = clamp01((ms - 2200) / 260);
+    c.stamp.style.opacity = st;
+    c.stamp.style.transform = `rotate(${c.bad ? -4 : 0}deg) scale(${(1.25 - 0.25 * ease(st)).toFixed(3)})`;
+  });
+}
+
+/* FarSense: read a story, judge a statement. */
+function slideFarSense(g) {
+  const d = BENCH.farsense;
+  const ctx = s("g", { class: "sl-card" });
+  const cl = wrapWords(d.context, 62);
+  const ch = 30 + cl.length * 26 + 44;
+  ctx.append(s("rect", { x: 20, y: 30, width: 600, height: ch, rx: 8 }), s("text", { x: 36, y: 52, class: "st-kicker" }, "Story"));
+  cl.forEach((ln, i) => rtlLine(ctx, 604, 80 + i * 26, ln, "st-ar"));
+  wrapWords(d.contextGloss, 84).forEach((ln, i) => ctx.append(s("text", { x: 36, y: 80 + cl.length * 26 + i * 16, class: "st-gloss" }, ln)));
+  const sy = 30 + ch + 30;
+  const st = s("g", { class: "sl-card stmt" });
+  st.append(s("rect", { x: 20, y: sy, width: 600, height: 96, rx: 8 }), s("text", { x: 36, y: sy + 22, class: "st-kicker" }, "Statement"));
+  rtlLine(st, 604, sy + 52, d.statement, "st-ar");
+  st.append(s("text", { x: 36, y: sy + 78, class: "st-gloss" }, d.statementGloss));
+  const verdicts = ["True", "False"].map((v, i) => {
+    const vg = s("g", { class: `sl-verdict ${(i === 0) === d.answer ? "right" : ""}` });
+    vg.append(s("rect", { x: 220 + i * 110, y: sy + 120, width: 96, height: 34, rx: 17 }), s("text", { x: 268 + i * 110, y: sy + 142, "text-anchor": "middle" }, v));
+    g.append(vg);
+    return vg;
+  });
+  g.append(ctx, st);
+  return (ms) => {
+    reveal(ctx, clamp01(ms / 400));
+    reveal(st, clamp01((ms - 900) / 400));
+    verdicts.forEach((v, i) => { reveal(v, clamp01((ms - 1700 - i * 100) / 300), 4); v.classList.toggle("lit", ms > 2600); });
+  };
+}
+
+/* Shawarma Chats: a dialogue in Maghrebi Arabic, turn by turn. */
+function slideShawarma(g) {
+  const d = BENCH.shawarma;
+  g.append(s("text", { x: 20, y: 24, class: "st-kicker" }, `${d.dialect}, about the Wikipedia article on the ${d.about}`));
+  const bubbles = d.turns.map((t, i) => {
+    const y = 40 + i * 72, right = t.s === "A";
+    const w = Math.min(460, Math.max(220, t.t.length * 7.6 + 40));
+    const x = right ? 620 - w : 20;
+    const b = s("g", { class: `sl-bubble ${right ? "a" : "b"}` });
+    b.append(s("rect", { x, y, width: w, height: 60, rx: 14 }));
+    rtlLine(b, x + w - 14, y + 26, t.t, "st-ar sm");
+    b.append(s("text", { x: x + 14, y: y + 47, class: "st-gloss" }, t.g));
+    b.append(s("text", { x: right ? x + w - 4 : x + 4, y: y - 4, class: "sl-who", "text-anchor": right ? "end" : "start" }, t.s));
+    g.append(b);
+    return b;
+  });
+  return (ms) => bubbles.forEach((b, i) => reveal(b, clamp01((ms - i * 700) / 380), 12));
+}
+
+/* PersianMCQ: a generated question, options appear, the right one lights up. */
+function slidePMCQ(g) {
+  const d = BENCH.pmcq;
+  const q = s("g", { class: "sl-card" });
+  const ql = wrapWords(d.q, 60);
+  q.append(s("rect", { x: 20, y: 24, width: 600, height: 40 + ql.length * 27 + 20, rx: 8 }), s("text", { x: 36, y: 46, class: "st-kicker" }, "Question"));
+  ql.forEach((ln, i) => rtlLine(q, 604, 74 + i * 27, ln, "st-ar"));
+  q.append(s("text", { x: 36, y: 74 + ql.length * 27, class: "st-gloss" }, d.qGloss));
+  g.append(q);
+  const top = 24 + 40 + ql.length * 27 + 44;
+  const opts = d.options.map((o, i) => {
+    const y = top + i * 62;
+    const og = s("g", { class: `sl-opt ${o.ok ? "ok" : ""}` });
+    og.append(s("rect", { x: 20, y, width: 600, height: 50, rx: 8 }));
+    og.append(s("text", { x: 600, y: y + 31, class: "sl-opt-key", "text-anchor": "start", direction: "rtl" }, `${o.key}.`));
+    rtlLine(og, 566, y + 31, o.t, "st-ar");
+    og.append(s("text", { x: 36, y: y + 31, class: "st-gloss" }, o.g));
+    g.append(og);
+    return og;
+  });
+  return (ms) => {
+    reveal(q, clamp01(ms / 400));
+    opts.forEach((o, i) => { reveal(o, clamp01((ms - 800 - i * 220) / 320), 6); o.classList.toggle("lit", ms > 2500); });
+  };
+}
+
+/* Sindhi: an instruction, its reasoning type, and the reasoned answer. */
+function slideSindhi(g) {
+  const d = BENCH.sindhi;
+  const tag = s("g", { class: "sl-tag" });
+  tag.append(s("rect", { x: 20, y: 18, width: 150, height: 28, rx: 14 }), s("text", { x: 95, y: 37, "text-anchor": "middle" }, d.type));
+  const ins = s("g", { class: "sl-card" });
+  const il = wrapWords(d.instruction, 58);
+  ins.append(s("rect", { x: 20, y: 62, width: 600, height: 36 + il.length * 27 + 26, rx: 8 }), s("text", { x: 36, y: 84, class: "st-kicker" }, "Instruction"));
+  il.forEach((ln, i) => rtlLine(ins, 604, 112 + i * 27, ln, "st-ar"));
+  ins.append(s("text", { x: 36, y: 112 + il.length * 27, class: "st-gloss" }, d.instructionGloss));
+  const oy = 62 + 36 + il.length * 27 + 26 + 26;
+  const out = s("g", { class: "sl-card out" });
+  const ol = wrapWords(d.output, 58);
+  out.append(s("rect", { x: 20, y: oy, width: 600, height: 36 + ol.length * 27 + 26, rx: 8 }), s("text", { x: 36, y: oy + 22, class: "st-kicker" }, "Answer"));
+  const lines = ol.map((ln, i) => ({ el: rtlLine(out, 604, oy + 50 + i * 27, ln, "st-ar"), ln }));
+  out.append(s("text", { x: 36, y: oy + 50 + ol.length * 27, class: "st-gloss" }, d.outputGloss));
+  g.append(tag, ins, out);
+  return (ms) => {
+    reveal(tag, clamp01(ms / 300), 4);
+    reveal(ins, clamp01((ms - 300) / 400));
+    reveal(out, clamp01((ms - 1300) / 400));
+    lines.forEach(({ el: t }, i) => { t.style.opacity = clamp01((ms - 1600 - i * 500) / 500); });
+  };
+}
+
+/* TalkFa: utterances classified by speech act and emotion. */
+function slideTalkFa(g) {
+  let y = 14;
+  const rows = BENCH.talkfa.map((r) => {
+    const tl = wrapWords(r.t, 62);
+    const h = 40 + tl.length * 26 + 20 + 34;
+    const rg = s("g", { class: "sl-card" });
+    rg.append(s("rect", { x: 20, y, width: 600, height: h, rx: 8 }));
+    rg.append(s("text", { x: 604, y: y + 24, class: "sl-who", "text-anchor": "start", direction: "rtl" }, r.who));
+    tl.forEach((ln, j) => rtlLine(rg, 604, y + 50 + j * 26, ln, "st-ar"));
+    const gy = y + 50 + tl.length * 26 - 6;
+    rg.append(s("text", { x: 36, y: gy, class: "st-gloss" }, r.g));
+    const cy = gy + 12;
+    const chips = [["act", r.act], ["emotion", r.emotion]].map(([k, v], j) => {
+      const cg = s("g", { class: `sl-chip ${k}` });
+      cg.append(s("rect", { x: 36 + j * 150, y: cy, width: 140, height: 24, rx: 12 }), s("text", { x: 106 + j * 150, y: cy + 16, "text-anchor": "middle" }, `${k}: ${v}`));
+      rg.append(cg);
+      return cg;
+    });
+    g.append(rg);
+    y += h + 14;
+    return { rg, chips };
+  });
+  return (ms) => rows.forEach((r, i) => {
+    reveal(r.rg, clamp01((ms - i * 900) / 380));
+    r.chips.forEach((c, j) => reveal(c, clamp01((ms - i * 900 - 500 - j * 180) / 260), 4));
+  });
+}
+
+const BENCH_SLIDES = [
+  { paper: "ArabicSense", venue: "WACL-4 2025", href: "https://aclanthology.org/2025.wacl-1.1/", task: "Which sentence cannot be true?", label: "an Arabic sentence pair with the impossible phrase highlighted", build: slideArabicSense, dur: 3600 },
+  { paper: "FarSense", venue: "IJCNLP-AACL 2025", href: "https://aclanthology.org/2025.ijcnlp-long.187/", task: "Read the story, judge the statement.", label: "a Farsi story, a statement about it, and the answer True", build: slideFarSense, dur: 4000 },
+  { paper: "Shawarma Chats", venue: "ArabicNLP 2025", href: "https://aclanthology.org/2025.arabicnlp-main.39/", task: "A dialogue written in Maghrebi Arabic.", label: "a six-turn dialogue in Maghrebi Arabic", build: slideShawarma, dur: 5000 },
+  { paper: "PersianMCQ-Instruct", venue: "LoResLM 2025", href: "https://aclanthology.org/2025.loreslm-1.27/", task: "A generated multiple-choice question in Persian.", label: "a Persian multiple-choice question with the right option highlighted", build: slidePMCQ, dur: 4000 },
+  { paper: "Sindhi reasoning", venue: "LoResLM 2026", href: "https://aclanthology.org/2026.loreslm-1.22/", task: "An instruction that asks for causal reasoning in Sindhi.", label: "a Sindhi instruction and its reasoned answer", build: slideSindhi, dur: 4200 },
+  { paper: "TalkFa", venue: "arXiv 2026", href: "https://arxiv.org/abs/2609.01810", task: "Farsi utterances, each labelled with a speech act and an emotion.", label: "three Farsi utterances with speech act and emotion labels", build: slideTalkFa, dur: 4200 },
+];
+
+function sceneBenchmarks2(mount, alive) { slideScene(mount, alive, BENCH_SLIDES); }
+
 /* ---------------- scene: the work as a graph ---------------- */
 function sceneGraph(mount) { buildGraph(mount); }
 
@@ -488,10 +722,10 @@ const SCENES = [
     text: "Most open models are strongest in English. At Villanova.AI we train them in Italy for Europe's own languages. These are real examples from Multi-SFT, our instruction data: one per language, each an instruction and the answer a model learns from.",
     links: [{ href: "https://arxiv.org/abs/2610.22086", label: "Multi-SFT paper" }, { href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", label: "Villanova2" }],
     build: sceneLanguages, hold: 7000 },
-  { id: "bench", tab: "Benchmarks", sub: "Commonsense in Arabic and Farsi", title: "Benchmarks for languages that have none",
-    text: "Before a model can be trusted in Arabic or Farsi, someone has to test it there. These are real ArabicSense test pairs: one sentence in each cannot be true, and a model that has really learned the language should spot the impossible phrase.",
+  { id: "bench", tab: "Benchmarks", sub: "Six papers, six languages", title: "Benchmarks for languages that have none",
+    text: "Before a model can be trusted in Arabic, Farsi or Sindhi, someone has to test it there. Each slide is a real item from one of the benchmarks I built, one paper at a time; pick a paper under the scene to jump to it.",
     links: [{ href: "https://huggingface.co/datasets/Kamyar-zeinalipour/ArabicSense", label: "ArabicSense" }, { href: "https://aclanthology.org/2025.ijcnlp-long.187/", label: "FarSense" }],
-    build: sceneBenchmarks, hold: 8000 },
+    build: sceneBenchmarks2, hold: 26000 },
   { id: "cross", tab: "Crosswords", sub: "Study material, generated", title: "Crosswords from course material",
     text: "My Ph.D. began with crossword clues: a clue has to be true, point to exactly one answer, and be worth solving. These are real rows from Clue-Instruct: a Wikipedia passage, the answer inside it, and the clues written for it.",
     links: [{ href: "https://aclanthology.org/2024.lrec-main.297/", label: "Clue-Instruct" }, { href: "crossword.html", label: "Play the crossword" }],

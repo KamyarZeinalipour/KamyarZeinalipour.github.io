@@ -712,3 +712,48 @@ export const CLUES = [
   { answer: "FLAP", context: "A flap is a high-lift device used to reduce the stalling speed of an aircraft wing at a given weight.",
     clues: ["Device used to reduce stalling speed of an aircraft wing", "Alters the spanwise lift distribution on the wing", "Increases the camber of the wing"] },
 ];
+
+/* Benchmarks chapter: one real example from each paper's released dataset.
+   English glosses are the author's translations. */
+export const BENCH = {
+  farsense: {
+    context: "کیان با دقت به جدول بزرگ تناوبی که روی دیوار آزمایشگاه مدرسه‌شان نصب شده بود نگاه می‌کرد. چشمانش روی خانه‌ای کوچک با نماد عجیب «Dy» و عدد اتمی «۶۶» خیره ماند.",
+    contextGloss: "Kian was looking closely at the big periodic table on the wall of the school lab. His eyes fixed on a small square with the strange symbol Dy and atomic number 66.",
+    statement: "به دست آوردن دیسپروزیم در حالت خالص، فرایندی چالش‌برانگیز است.",
+    statementGloss: "Obtaining dysprosium in pure form is a challenging process.",
+    answer: true,
+  },
+  shawarma: {
+    dialect: "Maghrebi Arabic", about: "ragamuffin cat",
+    turns: [
+      { s: "A", t: "شفت واحد القط في تصويرة، سميتو راجاموفين.", g: "I saw a cat in a picture, it's called a ragamuffin." },
+      { s: "B", t: "آه، كيف داير؟ كبير شي شوية؟", g: "Oh, what's it like? Is it a bit big?" },
+      { s: "A", t: "أه، كبير بزاف و فروتو بحال ديال الأرنب، زوين.", g: "Yes, very big, and its fur is like a rabbit's. Lovely." },
+      { s: "B", t: "ياك عينيه كبار بزاف و راسو عريض؟", g: "Aren't its eyes really big and its head wide?" },
+      { s: "A", t: "وي، و كيوصل البلوغ حتى لـ 4 سنين، و الذكور كيكونوا تقال.", g: "Yes, it takes up to four years to grow up, and the males are heavy." },
+      { s: "B", t: "واو، يعني تقال بزاف! واش فيه ألوان مختلفة؟", g: "Wow, really heavy! Does it come in different colours?" },
+    ],
+  },
+  pmcq: {
+    q: "یخ خشک با افزایش دما در چه فرآیندی مستقیماً از حالت جامد به بخار می‌رود؟",
+    qGloss: "As the temperature rises, by which process does dry ice go straight from solid to vapour?",
+    options: [
+      { key: "الف", t: "تصعید", g: "sublimation", ok: true },
+      { key: "ب", t: "تبخیر", g: "evaporation" },
+      { key: "ج", t: "انجماد", g: "freezing" },
+      { key: "د", t: "تقطیر", g: "distillation" },
+    ],
+  },
+  sindhi: {
+    type: "Causal reasoning",
+    instruction: "وضاحت ڪريو ته زباني روايتون ثقافت ۽ علم کي هڪ نسل کان ٻئي نسل تائين منتقل ڪرڻ ۾ ڪيئن مدد ڪن ٿيون؟",
+    instructionGloss: "Explain how oral traditions help pass culture and knowledge from one generation to the next.",
+    output: "زباني روايتون علم ۽ ثقافت کي زباني ذخيرن ذريعي محفوظ ڪن ٿيون جيڪي 'هلندڙ لائبريريون' جي حيثيت ۾ ڪم ڪن ٿيون.",
+    outputGloss: "Oral traditions preserve knowledge and culture through spoken stores that work as 'living libraries'.",
+  },
+  talkfa: [
+    { who: "مریم", t: "چیزی فکرت رو مشغول کرده؟ خیلی نگران به نظر می‌رسی. شاید بتونم کمکت کنم.", g: "Is something on your mind? You look really worried. Maybe I can help.", act: "question", emotion: "no emotion" },
+    { who: "رضا", t: "فکر می‌کنی این کار باعث می‌شه نظرش عوض بشه؟", g: "Do you think this will change her mind?", act: "question", emotion: "no emotion" },
+    { who: "متقاضی", t: "وای! ممنون از علاقه‌تان به این شغل. به زودی با شما تماس خواهیم گرفت.", g: "Wow! Thank you for your interest in this job. We will contact you soon.", act: "inform", emotion: "happiness" },
+  ],
+};

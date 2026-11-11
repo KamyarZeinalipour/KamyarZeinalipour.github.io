@@ -789,3 +789,34 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .m3-steps li::before { content: counter(step) "  "; font-weight: 700; }
 .m3-steps li.on { background: var(--accent-soft); color: var(--ink); border-color: var(--accent); }
 .m3-note { font-size: 0.8rem; color: var(--ink-2); margin: 0.5rem 0 0; max-width: 60ch; }
+
+/* ---------- paper by paper slides ---------- */
+.sl-paper { font-size: 0.9rem; color: var(--ink-2); margin: 0 0 0.6rem; }
+.sl-paper a { color: var(--ink); font-weight: 600; }
+.sl-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.7rem; }
+.sl-pill { background: none; border: 1px solid var(--rule-strong); border-radius: 999px; padding: 0.28rem 0.75rem; font-size: 0.8rem; color: var(--ink-2); min-height: 34px; }
+.sl-pill:hover { border-color: var(--accent); color: var(--ink); }
+.sl-pill[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.sl-card rect { fill: var(--cell); stroke: var(--rule); }
+.sl-card.stmt rect { stroke: var(--rule-strong); }
+.sl-card.out rect { fill: var(--accent-soft); stroke: var(--accent); }
+.st-ar.sm { font-size: 15.5px; }
+.sl-verdict rect { fill: var(--cell); stroke: var(--rule-strong); transition: fill 300ms ease, stroke 300ms ease; }
+.sl-verdict text { font: 700 14px var(--sans); fill: var(--ink-2); }
+.sl-verdict.right.lit rect { fill: var(--accent); stroke: var(--accent); }
+.sl-verdict.right.lit text { fill: var(--paper); }
+.sl-verdict:not(.right).lit { opacity: 0.4 !important; }
+.sl-bubble rect { stroke: var(--rule); }
+.sl-bubble.a rect { fill: var(--accent-soft); }
+.sl-bubble.b rect { fill: var(--cell); }
+.sl-who { font: 700 11px var(--sans); fill: var(--ink-2); }
+.sl-opt rect { fill: var(--cell); stroke: var(--rule); transition: fill 300ms ease, stroke 300ms ease; }
+.sl-opt-key { font: 700 15px var(--sans); fill: var(--ink-2); }
+.sl-opt.ok.lit rect { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.sl-opt.ok.lit .sl-opt-key { fill: var(--accent); }
+.sl-opt:not(.ok).lit { opacity: 0.55 !important; }
+.sl-tag rect { fill: var(--ink); }
+.sl-tag text { font: 700 12px var(--sans); fill: var(--paper); }
+.sl-chip rect { fill: var(--paper-2); stroke: var(--rule-strong); }
+.sl-chip.emotion rect { stroke: var(--accent); }
+.sl-chip text { font: 600 11.5px var(--sans); fill: var(--ink); }
