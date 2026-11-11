@@ -757,3 +757,63 @@ export const BENCH = {
     { who: "متقاضی", t: "وای! ممنون از علاقه‌تان به این شغل. به زودی با شما تماس خواهیم گرفت.", g: "Wow! Thank you for your interest in this job. We will contact you soon.", act: "inform", emotion: "happiness" },
   ],
 };
+
+/* Crosswords chapter: one real example per paper, from its released dataset or
+   from the paper itself. English glosses are the author's translations. */
+export const CROSS = {
+  bridges: { pairs: "over seven million", years: "1913 to mid-2021", generators: "GPT-2 XL, GPT-3", checker: "BERT and zero-shot classifiers" },
+  ita2023: [
+    { clue: "Patria di Pitagora", gloss: "Pythagoras's homeland", answer: "SAMO" },
+    { clue: "Separano la Francia dalla Spagna", gloss: "They separate France from Spain", answer: "PIRENEI" },
+    { clue: "È magnetico nella bussola", gloss: "It is magnetic in a compass", answer: "AGO" },
+    { clue: "Ride nelle savane africane", gloss: "It laughs in the African savannah", answer: "IENA" },
+  ],
+  ita2024: {
+    passage: "Fucus è un genere di alghe largamente distribuite in tutte le acque fredde, comuni lungo le coste.",
+    gloss: "Fucus is a genus of algae found widely in cold waters, common along the coasts.",
+    key: "fucus", answer: "FUCUS",
+    clues: [
+      { t: "Genere di alghe distribuite in acque fredde", g: "A genus of algae found in cold waters" },
+      { t: "Alghe con pigmento bruno che nasconde la clorofilla", g: "Algae with a brown pigment that hides the chlorophyll" },
+    ],
+  },
+  ijcol: [
+    { sentence: "L'edera è simbolo di fedeltà", answer: "edera", clue: "è simbolo di fedeltà", gloss: "Ivy is a symbol of loyalty", steps: ["subject omitted"] },
+    { sentence: "Il salto del circense è acrobatico", answer: "acrobatico", clue: "lo è il salto del circense", gloss: "The circus performer's jump is acrobatic", steps: ["predicate omitted", "inverted", "clitic lo inserted"] },
+  ],
+  arabicros: [
+    { clue: "الة موسيقية", gloss: "A musical instrument", answer: "الناي", answerGloss: "the ney" },
+    { clue: "من دول اميركا الجنوبية", gloss: "One of the countries of South America", answer: "بيرو", answerGloss: "Peru" },
+    { clue: "من الخضراوات", gloss: "One of the vegetables", answer: "البازيلاء", answerGloss: "peas" },
+  ],
+  arabic2025: {
+    passage: "العضلة نسيج ليفي يتميز بقابلية الانقباض والانبساط، ويؤمِّن حركة الكائن.",
+    gloss: "A muscle is fibrous tissue that can contract and relax, and it makes the body move.",
+    key: "العضلة", answer: "العضلة",
+    clues: [
+      { t: "تأمين حركة الكائنات", g: "Making living things move" },
+      { t: "ساركوبلازم وساركوليما", g: "Sarcoplasm and sarcolemma" },
+      { t: "إرادية ولا إرادية", g: "Voluntary and involuntary" },
+    ],
+  },
+  turkish: {
+    passage: "Mangan veya manganez, atom numarası 25 olan element. Simgesi Mn'dir. 1774 yılında keşfedilmiştir.",
+    gloss: "Manganese is the element with atomic number 25. Its symbol is Mn. It was discovered in 1774.",
+    key: "mangan", answer: "MANGAN",
+    clues: [
+      { t: "Çeliğin dayanıklılığını artıran, simgesi Mn olan element", g: "The element with symbol Mn that makes steel stronger" },
+      { t: "1774'te keşfedilen, periyodik tabloda 25 numaralı metal", g: "Discovered in 1774, metal number 25 in the periodic table" },
+      { t: "Magnezya bölgesinden ismini alan, paslanmaz çeliklerde kritik rol oynayan element", g: "Named after Magnesia, crucial in stainless steel" },
+    ],
+  },
+  webcrow: [
+    { clue: "Auraient des soucis excessifs", gloss: "Would worry excessively", answer: "CAUCHEMARDERAIENT", tag: "rare tense" },
+    { clue: "Dessiner sans soin", gloss: "To draw carelessly", answer: "STRAPASSER", tag: "old word" },
+    { clue: "Le bleu et le blanc du poète", gloss: "The poet's blue and white, from Rimbaud's Voyelles", answer: "OE", tag: "literature" },
+  ],
+  ecwca: [
+    { clue: "Stato dell'Oceania con capitale Canberra", gloss: "A state in Oceania whose capital is Canberra", hint: [9], answer: "AUSTRALIA" },
+    { clue: "Autore de I Malavoglia e Mastro-don Gesualdo", gloss: "Author of I Malavoglia and Mastro-don Gesualdo", hint: [8, 5], answer: "GIOVANNI VERGA" },
+    { clue: "Opera divisa in tre cantiche: Inferno, Purgatorio e Paradiso", gloss: "A work in three canticles: Inferno, Purgatorio and Paradiso", hint: [6, 8], answer: "DIVINA COMMEDIA" },
+  ],
+};

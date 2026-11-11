@@ -793,10 +793,17 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 /* ---------- paper by paper slides ---------- */
 .sl-paper { font-size: 0.9rem; color: var(--ink-2); margin: 0 0 0.6rem; }
 .sl-paper a { color: var(--ink); font-weight: 600; }
-.sl-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.7rem; }
-.sl-pill { background: none; border: 1px solid var(--rule-strong); border-radius: 999px; padding: 0.28rem 0.75rem; font-size: 0.8rem; color: var(--ink-2); min-height: 34px; }
-.sl-pill:hover { border-color: var(--accent); color: var(--ink); }
-.sl-pill[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.sl-pills {
+  display: flex; flex-wrap: wrap; gap: 0 1.1rem;
+  border-bottom: 1px solid var(--rule); margin: 0 0 0.75rem;
+}
+.sl-pills::-webkit-scrollbar { display: none; }
+.sl-pill {
+  background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0;
+  padding: 0.4rem 0 0.5rem; font-size: 0.84rem; color: var(--ink-2); white-space: nowrap; min-height: 38px;
+}
+.sl-pill:hover { color: var(--ink); }
+.sl-pill[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
 .sl-card rect { fill: var(--cell); stroke: var(--rule); }
 .sl-card.stmt rect { stroke: var(--rule-strong); }
 .sl-card.out rect { fill: var(--accent-soft); stroke: var(--accent); }
@@ -820,3 +827,22 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .sl-chip rect { fill: var(--paper-2); stroke: var(--rule-strong); }
 .sl-chip.emotion rect { stroke: var(--accent); }
 .sl-chip text { font: 600 11.5px var(--sans); fill: var(--ink); }
+
+/* crossword slides */
+.cw-tile rect { fill: var(--cell); stroke: var(--rule-strong); stroke-width: 1.2; }
+.cw-tile text { font: 700 16px var(--sans); fill: var(--ink); }
+.cw-row-bg { fill: var(--cell); stroke: var(--rule); }
+.cw-hint { font: 700 14px var(--sans); fill: var(--accent); }
+.cw-sent { font: 400 19px var(--serif); fill: var(--ink); }
+.cw-sent.clue { fill: var(--accent); font-style: italic; }
+.cw-sent .cw-ans { transition: fill 300ms ease; }
+.cw-sent.lit .cw-ans { fill: var(--accent); font-weight: 700; }
+.cw-count { font: 700 34px var(--serif); fill: var(--ink); font-variant-numeric: tabular-nums; }
+.cw-box rect { fill: var(--cell); stroke: var(--ink); stroke-width: 1.2; }
+.cw-box-t { font: 600 15px var(--serif); fill: var(--ink); }
+.cw-out rect { stroke-width: 1.4; }
+.cw-out.keep rect { fill: var(--accent-soft); stroke: var(--accent); }
+.cw-out.drop rect { fill: var(--paper-2); stroke: var(--rule-strong); }
+.cw-out text { font: 600 13px var(--sans); fill: var(--ink); }
+.cw-dot { fill: var(--accent); }
+.cw-dot.bad { fill: var(--ink-2); }

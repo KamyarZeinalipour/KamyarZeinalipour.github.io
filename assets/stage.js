@@ -2,7 +2,7 @@
    It plays a single tour through the scenes, then stops on the first one. Tabs
    jump to any scene, a button pauses or replays the tour, and under
    prefers-reduced-motion every scene is drawn in its finished state. */
-import { PUZZLE, PROTEIN, SENSE, SURPRISAL, MSFT, CLUES, BENCH } from "./data.js";
+import { PUZZLE, PROTEIN, SENSE, SURPRISAL, MSFT, CLUES, BENCH, CROSS } from "./data.js";
 import { buildGraph } from "./graph.js";
 import { sceneProtein3D, sceneDrug3D } from "./mol3d.js";
 
@@ -486,7 +486,7 @@ function slideScene(mount, alive, slides) {
   const pills = el("div", { className: "sl-pills" });
   pills.setAttribute("role", "group");
   pills.setAttribute("aria-label", "Papers in this chapter");
-  mount.append(head, svg, pills);
+  mount.append(pills, head, svg);
   let idx = 0, auto = !calm(), started = 0, step = null, raf = 0;
   const buttons = slides.map((sl, i) => {
     const b = el("button", { type: "button", className: "sl-pill", textContent: sl.paper });
@@ -711,6 +711,206 @@ const BENCH_SLIDES = [
 
 function sceneBenchmarks2(mount, alive) { slideScene(mount, alive, BENCH_SLIDES); }
 
+/* ---------------- crosswords, paper by paper ---------------- */
+/* A row of answer tiles; words separated by a gap; right to left when rtl. */
+function tiles(parent, cx, y, answer, { cell = 34, rtl = false } = {}) {
+  const words = answer.split(" ");
+  const total = words.reduce((n, w) => n + w.length, 0) * cell + (words.length - 1) * cell * 0.5;
+  let x = rtl ? cx + total / 2 - cell : cx - total / 2;
+  const out = [];
+  words.forEach((w, wi) => {
+    [...w].forEach((ch) => {
+      const tg = s("g", { class: "cw-tile" });
+      tg.append(s("rect", { x: x + 2, y, width: cell - 4, height: cell - 4, rx: 3 }));
+      const t = s("text", { x: x + cell / 2, y: y + cell / 2 + 6, "text-anchor": "middle" }, ch);
+      t.style.opacity = 0;
+      tg.append(t);
+      parent.append(tg);
+      out.push(t);
+      x += rtl ? -cell : cell;
+    });
+    if (wi < words.length - 1) x += rtl ? -cell * 0.5 : cell * 0.5;
+  });
+  return out;
+}
+const fillTiles = (list, ms, start, gap = 60) => list.forEach((t, j) => {
+  const v = clamp01((ms - start - j * gap) / 200);
+  t.style.opacity = v;
+  t.style.transform = `translateY(${((1 - ease(v)) * -10).toFixed(1)}px)`;
+});
+
+/* Passage, the answer found inside it, clues for it, then the answer in tiles. */
+function slidePassage(d, rtl = false) {
+  return (g) => {
+    const card = s("g", { class: "sl-card" });
+    const pl = wrapWords(d.passage, rtl ? 58 : 74);
+    const gl = d.gloss ? wrapWords(d.gloss, 84) : [];
+    const h = 34 + pl.length * 24 + gl.length * 16 + 14;
+    card.append(s("rect", { x: 20, y: 14, width: 600, height: h, rx: 8 }), s("text", { x: 36, y: 34, class: "st-kicker" }, "Passage"));
+    const keyClean = d.key.toLowerCase();
+    pl.forEach((ln, i) => {
+      const y = 58 + i * 24;
+      const mask = ln.split(" ").map((w) => w.toLowerCase().replace(/[.,'’]/g, "").startsWith(keyClean));
+      if (rtl) rtlLine(card, 604, y, ln, "st-ar sm", mask);
+      else {
+        const t = s("text", { x: 36, y, class: "st-ci-text" });
+        ln.split(" ").forEach((w, j) => { if (j) t.append(document.createTextNode(" ")); t.append(s("tspan", { class: mask[j] ? "st-absurd" : "" }, w)); });
+        card.append(t);
+      }
+    });
+    gl.forEach((ln, i) => card.append(s("text", { x: 36, y: 58 + pl.length * 24 + i * 16 - 4, class: "st-gloss" }, ln)));
+    g.append(card);
+    let y = 14 + h + 30;
+    g.append(s("text", { x: 36, y, class: "st-kicker" }, "Clues"));
+    y += 24;
+    const clueEls = d.clues.map((c, k) => {
+      const row = s("g");
+      row.append(s("text", { x: rtl ? 610 : 30, y, class: "st-clue-n", "text-anchor": rtl ? "end" : "start" }, String(k + 1)));
+      const t = rtl ? rtlLine(row, 592, y, c.t, "st-ar sm") : s("text", { x: 50, y, class: "st-clue-line" }, c.t);
+      if (!rtl) row.append(t);
+      if (c.g) row.append(s("text", { x: rtl ? 36 : 50, y: y + 17, class: "st-gloss" }, c.g));
+      g.append(row);
+      y += c.g ? 44 : 28;
+      return row;
+    });
+    const tl = tiles(g, 320, Math.max(y + 10, 400), d.answer, { cell: 40, rtl });
+    return (ms) => {
+      reveal(card, clamp01(ms / 380));
+      card.classList.toggle("hit", ms > 650);
+      g.classList.add("st-sense");
+      g.classList.toggle("hit", ms > 650);
+      clueEls.forEach((r, k) => reveal(r, clamp01((ms - 900 - k * 520) / 360), 6));
+      fillTiles(tl, ms, 900 + d.clues.length * 520 + 150);
+    };
+  };
+}
+
+/* Clue and answer pairs; optional length hint (empty tiles first) and a tag. */
+function slidePairs(list, { rtl = false, hint = false } = {}) {
+  return (g) => {
+    const rows = list.map((d, i) => {
+      const y = 12 + i * (hint ? 118 : 104);
+      const r = s("g", { class: "cw-row" });
+      r.append(s("rect", { x: 20, y, width: 600, height: hint ? 106 : 92, rx: 8, class: "cw-row-bg" }));
+      if (rtl) rtlLine(r, 604, y + 26, d.clue, "st-ar sm");
+      else r.append(s("text", { x: 36, y: y + 26, class: "st-clue-line" }, d.clue));
+      r.append(s("text", { x: 36, y: y + 44, class: "st-gloss" }, d.gloss + (d.answerGloss ? `  (${d.answerGloss})` : "")));
+      if (d.tag) {
+        const tg = s("g", { class: "sl-chip emotion" });
+        tg.append(s("rect", { x: 486, y: y + 10, width: 120, height: 22, rx: 11 }), s("text", { x: 546, y: y + 25, "text-anchor": "middle" }, d.tag));
+        r.append(tg);
+      }
+      if (hint && d.hint) r.append(s("text", { x: 604, y: y + 26, class: "cw-hint", "text-anchor": "end" }, `(${d.hint.join(",")})`));
+      const cell = d.answer.replace(/ /g, "").length > 12 ? 30 : 34;
+      const t = tiles(r, 320, y + (hint ? 60 : 52), d.answer, { cell, rtl });
+      g.append(r);
+      return { r, t };
+    });
+    return (ms) => rows.forEach((row, i) => {
+      reveal(row.r, clamp01((ms - i * 850) / 360), 8);
+      fillTiles(row.t, ms, i * 850 + (hint ? 650 : 420), row.t.length > 12 ? 28 : 55);
+    });
+  };
+}
+
+/* IJCoL: how a clue is derived from a full sentence. */
+function slideDerive(g) {
+  const blocks = CROSS.ijcol.map((d, i) => {
+    const y = 18 + i * 236;
+    const b = s("g", { class: "cw-derive" });
+    b.append(s("rect", { x: 20, y, width: 600, height: 216, rx: 8, class: "cw-row-bg" }));
+    b.append(s("text", { x: 36, y: y + 24, class: "st-kicker" }, "Full sentence"));
+    const sent = s("text", { x: 36, y: y + 54, class: "cw-sent" });
+    d.sentence.split(" ").forEach((w, j) => {
+      if (j) sent.append(document.createTextNode(" "));
+      const clean = w.toLowerCase().replace(/^l'/, "");
+      sent.append(s("tspan", { class: clean === d.answer ? "cw-ans" : "" }, w));
+    });
+    b.append(sent, s("text", { x: 36, y: y + 74, class: "st-gloss" }, d.gloss));
+    b.append(s("text", { x: 36, y: y + 108, class: "st-kicker" }, "Clue"));
+    const clue = s("text", { x: 36, y: y + 136, class: "cw-sent clue" }, d.clue);
+    clue.style.opacity = 0;
+    b.append(clue);
+    const chips = d.steps.map((st, k) => {
+      const c = s("g", { class: "sl-chip" });
+      const w = st.length * 7 + 22;
+      c.append(s("rect", { x: 36 + k * 168, y: y + 150, width: Math.min(160, w), height: 22, rx: 11 }), s("text", { x: 36 + k * 168 + Math.min(160, w) / 2, y: y + 165, "text-anchor": "middle" }, st));
+      b.append(c);
+      return c;
+    });
+    const t = tiles(b, 470, y + 112, d.answer.toUpperCase(), { cell: d.answer.length > 6 ? 22 : 28 });
+    g.append(b);
+    return { b, sent, clue, chips, t };
+  });
+  return (ms) => blocks.forEach((bl, i) => {
+    const o = i * 1800;
+    reveal(bl.b, clamp01((ms - o) / 380));
+    bl.sent.classList.toggle("lit", ms > o + 600);
+    bl.clue.style.opacity = clamp01((ms - o - 1000) / 400);
+    fillTiles(bl.t, ms, o + 1000, 50);
+    bl.chips.forEach((c, k) => reveal(c, clamp01((ms - o - 1300 - k * 180) / 260), 4));
+  });
+}
+
+/* Building Bridges: a huge clue archive, then generate and verify. */
+function slideBridges(g) {
+  const d = CROSS.bridges;
+  const top = s("g", { class: "sl-card" });
+  top.append(s("rect", { x: 20, y: 14, width: 600, height: 150, rx: 8 }));
+  top.append(s("text", { x: 36, y: 38, class: "st-kicker" }, "Training data: clue-answer pairs, " + d.years));
+  const count = s("text", { x: 36, y: 92, class: "cw-count" }, "0");
+  top.append(count, s("text", { x: 36, y: 116, class: "st-gloss" }, "over seven million pairs, according to the paper"));
+  top.append(s("rect", { x: 36, y: 132, width: 568, height: 10, rx: 5, class: "st-track" }));
+  const bar = s("rect", { x: 36, y: 132, width: 0, height: 10, rx: 5, class: "st-sim keep" });
+  top.append(bar, s("text", { x: 36, y: 158, class: "st-gloss" }, "1913"), s("text", { x: 604, y: 158, class: "st-gloss", "text-anchor": "end" }, "2021"));
+  g.append(top);
+  const box = (x, label, sub) => {
+    const b = s("g", { class: "cw-box" });
+    b.append(s("rect", { x, y: 220, width: 170, height: 70, rx: 8 }), s("text", { x: x + 85, y: 248, "text-anchor": "middle", class: "cw-box-t" }, label), s("text", { x: x + 85, y: 268, "text-anchor": "middle", class: "st-gloss" }, sub));
+    g.append(b);
+    return b;
+  };
+  const gen = box(20, "Generator", d.generators), chk = box(235, "Checker", "BERT, zero-shot");
+  const kept = s("g", { class: "cw-out keep" }); kept.append(s("rect", { x: 450, y: 196, width: 170, height: 48, rx: 8 }), s("text", { x: 535, y: 225, "text-anchor": "middle" }, "kept"));
+  const drop = s("g", { class: "cw-out drop" }); drop.append(s("rect", { x: 450, y: 266, width: 170, height: 48, rx: 8 }), s("text", { x: 535, y: 295, "text-anchor": "middle" }, "filtered out"));
+  g.append(kept, drop);
+  const dots = Array.from({ length: 14 }, (_, i) => { const c = s("circle", { r: 5, class: i % 4 === 3 ? "cw-dot bad" : "cw-dot" }); g.append(c); return c; });
+  g.append(s("text", { x: 320, y: 360, class: "st-gloss", "text-anchor": "middle" }, "Generated clues pass a checker that filters out nonsensical pairs."));
+  g.append(s("text", { x: 320, y: 378, class: "st-gloss", "text-anchor": "middle" }, "The dots are an illustration of that flow, not data."));
+  return (ms) => {
+    reveal(top, clamp01(ms / 380));
+    const c = ease(clamp01((ms - 300) / 1400));
+    count.textContent = Math.round(7000000 * c).toLocaleString("en-US") + (c >= 1 ? "+" : "");
+    bar.setAttribute("width", (568 * c).toFixed(1));
+    [gen, chk, kept, drop].forEach((b, i) => reveal(b, clamp01((ms - 1500 - i * 150) / 300), 6));
+    dots.forEach((dot, i) => {
+      const t = ms === Infinity ? -1 : (ms - 2200 - i * 140) / 1100;
+      if (t < 0 || t > 1) { dot.style.opacity = 0; return; }
+      const bad = dot.classList.contains("bad");
+      const x = t < 0.5 ? 190 + t * 2 * 45 : 405 + (t - 0.5) * 2 * 40;
+      const y = t < 0.5 ? 255 : 255 + (bad ? 1 : -1) * (t - 0.5) * 2 * 35;
+      dot.setAttribute("cx", x.toFixed(1)); dot.setAttribute("cy", y.toFixed(1));
+      dot.style.opacity = 1;
+    });
+  };
+}
+
+const CROSS_SLIDES = [
+  { paper: "Clue-Instruct", venue: "LREC-COLING 2024", href: "https://aclanthology.org/2024.lrec-main.297/", task: "Wikipedia passage in, clues out.", label: "a passage about grebes, three clues and the answer GREBE",
+    build: slidePassage({ passage: CLUES[0].context, key: "grebe", answer: "GREBE", clues: CLUES[0].clues.map((t) => ({ t })) }), dur: 4200 },
+  { paper: "Building Bridges", venue: "ICMLA 2023", href: "https://doi.org/10.1109/ICMLA58977.2023.00185", task: "Generate clues, then verify them.", label: "seven million clue-answer pairs and a generate-then-verify pipeline", build: slideBridges, dur: 4600 },
+  { paper: "Italian crosswords", venue: "CLiC-it 2023", href: "https://arxiv.org/abs/2311.15723", task: "Real clue-answer pairs from the Italian dataset.", label: "four Italian clues and their answers", build: slidePairs(CROSS.ita2023), dur: 4200 },
+  { paper: "Italian, from text", venue: "CLiC-it 2024", href: "https://aclanthology.org/2024.clicit-1.110/", task: "Clues written from an Italian Wikipedia passage.", label: "an Italian passage about Fucus, two clues and the answer", build: slidePassage(CROSS.ita2024), dur: 4000 },
+  { paper: "Italian, linguistic analysis", venue: "IJCoL 2025", href: "https://doi.org/10.17454/ijcol111.03", task: "How a clue is derived from a full sentence.", label: "two Italian sentences turned into clues by omission, inversion and a clitic", build: slideDerive, dur: 4400 },
+  { paper: "ArabIcros", venue: "ArabicNLP 2023", href: "https://aclanthology.org/2023.arabicnlp-1.23/", task: "Arabic clue-answer pairs.", label: "three Arabic clues and their answers", build: slidePairs(CROSS.arabicros, { rtl: true }), dur: 3800 },
+  { paper: "Arabic, from text", venue: "LoResLM 2025", href: "https://arxiv.org/abs/2501.11035", task: "Clues written from an Arabic Wikipedia passage.", label: "an Arabic passage about muscle, three clues and the answer", build: slidePassage(CROSS.arabic2025, true), dur: 4200 },
+  { paper: "Turkish crosswords", venue: "AIED 2024", href: "https://arxiv.org/abs/2405.07035", task: "Clues written from a Turkish passage.", label: "a Turkish passage about manganese, three clues and the answer", build: slidePassage(CROSS.turkish), dur: 4200 },
+  { paper: "WebCrow French", venue: "INTETAIN 2023", href: "https://doi.org/10.1007/978-3-031-55722-4_14", task: "French clues the paper singles out as hard to solve.", label: "three hard French clues and their answers", build: slidePairs(CROSS.webcrow), dur: 3800 },
+  { paper: "ECWCA", venue: "CLiC-it 2024", href: "https://aclanthology.org/2024.clicit-1.138/", task: "Answer the clue, with the length of each word as a hint.", label: "three Italian clues with length hints and their answers", build: slidePairs(CROSS.ecwca, { hint: true }), dur: 4000 },
+];
+
+function sceneCrossword2(mount, alive) { slideScene(mount, alive, CROSS_SLIDES); }
+
 /* ---------------- scene: the work as a graph ---------------- */
 function sceneGraph(mount) { buildGraph(mount); }
 
@@ -723,13 +923,13 @@ const SCENES = [
     links: [{ href: "https://arxiv.org/abs/2610.22086", label: "Multi-SFT paper" }, { href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", label: "Villanova2" }],
     build: sceneLanguages, hold: 7000 },
   { id: "bench", tab: "Benchmarks", sub: "Six papers, six languages", title: "Benchmarks for languages that have none",
-    text: "Before a model can be trusted in Arabic, Farsi or Sindhi, someone has to test it there. Each slide is a real item from one of the benchmarks I built, one paper at a time; pick a paper under the scene to jump to it.",
+    text: "Before a model can be trusted in Arabic, Farsi or Sindhi, someone has to test it there. Each slide is a real item from one of the benchmarks I built, one paper at a time; pick a paper above the scene to jump to it.",
     links: [{ href: "https://huggingface.co/datasets/Kamyar-zeinalipour/ArabicSense", label: "ArabicSense" }, { href: "https://aclanthology.org/2025.ijcnlp-long.187/", label: "FarSense" }],
     build: sceneBenchmarks2, hold: 26000 },
-  { id: "cross", tab: "Crosswords", sub: "Study material, generated", title: "Crosswords from course material",
-    text: "My Ph.D. began with crossword clues: a clue has to be true, point to exactly one answer, and be worth solving. These are real rows from Clue-Instruct: a Wikipedia passage, the answer inside it, and the clues written for it.",
+  { id: "cross", tab: "Crosswords", sub: "Ten papers, five languages", title: "Crosswords from course material",
+    text: "My Ph.D. began with crossword clues: a clue has to be true, point to exactly one answer, and be worth solving. Ten papers, from Italian and Arabic to Turkish, English and French, one real example each; pick a paper above the scene to jump to it.",
     links: [{ href: "https://aclanthology.org/2024.lrec-main.297/", label: "Clue-Instruct" }, { href: "crossword.html", label: "Play the crossword" }],
-    build: sceneCrossword, hold: 11000 },
+    build: sceneCrossword2, hold: 42000 },
   { id: "measure", tab: "Measuring", sub: "Surprisal and difficulty", title: "How hard is a clue?",
     text: "How hard is a clue? Sixty people solved 160 Italian clues for us. The surprisal a model gives the answer tracked how hard they found it, so a generator can aim for an easy or a hard puzzle on purpose.",
     links: [{ href: "https://aclanthology.org/2025.clicit-1.50/", label: "CLiC-it 2025 paper" }, { href: "https://huggingface.co/datasets/Kamyar-zeinalipour/Crossword-Surprisal-IT", label: "The data" }],
