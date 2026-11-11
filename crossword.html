@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crossword, Kamyar Zeinalipour</title>
+<meta name="description" content="A playable crossword whose answers are all terms from Kamyar Zeinalipour's research, with every clue linking to the paper or repository it names.">
+<link rel="icon" href="images/favicon.ico">
+<meta property="og:title" content="Crossword, Kamyar Zeinalipour">
+<meta property="og:description" content="A playable crossword whose answers are all terms from Kamyar Zeinalipour's research, with every clue linking to the paper or repository it names.">
+<meta property="og:type" content="profile">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/portrait.jpg">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  // Set the theme before first paint so the page never flashes the wrong one.
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="updates.html">Updates</a>
+      <a href="about.html">About</a>
+      <a href="crossword.html" aria-current="page">Crossword</a></div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-head">
+    <div class="wrap">
+      <h1>A crossword about the research</h1>
+      <p class="lede">Every answer is a term from this work, and solving a clue reveals the paper or
+        repository it points to. Generating clues like these, in several languages, is one of the
+        things the research is about.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap puzzle-layout">
+      <div class="puzzle-panel">
+        <div class="board" id="board" aria-label="Crossword grid"></div>
+        <div class="puzzle-controls">
+          <button class="chip" type="button" id="btn-check">Check letters</button>
+          <button class="chip" type="button" id="btn-reveal">Reveal the grid</button>
+          <button class="chip" type="button" id="btn-clear">Start over</button>
+        </div>
+        <p class="puzzle-status" id="puzzle-status" role="status">Pick a clue, then type. Arrow keys
+          move around the grid.</p>
+      </div>
+      <div class="clues" id="clues"></div>
+    </div>
+    <noscript>
+      <div class="wrap">
+        <p class="empty-note">The crossword needs JavaScript. The work it is made of is on the
+          <a href="research.html">research page</a>.</p>
+      </div>
+    </noscript>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

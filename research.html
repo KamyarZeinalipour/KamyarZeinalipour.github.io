@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research, Kamyar Zeinalipour</title>
+<meta name="description" content="Research lines: open models for European languages, benchmarks for low-resource languages, educational content generation, evaluation, and language models applied to science and industry.">
+<link rel="icon" href="images/favicon.ico">
+<meta property="og:title" content="Research, Kamyar Zeinalipour">
+<meta property="og:description" content="Research lines: open models for European languages, benchmarks for low-resource languages, educational content generation, evaluation, and language models applied to science and industry.">
+<meta property="og:type" content="profile">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/portrait.jpg">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  // Set the theme before first paint so the page never flashes the wrong one.
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="index.html">Home</a>
+      <a href="research.html" aria-current="page">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="updates.html">Updates</a>
+      <a href="about.html">About</a>
+      <a href="crossword.html">Crossword</a></div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-head">
+    <div class="wrap">
+      <h1>Research</h1>
+      <p class="lede">Five lines of work. They share one question: can a model produce something a
+        person would actually use without fixing it first, and how would we know? Each line has a
+        figure you can play with, built from the released data where there is some.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#open">Open European models</a>
+        <a href="#bench">Benchmarks</a>
+        <a href="#edu">Study material</a>
+        <a href="#measure">Measuring models</a>
+        <a href="#science">Science and industry</a>
+        <a href="#code">Code and models</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="rline" id="open" aria-labelledby="open-h">
+    <div class="wrap rline-in">
+      <div class="rtext">
+        <h2 id="open-h">Open models for Europe's languages</h2>
+        <p>With the team at Villanova.AI I worked on Multi-SFT, permissively licensed multilingual
+          instruction-following data. All four
+          <a href="https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa">Villanova2</a>
+          models cite it: open-weight models trained in Italy for English, Italian, German, Spanish
+          and French, a 15.5B mixture of experts and a dense 2.4B, released under Apache 2.0.</p>
+        <p>Instruction data decides what a base model learns to do when asked. Making it
+          permissively licensed is what lets the resulting models be truly open.</p>
+        <p class="cite links"><a href="https://arxiv.org/abs/2610.22086">Multi-SFT paper</a>
+          <a href="https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa">Villanova2 on Hugging Face</a></p>
+      </div>
+      <figure class="rfig">
+        <div id="fig-multi"></div>
+        <figcaption>One instruction in the five languages Villanova2 covers. Pick a language.
+          Written for this page as an illustration.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="rline flip" id="bench" aria-labelledby="bench-h">
+    <div class="wrap rline-in">
+      <div class="rtext">
+        <h2 id="bench-h">Benchmarks for languages that have none</h2>
+        <p>Most evaluation suites stop at English. I built commonsense benchmarks for
+          <a href="https://aclanthology.org/2025.ijcnlp-long.187/">Farsi</a> and
+          <a href="https://aclanthology.org/2025.wacl-1.1/">Arabic</a>, a dialogue benchmark across
+          <a href="https://aclanthology.org/2025.arabicnlp-main.39/">Egyptian, Maghrebi and Modern
+          Standard Arabic</a>, a dialogue benchmark for
+          <a href="https://arxiv.org/abs/2609.01810">Farsi</a>, and instruction data that gets
+          <a href="https://aclanthology.org/2026.loreslm-1.22/">Sindhi</a> models to reason in steps.</p>
+        <p>The figure is the simplest ArabicSense task: two sentences, one of which cannot be true.
+          A model that has read a lot of Arabic text should never pick the wrong one; the paper measures how often they still do.</p>
+        <p class="cite links"><a href="https://huggingface.co/datasets/Kamyar-zeinalipour/ArabicSense">ArabicSense dataset</a>
+          <a href="https://github.com/KamyarZeinalipour/ArabicSense">Code</a></p>
+      </div>
+      <figure class="rfig">
+        <div id="fig-sense"></div>
+        <figcaption>Five test items from ArabicSense, unchanged. English glosses are mine.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="rline" id="edu" aria-labelledby="edu-h">
+    <div class="wrap rline-in">
+      <div class="rtext">
+        <h2 id="edu-h">Study material, generated and checked</h2>
+        <p>A crossword clue is a small, strict test of a generator: it has to be true, it has to
+          point at exactly one answer, and it has to be worth solving. I started there with
+          Italian, then rebuilt the pipeline for Arabic and Turkish, where the puzzle conventions
+          and the morphology are not the same.</p>
+        <p>The same question carried into quizzes, Persian multiple-choice items, pedagogical hints
+          that help without giving the answer away, and syntax feedback on student essays.</p>
+        <p class="cite">Crosswords in
+          <a href="https://aclanthology.org/2024.clicit-1.110/">Italian</a>,
+          <a href="https://aclanthology.org/2023.arabicnlp-1.23/">Arabic</a> and
+          <a href="https://arxiv.org/abs/2405.07035">Turkish</a>.
+          Quizzes in <a href="https://arxiv.org/abs/2406.03397">Turkish</a>.
+          Questions in <a href="https://aclanthology.org/2025.loreslm-1.27/">Persian</a>.
+          Hints in <a href="https://ceur-ws.org/Vol-4248/short11.pdf">MultiHint-9K</a>.</p>
+      </div>
+      <aside class="rfig puzzle-teaser">
+        <h3>Solve a crossword about this work</h3>
+        <p>Eleven answers, all terms from the research, with clues in the style the generators
+          write. Every solved clue unlocks the paper or repository it names.</p>
+        <p class="cite"><a href="crossword.html">Play the crossword</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="rline flip" id="measure" aria-labelledby="measure-h">
+    <div class="wrap rline-in">
+      <div class="rtext">
+        <h2 id="measure-h">Measuring what models really do</h2>
+        <p>Sixty people solved 160 Italian clues while we recorded how long each took. Difficulty
+          tracks the <a href="https://aclanthology.org/2025.clicit-1.50/">surprisal a model assigns
+          to the answer</a>: how unexpected the answer is, given the clue. That gives a puzzle
+          generator an objective dial instead of a setter's instinct.</p>
+        <p>Try the clues before you reveal the answers. Higher surprisal predicts that people will
+          find a clue harder: in the paper, the correlation with accuracy reaches r = -0.62 for
+          nominal clues.</p>
+        <p>Related work asks where models break: plural nouns with no singular, across
+          <a href="https://aclanthology.org/2026.eacl-long.308/">many languages at once</a>, and
+          whether <a href="https://doi.org/10.1145/3748522.3779772">iterative in-context
+          learning</a> helps abstract reasoning on algebra.</p>
+      </div>
+      <figure class="rfig">
+        <div id="fig-surprisal"></div>
+        <figcaption>Surprisal of the answer under Llama-3-8B for eight of the 160 clues, from the
+          released <a href="https://huggingface.co/datasets/Kamyar-zeinalipour/Crossword-Surprisal-IT">Crossword-Surprisal-IT</a>
+          data. English glosses are mine.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="rline" id="science" aria-labelledby="science-h">
+    <div class="wrap rline-in">
+      <div class="rtext">
+        <h2 id="science-h">Science and industry</h2>
+        <p>The same methods, pointed at other data. To a language model a protein is a sentence in
+          a twenty-letter alphabet, which is how I approached
+          <a href="https://aclanthology.org/2024.langmol-1.5/">protein design</a> and
+          <a href="https://doi.org/10.1016/j.cmpbup.2026.100257">PharMistral</a>, a model that
+          proposes candidate ligands for a protein target from its sequence alone.</p>
+        <p>On the industrial side: knowledge graphs built from plant documentation, then written
+          back out as text to measure what
+          <a href="https://aclanthology.org/2026.acl-industry.140/">survives the round trip</a>;
+          question answering over Italian
+          <a href="https://aclanthology.org/2026.eacl-industry.70/">regulatory documents</a>; and
+          emission forecasting for gas turbines, deployed at Baker Hughes.</p>
+      </div>
+      <div class="rfig stack">
+        <figure>
+          <div id="fig-protein"></div>
+          <figcaption>A real protein, read the way a language model reads it.</figcaption>
+        </figure>
+        <figure>
+          <div id="fig-kg"></div>
+          <figcaption>The round trip, as an illustration: graph to text, text back to graph, then
+            count what came back.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="code" aria-labelledby="code-h">
+    <div class="wrap">
+      <h2 id="code-h">Code and models</h2>
+      <p class="band-intro">Each paper has one repository and one model collection, and the two link
+        to each other. Most released checkpoints are LoRA adapters, so the work can be reproduced on
+        a single GPU rather than a cluster.</p>
+      <div id="releases-out">
+        <p class="empty-note">Loading the release list.</p>
+      </div>
+      <noscript>
+        <p class="empty-note">This table needs JavaScript. Browse the repositories on
+          <a href="https://github.com/KamyarZeinalipour?tab=repositories">GitHub</a> and the model
+          collections on <a href="https://huggingface.co/Kamyar-zeinalipour">Hugging Face</a>.</p>
+      </noscript>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

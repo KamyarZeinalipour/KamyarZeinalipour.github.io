@@ -105,8 +105,8 @@ p { margin: 0 0 1em; max-width: var(--measure); }
   border-bottom: 1px solid var(--rule);
 }
 .masthead-in {
-  display: flex; align-items: center; gap: 1rem;
-  min-height: 3.75rem;
+  display: flex; align-items: center; gap: 0.9rem;
+  min-height: 3.4rem;
 }
 .wordmark {
   font-family: var(--serif); font-weight: 600; font-size: 1.05rem;
@@ -119,10 +119,27 @@ p { margin: 0 0 1em; max-width: var(--measure); }
   border: 1.5px solid var(--ink); border-radius: 3px;
   font-size: 0.8rem; font-family: var(--sans); font-weight: 700;
 }
-.nav { display: flex; gap: clamp(0.75rem, 2vw, 1.5rem); }
-.nav a { text-decoration: none; font-size: 0.925rem; color: var(--ink-2); }
+.mast-link {
+  font-size: 0.85rem; color: var(--ink-2); text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong); padding-bottom: 1px;
+}
+.mast-link:hover, .mast-link:focus-visible { color: var(--ink); border-color: var(--accent); }
+@media (max-width: 34rem) { .mast-link { display: none; } }
+
+.nav { border-top: 1px solid var(--rule); }
+.nav-in {
+  display: flex; gap: clamp(0.9rem, 2.4vw, 1.9rem);
+  overflow-x: auto; scrollbar-width: none;
+  padding-block: 0.55rem;
+}
+.nav-in::-webkit-scrollbar { display: none; }
+.nav a {
+  text-decoration: none; font-size: 0.92rem; color: var(--ink-2);
+  white-space: nowrap; padding-block: 0.15rem;
+  border-bottom: 2px solid transparent;
+}
 .nav a:hover, .nav a:focus-visible { color: var(--ink); }
-@media (max-width: 40rem) { .nav { display: none; } }
+.nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 500; }
 
 .theme-toggle {
   display: inline-flex; align-items: center; gap: 0.4rem;
@@ -144,7 +161,7 @@ p { margin: 0 0 1em; max-width: var(--measure); }
 }
 
 h1 {
-  font-size: clamp(2.3rem, 1.4rem + 4.2vw, 4.1rem);
+  font-size: clamp(2.2rem, 1.3rem + 3.5vw, 3.6rem);
   letter-spacing: -0.02em;
   margin-bottom: 1.1rem;
 }
@@ -215,9 +232,9 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 }
 
 .clues { margin-top: 1.35rem; }
-.clues h3 {
+.clue-dir {
   font-family: var(--sans); font-size: 0.78rem; font-weight: 600;
-  color: var(--ink-2); margin-bottom: 0.4rem;
+  color: var(--ink-2); margin: 0 0 0.4rem;
 }
 .clue-list { list-style: none; margin: 0 0 1rem; padding: 0; }
 .clue-list li { margin-bottom: 0.1rem; }
@@ -352,3 +369,170 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .site-foot { border-top: 1px solid var(--rule); padding-block: 2rem 2.5rem; font-size: 0.83rem; color: var(--ink-2); }
 .site-foot p { max-width: none; margin: 0; }
 .site-foot .foot-row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: space-between; }
+
+
+/* ---------- page heads ---------- */
+.page-head { padding-block: clamp(2.2rem, 6vw, 3.6rem) clamp(1rem, 2vw, 1.5rem); }
+.page-head h1 { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.2rem); margin-bottom: 0.7rem; }
+.wrap.narrow { max-width: 46rem; margin-inline: auto; }
+.wrap.narrow p { max-width: none; }
+
+/* ---------- hero extras ---------- */
+.counts { margin-top: 1.4rem; font-size: 0.9rem; color: var(--ink-2); }
+.counts a { color: var(--accent); }
+.hero-side { border-top: 2px solid var(--ink); padding-top: 1.1rem; }
+.side-h { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; color: var(--ink-2); margin-bottom: 1.2rem; }
+
+/* ---------- built ---------- */
+.built { padding-bottom: 1.4rem; margin-bottom: 1.4rem; border-bottom: 1px solid var(--rule); }
+.built:last-child { border-bottom: 0; margin-bottom: 0.4rem; }
+.built .kind { font-size: 0.76rem; color: var(--ink-2); margin: 0 0 0.15rem; }
+.built h3 { font-size: 1.3rem; margin-bottom: 0.45rem; }
+.built p { font-size: 0.93rem; color: var(--ink-2); margin-bottom: 0.5rem; }
+.built .cite a { color: var(--accent); }
+
+/* ---------- updates ---------- */
+.updates { list-style: none; margin: 1.6rem 0 1.2rem; padding: 0; counter-reset: none; }
+.updates li { display: grid; gap: 0.25rem 1.5rem; padding: 1.15rem 0; border-top: 1px solid var(--rule); }
+@media (min-width: 48rem) { .updates li { grid-template-columns: 13rem minmax(0, 1fr); } }
+.updates .when { font-size: 0.85rem; color: var(--ink-2); margin: 0; }
+.updates p { margin: 0 0 0.35rem; }
+.updates .cite { margin: 0; font-size: 0.85rem; }
+.updates .cite a { color: var(--accent); }
+
+/* ---------- crossword page ---------- */
+.puzzle-layout { display: grid; gap: clamp(1.8rem, 4vw, 3rem); align-items: start; }
+@media (min-width: 58rem) { .puzzle-layout { grid-template-columns: minmax(0, 27rem) minmax(0, 1fr); } }
+.puzzle-controls { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+.puzzle-status { margin-top: 0.9rem; font-size: 0.88rem; color: var(--ink-2); min-height: 2.6em; }
+.puzzle-teaser { background: var(--accent-soft); padding: clamp(1.1rem, 2.5vw, 1.5rem); align-self: start; }
+.puzzle-teaser h4 { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; margin: 0 0 0.5rem; }
+.puzzle-teaser p { font-size: 0.92rem; color: var(--ink-2); margin-bottom: 0.6rem; }
+.puzzle-teaser .cite a { color: var(--accent); font-weight: 500; }
+
+.letter {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  border: 0; border-radius: 0; background: transparent; padding: 0;
+  text-align: center; text-transform: uppercase;
+  font-family: var(--sans); font-weight: 600;
+  font-size: clamp(0.85rem, 2.7vw, 1.15rem);
+  color: var(--ink); caret-color: var(--accent);
+}
+.letter:focus { outline: 2px solid var(--accent); outline-offset: -2px; background: var(--accent-soft); }
+.letter.wrong { color: #c0392b; }
+:root[data-theme="dark"] .letter.wrong { color: #ff9b8a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .letter.wrong { color: #ff9b8a; } }
+
+.clue-btn[aria-current="true"] { background: var(--accent-soft); color: var(--ink); }
+.clue-list li.solved .clue-btn b { color: var(--accent); }
+.clue-list li.solved .clue-btn span { text-decoration: line-through; text-decoration-color: var(--rule-strong); }
+
+/* ---------- research lines with figures ---------- */
+.toc { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin-top: 1.4rem; font-size: 0.88rem; }
+.toc a { color: var(--accent); }
+.rline { padding-block: clamp(2.6rem, 6vw, 4.5rem); border-top: 1px solid var(--rule); }
+.rline:nth-of-type(even) { background: var(--paper-2); }
+.rline-in { display: grid; gap: clamp(1.8rem, 4vw, 3.2rem); align-items: start; }
+@media (min-width: 58rem) {
+  .rline-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
+  .rline.flip .rtext { order: 2; }
+}
+.rtext h2 { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem); letter-spacing: -0.01em; margin-bottom: 0.8rem; }
+.rtext p { color: var(--ink-2); }
+.rtext .cite a { color: var(--accent); }
+.links a + a { margin-left: 1rem; }
+.rfig { margin: 0; }
+.rfig figcaption { margin-top: 0.8rem; font-size: 0.82rem; color: var(--ink-2); max-width: 50ch; }
+.rfig figcaption a { color: var(--accent); }
+.rfig.stack { display: grid; gap: 2.2rem; }
+.rfig.stack figure { margin: 0; }
+.fig-progress, .fig-note { font-size: 0.86rem; color: var(--ink-2); margin: 0 0 0.8rem; }
+.fig-note { margin: 0.8rem 0; min-height: 1.4em; }
+.rline .puzzle-teaser h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+
+/* one instruction, five languages */
+.seg { display: inline-flex; border: 1px solid var(--rule-strong); border-radius: 4px; overflow: hidden; }
+.seg button {
+  background: none; border: 0; border-right: 1px solid var(--rule-strong);
+  padding: 0.45rem 0.85rem; font-size: 0.85rem; font-weight: 600; color: var(--ink-2); min-width: 44px; min-height: 40px;
+}
+.seg button:last-child { border-right: 0; }
+.seg button:hover { color: var(--ink); background: var(--accent-soft); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.typed {
+  margin: 1.1rem 0 0; min-height: 4.6em; max-width: 30ch;
+  font-family: var(--serif); font-size: clamp(1.35rem, 1rem + 1.4vw, 1.9rem); line-height: 1.3;
+}
+.typed::after { content: ""; display: inline-block; width: 2px; height: 0.95em; margin-left: 3px; vertical-align: -0.1em; background: var(--accent); }
+@media (prefers-reduced-motion: no-preference) { .typed::after { animation: caret 1s steps(2) 6; } }
+@keyframes caret { 50% { opacity: 0; } }
+
+/* ArabicSense */
+.sense-pair { display: grid; gap: 0.7rem; }
+.sense-opt {
+  display: grid; gap: 0.35rem; text-align: start; width: 100%;
+  background: var(--cell); border: 1px solid var(--rule-strong); border-radius: 4px;
+  padding: 0.9rem 1rem; color: var(--ink);
+}
+.sense-opt:hover:not([aria-disabled="true"]) { border-color: var(--accent); }
+.sense-opt[aria-disabled="true"] { cursor: default; }
+.sense-opt .ar { font-size: 1.08rem; line-height: 1.7; text-align: right; }
+.sense-opt .gloss { font-size: 0.84rem; color: var(--ink-2); }
+.sense-opt.is-sense { border-color: var(--accent); box-shadow: inset 4px 0 0 var(--accent); }
+.sense-opt.is-nonsense { opacity: 0.62; }
+.sense-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1rem; }
+.sense-foot .fig-note { margin: 0.8rem 0; flex: 1 1 18rem; }
+
+/* surprisal */
+.surp { list-style: none; margin: 0 0 1rem; padding: 0; }
+.surp li { display: grid; gap: 0.3rem; padding: 0.55rem 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 34rem) { .surp li { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); align-items: center; gap: 1rem; } }
+.surp-label { display: grid; gap: 0.05rem; }
+.clue-it { font-weight: 600; font-size: 0.93rem; }
+.clue-gloss { font-size: 0.78rem; color: var(--ink-2); }
+.surp-ans { font-size: 0.82rem; color: var(--accent); }
+.surp-ans b { font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.surp-track { display: flex; align-items: center; gap: 0.5rem; }
+.surp-bar { display: block; height: 12px; border-radius: 0 4px 4px 0; background: var(--accent); width: var(--w); }
+.surp-val { font-size: 0.8rem; font-variant-numeric: tabular-nums; color: var(--ink); min-width: 2.4em; }
+@media (prefers-reduced-motion: no-preference) {
+  .surp .surp-bar { width: 0; transition: width 900ms cubic-bezier(0.2, 0.7, 0.3, 1); }
+  .surp.grown .surp-bar { width: var(--w); }
+  .surp.grown li:nth-child(n) .surp-bar { transition-delay: calc(var(--i, 0) * 60ms); }
+}
+
+/* protein */
+.aa-row { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 3px; max-width: 26rem; }
+.aa {
+  aspect-ratio: 1; display: grid; place-items: center; padding: 0;
+  background: var(--cell); border: 1px solid var(--rule-strong); border-radius: 2px;
+  font-family: var(--sans); font-weight: 600; font-size: clamp(0.8rem, 2.4vw, 1rem); color: var(--ink);
+}
+.aa:hover, .aa:focus-visible { background: var(--accent-soft); border-color: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .aa { opacity: 0; transform: translateY(4px); transition: opacity 220ms ease, transform 220ms ease; }
+  .aa.in { opacity: 1; transform: none; }
+}
+
+/* knowledge graph */
+.kg { width: 100%; height: auto; max-width: 40rem; display: block; margin-bottom: 0.9rem; }
+.kg-node { fill: var(--cell); stroke: var(--ink); stroke-width: 1.2; }
+.kg-label { fill: var(--ink); font: 600 12px var(--sans); }
+.kg-rel { fill: var(--ink-2); font: 11px var(--sans); }
+.kg-edge { stroke: var(--ink-2); stroke-width: 1.2; }
+.kg-card { fill: var(--accent-soft); stroke: var(--rule-strong); }
+.kg-sent { fill: var(--ink); font: 12.5px var(--serif); }
+.kg-arrow { stroke: var(--accent); stroke-width: 2; fill: none; marker-end: none; }
+.kg-score { fill: var(--accent); font: 600 12px var(--sans); }
+.kg-right .kg-node { stroke: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .kg .kg-left, .kg .a1, .kg .kg-text, .kg .a2, .kg .kg-right, .kg .kg-score { opacity: 0; }
+  .kg.run .kg-left { animation: kgin 500ms ease forwards; }
+  .kg.run .a1 { animation: kgin 300ms ease 550ms forwards; }
+  .kg.run .kg-text { animation: kgin 500ms ease 900ms forwards; }
+  .kg.run .a2 { animation: kgin 300ms ease 1500ms forwards; }
+  .kg.run .kg-right { animation: kgin 500ms ease 1850ms forwards; }
+  .kg.run .kg-score { animation: kgin 400ms ease 2400ms forwards; }
+  .kg.done * { opacity: 1; }
+}
+@keyframes kgin { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }

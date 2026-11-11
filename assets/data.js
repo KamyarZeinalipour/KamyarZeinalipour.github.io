@@ -56,6 +56,41 @@ export const PUZZLE = {
   ],
 };
 
+/* Systems and products, as opposed to papers. Every claim here is checkable at
+   the link beside it. */
+export const BUILT = [
+  {
+    name: "Villanova2",
+    kind: "Open European language model",
+    body: "A family of open-weight models trained in Italy for Europe's languages, released by Villanova.AI under Apache 2.0: a 15.5B sparse mixture of experts with 3.9B active parameters, and a dense 2.4B, each with base, instruction-tuned and vision-language versions. All four cite Multi-SFT, the permissively licensed multilingual instruction data I worked on.",
+    links: [
+      { href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", label: "Models on Hugging Face" },
+      { href: "https://arxiv.org/abs/2610.22086", label: "Multi-SFT paper" },
+    ],
+  },
+  {
+    name: "Tildea",
+    kind: "Product I run",
+    body: "Paste a job posting and Tildea writes a resume for it from your own profile, then checks every claim against what you actually said you have done and removes anything you did not. It scores the result the way an applicant tracking system reads it, and handles cover letters and interview prep for the same job.",
+    links: [{ href: "https://tildea.ai", label: "tildea.ai" }],
+  },
+  {
+    name: "Emission forecasting at Baker Hughes",
+    kind: "Deployed industrial system",
+    body: "Models that predict the carbon monoxide and nitrogen oxide output of gas turbines, served as an API handling over a million predictions a day, which cut tuning time by a fifth. Two papers came out of it, one on the models and one on adaptive forecasting.",
+    links: [
+      { href: "https://arxiv.org/abs/2501.17865", label: "Emission prediction paper" },
+      { href: "https://doi.org/10.1109/AIMLSystems67835.2025.11331232", label: "Adaptive forecasting paper" },
+    ],
+  },
+  {
+    name: "Seventeen research releases",
+    kind: "Open code and models",
+    body: "Every paper with code has one repository and one model collection, cross-linked, with the datasets and adapters that produced the numbers in the tables. Most are LoRA adapters, so the results can be reproduced on a single GPU.",
+    links: [{ href: "#code", label: "See all of them" }],
+  },
+];
+
 export const TOPICS = {
   edu: "Educational content",
   lang: "Languages and benchmarks",
@@ -68,35 +103,42 @@ export const PAPERS = [
     a: "K. Zeinalipour, A. Sadeghi, G. Angelini, L. Rigutini, M. Gori, M. Maggini",
     v: "AIED 2026 workshops, CEUR 4248", c: 0, topics: ["edu"],
     link: "https://ceur-ws.org/Vol-4248/short11.pdf",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/multihint-9k-aied-2026-6af4875966cf330a922a1d87",
     code: "https://github.com/KamyarZeinalipour/MultiHint-9K" },
   { y: 2026, t: "PharmaQA.IT: an Italian dataset for Q&A in the pharmaceutical domain",
     a: "K. Zeinalipour, A. Zugarini, A. Zanollo, L. Rigutini",
     v: "EACL 2026, industry track", c: 0, topics: ["sci"],
     link: "https://aclanthology.org/2026.eacl-industry.70/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/pharmaqait-eacl-2026-6af48b09756c4d246ff52887",
     code: "https://github.com/KamyarZeinalipour/PharmaQA.IT" },
   { y: 2026, t: "Enabling Structured Reasoning in Sindhi with Culturally Grounded Instruction Tuning",
     a: "M. Mehak, K. Zeinalipour, P. Soomro, C. Chesi, M. Gori, M. Maggini",
     v: "LoResLM 2026", c: 0, topics: ["lang"],
     link: "https://aclanthology.org/2026.loreslm-1.22/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/sindhi-reasoning-instruct-loreslm-2026-6af467d9e0f19e13ad2d14c0",
     code: "https://github.com/KamyarZeinalipour/Sindhi-Reasoning" },
   { y: 2026, t: "From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs",
     a: "K. Zeinalipour, S. Severini, A. Borghini, S. Cardarelli, M. Maggini, M. Gori",
     v: "ACL 2026, industry track", c: 1, topics: ["sci"],
     link: "https://aclanthology.org/2026.acl-industry.140/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/from-graph-to-text-and-back-acl-2026-6af4841166cf330a92294b6c",
     code: "https://github.com/KamyarZeinalipour/round-trip-kg" },
   { y: 2026, t: "PharMistral: Drug generation for novel protein targets by Mistral Large Language Model",
     a: "A. Bendjeddou, K. Zeinalipour, D. Bardou, M. Maggini, F. Scarselli, M. Bianchini",
     v: "Computer Methods and Programs in Biomedicine Update 10", c: 1, topics: ["sci"],
     link: "https://doi.org/10.1016/j.cmpbup.2026.100257",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/pharmistral-cmpb-update-2026-6af48fca521e8481db608782",
     code: "https://github.com/KamyarZeinalipour/PharMistral" },
   { y: 2026, t: "TalkFa: A Unified Benchmark for Farsi Dialogue Generation and Understanding",
     a: "N. Jamshidi, K. Zeinalipour, F. Akbari, M. Bianchini, M. Maggini, M. Gori",
     v: "Preprint, arXiv:2609.01810", c: 0, topics: ["lang"],
     link: "https://arxiv.org/abs/2609.01810",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/talkfa-arxiv-2026-6af47769e8cfcf8046fcb449",
     code: "https://github.com/KamyarZeinalipour/TalkFa" },
   { y: 2026, t: "Multi-SFT: Permissively-Licensed Multilingual Instruction-Following",
     a: "D. Baiamonte, K. Zeinalipour, E. Fano, S. Simonazzi, A. Zugarini",
     v: "Preprint, arXiv:2610.22086", c: 0, topics: ["lang"],
+    hf: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa",
     link: "https://arxiv.org/abs/2610.22086" },
   { y: 2026, t: "Elections go bananas: A First Large-scale Multilingual Study of Pluralia Tantum using LLMs",
     a: "E. Spaziani, K. Zeinalipour, P. Cassotti, N. Tahmasebi",
@@ -119,35 +161,43 @@ export const PAPERS = [
     a: "K. Zeinalipour, N. Jamshidi, S. Hejazi, M. Maggini, M. Bianchini, S. Paoletti, M. Gori",
     v: "IJCNLP-AACL 2025", c: 0, topics: ["lang"],
     link: "https://aclanthology.org/2025.ijcnlp-long.187/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/farsense-ijcnlp-aacl-2025-6af4553f756c4d246fe7f56c",
     code: "https://github.com/KamyarZeinalipour/FarSense" },
   { y: 2025, t: "Shawarma Chats: A Benchmark Dialogue and Evaluation Platter in Egyptian, Maghrebi and Modern Standard Arabic",
     a: "K. Zeinalipour, M. Z. Saad, O. Attafi, M. Maggini, M. Gori",
     v: "ArabicNLP 2025", c: 4, topics: ["lang"],
     link: "https://aclanthology.org/2025.arabicnlp-main.39/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/shawarmachats-arabicnlp-2025-6af4656eda045ed7cfc001d3",
     code: "https://github.com/KamyarZeinalipour/Shawarma-Chats" },
   { y: 2025, t: "ArabicSense: A Benchmark for Evaluating Commonsense Reasoning in Arabic with Large Language Models",
     a: "S. Lamsiyah, K. Zeinalipour, S. El-amrany, M. Brust, M. Maggini, P. Bouvry and others",
     v: "WACL-4 2025", c: 7, topics: ["lang"],
     link: "https://aclanthology.org/2025.wacl-1.1/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/arabicsense-wacl-4-2025-6af47f5fabd9b1da26dbccd7",
     code: "https://github.com/KamyarZeinalipour/ArabicSense" },
   { y: 2025, t: "PersianMCQ-Instruct: A Comprehensive Resource for Generating Multiple-Choice Questions in Persian",
     a: "K. Zeinalipour, N. Jamshidi, F. Akbari, M. Maggini, M. Bianchini, M. Gori",
     v: "LoResLM 2025", c: 4, topics: ["lang", "edu"],
     link: "https://aclanthology.org/2025.loreslm-1.27/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/persianmcq-instruct-loreslm-2025-6af481273fff746c25e21f62",
     code: "https://github.com/KamyarZeinalipour/Persian_MCQ" },
   { y: 2025, t: "From Arabic Text to Puzzles: LLM-Driven Development of Arabic Educational Crosswords",
     a: "K. Zeinalipour, M. Z. Saad, M. Maggini, M. Gori",
     v: "LoResLM 2025", c: 6, topics: ["edu"],
     link: "https://arxiv.org/abs/2501.11035",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/arabic-educational-crosswords-6af46e6797758d5046eb4f39",
     code: "https://github.com/KamyarZeinalipour/Arabic-Text-to-Crosswords" },
   { y: 2025, t: "Surprisal and Crossword Clues Difficulty: Evaluating Linguistic Processing between LLMs and Humans",
     a: "T. Iaquinta, A. Zanollo, A. Fusco, K. Zeinalipour, C. Chesi",
     v: "CLiC-it 2025", c: 2, topics: ["ling"],
     link: "https://aclanthology.org/2025.clicit-1.50/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/crossword-surprisal-clic-it-2025-6af48f0683bca5a52cf4f5fe",
     code: "https://github.com/KamyarZeinalipour/Crossword-Surprisal" },
   { y: 2025, t: "Italian Crossword Generator: An In-depth Linguistic Analysis in Educational Word Puzzles",
     a: "K. Zeinalipour, T. Iaquinta, A. Zanollo, G. Angelini, L. Rigutini, M. Maggini, M. Gori",
     v: "Italian Journal of Computational Linguistics 11", c: 2, topics: ["edu", "ling"],
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/italian-educational-crosswords-6af486926814a362675d7c9a",
+    code: "https://github.com/KamyarZeinalipour/Italian-Text-to-Crosswords",
     link: "https://doi.org/10.17454/ijcol111.03" },
   { y: 2025, t: "Adaptive NOx Emissions Forecasting for Gas Turbines via Dynamic PCA-Driven Clustering",
     a: "K. Zeinalipour, L. Barriere, D. Ghelardi, M. Gori",
@@ -162,26 +212,31 @@ export const PAPERS = [
     a: "K. Zeinalipour, Y. G. Keptiğ, M. Maggini, M. Gori",
     v: "ISPR 2024", c: 20, topics: ["edu"],
     link: "https://arxiv.org/abs/2406.03397",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/turkish-educational-quiz-generation-ispr-2024-6af4852f9293af6e63c1acda",
     code: "https://github.com/KamyarZeinalipour/Turkish_Quiz_Generator" },
   { y: 2024, t: "A Turkish Educational Crossword Puzzle Generator",
     a: "K. Zeinalipour, Y. G. Keptiğ, M. Maggini, L. Rigutini, M. Gori",
     v: "AIED 2024", c: 10, topics: ["edu"],
     link: "https://arxiv.org/abs/2405.07035",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/turkish-educational-crosswords-aied-2024-6af4852ff9a91556f58237ca",
     code: "https://github.com/KamyarZeinalipour/CW_Clue_Gen_tr" },
   { y: 2024, t: "Harnessing LLMs for Educational Content-Driven Italian Crossword Generation",
     a: "K. Zeinalipour, A. Fusco, A. Zanollo, M. Maggini, M. Gori",
     v: "CLiC-it 2024", c: 9, topics: ["edu"],
     link: "https://aclanthology.org/2024.clicit-1.110/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/italian-educational-crosswords-6af486926814a362675d7c9a",
     code: "https://github.com/KamyarZeinalipour/Italian-Text-to-Crosswords" },
   { y: 2024, t: "Design Proteins Using Large Language Models: Enhancements and Comparative Analyses",
     a: "K. Zeinalipour, N. Jamshidi, M. Bianchini, M. Maggini, M. Gori",
     v: "Language + Molecules @ ACL 2024", c: 9, topics: ["sci"],
     link: "https://aclanthology.org/2024.langmol-1.5/",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/design-proteins-using-llms-langmol-2024-6af48a0e6814a362675e4dc6",
     code: "https://github.com/KamyarZeinalipour/protein-design-LLMs" },
   { y: 2024, t: "Advancing Student Writing Through Automated Syntax Feedback",
     a: "K. Zeinalipour, M. Mehak, F. Parsamotamed, M. Maggini, M. Gori",
     v: "AIEER 2024", c: 5, topics: ["edu"],
     link: "https://arxiv.org/abs/2501.07740",
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/automated-syntax-feedback-aieer-2024-6af487599293af6e63c227f9",
     code: "https://github.com/KamyarZeinalipour/Essay-Syntax-Feedback" },
   { y: 2024, t: "ECWCA, Educational Crossword Clues Answering: A CALAMITA Challenge",
     a: "A. Zugarini, K. Zeinalipour, A. Fusco, A. Zanollo",
@@ -191,10 +246,14 @@ export const PAPERS = [
   { y: 2023, t: "ArabIcros: AI-Powered Arabic Crossword Puzzle Generation for Educational Applications",
     a: "K. Zeinalipour, M. Z. Saad, M. Maggini, M. Gori",
     v: "ArabicNLP @ ACL 2023", c: 15, topics: ["edu"],
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/arabic-educational-crosswords-6af46e6797758d5046eb4f39",
+    code: "https://github.com/KamyarZeinalipour/Arabic-Text-to-Crosswords",
     link: "https://aclanthology.org/2023.arabicnlp-1.23/" },
   { y: 2023, t: "Italian Crossword Generator: Enhancing Education through Interactive Word Puzzles",
     a: "K. Zeinalipour, A. Zanollo, G. Angelini, L. Rigutini, M. Maggini, M. Gori",
     v: "CLiC-it 2023", c: 18, topics: ["edu"],
+    hf: "https://huggingface.co/collections/Kamyar-zeinalipour/italian-educational-crosswords-6af486926814a362675d7c9a",
+    code: "https://github.com/KamyarZeinalipour/Italian-Text-to-Crosswords",
     link: "https://arxiv.org/abs/2311.15723" },
   { y: 2023, t: "Building Bridges of Knowledge: Innovating Education with Automated Crossword Generation",
     a: "K. Zeinalipour, T. Iaquinta, G. Angelini, L. Rigutini, M. Maggini, M. Gori",
@@ -265,6 +324,55 @@ export const RELEASES = [
     hf: "https://huggingface.co/collections/Kamyar-zeinalipour/pharmistral-cmpb-update-2026-6af48fca521e8481db608782" },
 ];
 
+/* Teaching and supervision. */
+export const TEACHING = [
+  {
+    role: "Teaching assistant, Machine Learning",
+    where: "University of Siena",
+    when: "October 2022 to 2026",
+    body: "Ran lab sessions and office hours for the Machine Learning course, built and revised exercises, marked assignments and gave feedback on student projects.",
+  },
+  {
+    role: "Master's thesis supervision",
+    where: "University of Siena",
+    when: "2023 to 2026",
+    body: "Guided ten master's students through their theses, from framing a question to running the experiments and writing them up. Several of those theses became papers in the list on this site.",
+  },
+];
+
+/* News. Each item has a sortable `when` (YYYY-MM, or YYYY when the month is not
+   known), the `date` shown on the page, and optionally `ref`, the start of a paper
+   title, which links the item to that paper on the publications page.
+
+   Papers and projects can also announce themselves: give an entry in PAPERS or
+   BUILT a `news: { when, date, text }` field and it is added here automatically,
+   on the updates page and in "Latest" on the home page. */
+export const UPDATES = [
+  { when: "2026-11", date: "November 2026", ref: "Multi-SFT",
+    text: "Villanova.AI released Villanova2, a family of open-weight models for Europe's languages. All four of them cite Multi-SFT, the multilingual instruction-following data I worked on.",
+    href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", hrefLabel: "The models" },
+  { when: "2026-11", date: "November 2026", page: "research.html#code", pageLabel: "All seventeen releases",
+    text: "Finished publishing seventeen research releases: every paper with code now has one repository and one model collection, cross-linked, with the datasets and adapters behind the published numbers." },
+  { when: "2026", date: "2026", ref: "From Graph to Text and Back",
+    text: "The round-trip knowledge graph work was presented at ACL 2026, in the industry track, with the code and models released alongside it." },
+  { when: "2026", date: "2026", ref: "PharmaQA.IT",
+    text: "PharmaQA.IT, Italian question answering over pharmaceutical regulatory documents, was presented at EACL 2026, as was the multilingual study of plural nouns with no singular." },
+  { when: "2026", date: "2026", ref: "PharMistral",
+    text: "PharMistral appeared in Computer Methods and Programs in Biomedicine Update: a Mistral-7B adapted to propose ligands directly from a protein sequence." },
+  { when: "2026-02", date: "February 2026", page: "about.html", pageLabel: "About",
+    text: "Defended my Ph.D. at the University of Siena, supervised by Marco Gori, with the grade eccellente, and stayed on at DIISM as a postdoctoral researcher with Marco Maggini." },
+  { when: "2025-11", date: "November 2025", page: "about.html", pageLabel: "About",
+    text: "Joined YUKAI! in Siena as a generative AI engineer, working on fine-tuned models, retrieval pipelines and agentic systems for production." },
+  { when: "2025", date: "2025", ref: "FarSense",
+    text: "FarSense, a commonsense benchmark for Farsi, was presented at IJCNLP-AACL 2025, and Shawarma Chats, a dialogue benchmark in three Arabic varieties, at ArabicNLP 2025." },
+  { when: "2025-04", date: "April to June 2025", ref: "Elections go bananas",
+    text: "Visiting researcher at the University of Gothenburg, on a multilingual study of plural nouns that have no singular, which became an EACL 2026 paper." },
+  { when: "2025-02", date: "February to April 2025",
+    text: "Visiting researcher at Inria in Nice, building the Detoxification Fidelity Index and a reinforcement learning pipeline for detoxification that preserves meaning." },
+  { when: "2024-09", date: "September 2024 to January 2025",
+    text: "Visiting researcher at the University of Massachusetts Amherst, where I built a 22,000-pair human-verified dataset for detoxification that does not destroy the original meaning." },
+];
+
 export const PATH = [
   { when: "Nov 2025 to now", what: "Generative AI Engineer", where: "YUKAI!, Siena",
     note: "Fine-tuned language models for enterprise products: domain chatbots, retrieval pipelines, agentic systems." },
@@ -278,4 +386,132 @@ export const PATH = [
     note: "Created a 22,000-pair human-verified dataset for non-destructive detoxification and fine-tuned models on it." },
   { when: "Nov 2021 to Mar 2023", what: "Data scientist, in collaboration with Baker Hughes", where: "University of Siena",
     note: "Emission forecasting for gas turbines, deployed as a service, published at WIRN and AI-ML-Systems." },
+];
+
+/* ---------- figures on the research page ----------
+   SENSE: five test items from the public ArabicSense dataset
+   (huggingface.co/datasets/Kamyar-zeinalipour/ArabicSense, test split). `ok` is
+   the index of the sentence that makes sense. English glosses are mine.
+   SURPRISAL: real scores from Crossword-Surprisal-IT, Llama-3-8B, answer placed
+   last ("clue, cioe answer"), last-word surprisal. Glosses are mine. */
+export const SENSE = [
+  {
+    "a": "إيمانويل ماكرون يستطيع التحليق فوق برج إيفل دون أي مساعدة.",
+    "b": "إيمانويل ماكرون هو أصغر رئيس في تاريخ فرنسا، حيث انتخب عندما كان عمره 39 عامًا.",
+    "ok": 1,
+    "ga": "Emmanuel Macron can fly over the Eiffel Tower without any help.",
+    "gb": "Emmanuel Macron is the youngest president in the history of France, elected at 39."
+  },
+  {
+    "a": "تعلم الآلة يستخدم بشكل واسع في مجالات متعددة مثل الطب والهندسة لتحليل البيانات والاستفادة منها.",
+    "b": "يمكن لتعلم الآلة التفاعل مع الأشجار وتعلم لغتها لتحسين نمو النباتات.",
+    "ok": 0,
+    "ga": "Machine learning is widely used in fields such as medicine and engineering to analyse data and put it to use.",
+    "gb": "Machine learning can talk with trees and learn their language to help plants grow."
+  },
+  {
+    "a": "بيل باورمان يُصنع الأحذية من شوكلاك بشكل سري في مختبره تحت الأرض.",
+    "b": "بيل باورمان هو مؤسس مشارك لشركة نايكي الرياضية.",
+    "ok": 1,
+    "ga": "Bill Bowerman secretly makes shoes out of chocolate in his underground laboratory.",
+    "gb": "Bill Bowerman is a co-founder of the sportswear company Nike."
+  },
+  {
+    "a": "في بعض الأحيان، يمكن للكلاب أن تعلم البشر كيفية البرمجة باستخدام أجهزة الكمبيوتر.",
+    "b": "من المعروف أن الكلاب يمكن أن تكون وفية جداً لأصحابها.",
+    "ok": 1,
+    "ga": "Sometimes dogs can teach people how to program computers.",
+    "gb": "Dogs are known to be very loyal to their owners."
+  },
+  {
+    "a": "في يوم من الأيام، قرر القمر أن يحمل مظلة ليحتمي من أشعة الشمس الحارقة.",
+    "b": "يقول الخبراء أن شرب الماء بانتظام مهم لصحة الجسم والبشرة.",
+    "ok": 1,
+    "ga": "One day, the moon decided to carry an umbrella to shelter from the scorching sun.",
+    "gb": "Experts say that drinking water regularly matters for the health of the body and skin."
+  }
+];
+
+export const SURPRISAL = [
+  {
+    "clue": "foggiare, modellare",
+    "answer": "plasmare",
+    "s": 4.21,
+    "glossClue": "to shape, to model",
+    "glossAnswer": "to mould",
+    "cat": "infinitive"
+  },
+  {
+    "clue": "quelle ippiche si fanno all'ippodromo",
+    "answer": "corse",
+    "s": 6.66,
+    "glossClue": "the equestrian ones are held at the racecourse",
+    "glossAnswer": "races",
+    "cat": "verb_pred"
+  },
+  {
+    "clue": "formaggi",
+    "answer": "caci",
+    "s": 7.72,
+    "glossClue": "cheeses",
+    "glossAnswer": "cheeses, the literary word",
+    "cat": "nominal"
+  },
+  {
+    "clue": "lo sono le aquile",
+    "answer": "rapaci",
+    "s": 9.4,
+    "glossClue": "eagles are this",
+    "glossAnswer": "birds of prey",
+    "cat": "copular"
+  },
+  {
+    "clue": "si conserva sott'olio",
+    "answer": "tonno",
+    "s": 11.16,
+    "glossClue": "it is kept in oil",
+    "glossAnswer": "tuna",
+    "cat": "verb_pred"
+  },
+  {
+    "clue": "una sigla informatica",
+    "answer": "ibm",
+    "s": 13.02,
+    "glossClue": "a computing acronym",
+    "glossAnswer": "IBM",
+    "cat": "nominal"
+  },
+  {
+    "clue": "di specchiata rettitudine",
+    "answer": "probo",
+    "s": 14.81,
+    "glossClue": "of spotless integrity",
+    "glossAnswer": "upright",
+    "cat": "prepositional"
+  },
+  {
+    "clue": "può esserlo una mina",
+    "answer": "vagante",
+    "s": 17.3,
+    "glossClue": "a mine can be this",
+    "glossAnswer": "loose, as in a loose cannon",
+    "cat": "copular"
+  }
+];
+
+/* Human insulin, B chain: a public, well-known sequence used here only to show
+   what a protein looks like to a language model. */
+export const PROTEIN = {
+  name: "Human insulin, B chain",
+  seq: "FVNQHLCGSHLVEALYLVCGERGFFYTPKT",
+};
+
+/* One instruction in the five languages Villanova2 covers. An illustration
+   written for this page, not an item from Multi-SFT. */
+export const MULTI = [
+  { code: "EN", lang: "English", text: "Explain in two sentences why the sky is blue." },
+  { code: "IT", lang: "Italiano", text: "Spiega in due frasi perché il cielo è blu." },
+  { code: "DE", lang: "Deutsch", text: "Erkläre in zwei Sätzen, warum der Himmel blau ist." },
+  { code: "ES", lang: "Español", text: "Explica en dos frases por qué el cielo es azul." },
+  { code: "FR", lang: "Français", text: "Explique en deux phrases pourquoi le ciel est bleu." },
 ];

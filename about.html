@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About, Kamyar Zeinalipour</title>
+<meta name="description" content="About Kamyar Zeinalipour: postdoctoral researcher at DIISM, University of Siena, with research visits to UMass Amherst, Inria and Gothenburg.">
+<link rel="icon" href="images/favicon.ico">
+<meta property="og:title" content="About, Kamyar Zeinalipour">
+<meta property="og:description" content="About Kamyar Zeinalipour: postdoctoral researcher at DIISM, University of Siena, with research visits to UMass Amherst, Inria and Gothenburg.">
+<meta property="og:type" content="profile">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/portrait.jpg">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  // Set the theme before first paint so the page never flashes the wrong one.
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="index.html">Home</a>
+      <a href="research.html">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="updates.html">Updates</a>
+      <a href="about.html" aria-current="page">About</a>
+      <a href="crossword.html">Crossword</a></div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="page-head">
+    <div class="wrap">
+      <h1>About</h1>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="about-grid">
+        <img class="portrait" src="images/portrait.jpg" width="560" height="560"
+             alt="Kamyar Zeinalipour, seated outdoors with a coffee." fetchpriority="high">
+        <div class="about-text">
+          <p>I finished my Ph.D. at the University of Siena in February 2026, supervised by Marco
+            Gori, and stayed on at DIISM as a postdoctoral researcher with Marco Maggini. Before
+            Siena I studied applied mathematics here and applied statistics at the University of
+            Hormozgan, which is where the habit of checking a claim against data comes from.</p>
+          <p>I have spent stretches as a visiting researcher at the University of Massachusetts
+            Amherst, at Inria in Nice and at the University of Gothenburg. Alongside the research I
+            work as a generative AI engineer at YUKAI! in Siena, and I run
+            <a href="https://tildea.ai">Tildea</a>, which writes a resume for a specific job from
+            what you have really done and refuses to invent the rest.</p>
+          <p>If you want to collaborate on educational NLP, on a language that needs resources, or
+            on evaluation that goes past a leaderboard, write to me.</p>
+        <ul class="id-row">
+          <li><a href="https://scholar.google.com/citations?user=RewxhZwAAAAJ">Google Scholar</a></li>
+          <li><a href="https://github.com/KamyarZeinalipour">GitHub</a></li>
+          <li><a href="https://huggingface.co/Kamyar-zeinalipour">Hugging Face</a></li>
+          <li><a href="https://www.linkedin.com/in/kamyarzeinalipour">LinkedIn</a></li>
+          <li><a href="https://orcid.org/0009-0006-3014-2511">ORCID</a></li>
+        </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" aria-labelledby="path-h">
+    <div class="wrap">
+      <h2 id="path-h">Recent path</h2>
+      <ol class="path" id="path-out"></ol>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>
