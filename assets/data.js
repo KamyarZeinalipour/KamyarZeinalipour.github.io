@@ -85,6 +85,23 @@ export const BUILT = [
     ],
   },
   {
+    name: "Educational crossword generator",
+    kind: "Research system, four languages",
+    body: "Turns a passage of course material into a crossword: pick the answers, write a clue for each with a fine-tuned model, then build the grid. It runs in Italian, Arabic, Turkish and English, and the clue models and data are public. The playable crossword on this site was made the same way.",
+    links: [
+      { href: "crossword.html", label: "Play the crossword" },
+      { href: "https://github.com/KamyarZeinalipour/Italian-Text-to-Crosswords", label: "Italian" },
+      { href: "https://github.com/KamyarZeinalipour/Arabic-Text-to-Crosswords", label: "Arabic" },
+      { href: "https://github.com/KamyarZeinalipour/CW_Clue_Gen_tr", label: "Turkish" },
+    ],
+  },
+  {
+    name: "Educational Tutor",
+    kind: "Demo on Hugging Face Spaces",
+    body: "Give it a piece of educational text and it splits it into subtopics, writes questions for each, simulates students with different profiles answering them, grades the answers, and prescribes homework with a short study summary per student. It runs on your own OpenAI key.",
+    links: [{ href: "https://huggingface.co/spaces/Kamyar-zeinalipour/Educational_Tutor", label: "Open the demo" }],
+  },
+  {
     name: "ts2g",
     kind: "Python package",
     body: "Turns a time series into a graph, as a natural visibility, horizontal visibility or quantile graph, so that graph neural networks can classify signals such as ECGs. It came out of my master's thesis.",
@@ -94,10 +111,19 @@ export const BUILT = [
     ],
   },
   {
+    name: "Human evaluation interfaces",
+    kind: "Annotation tools",
+    body: "The interfaces native speakers used to rate generated material: Arabic crossword clues for the Arabic crossword paper, and Persian multiple-choice questions for PersianMCQ-Instruct. Released so the human evaluations can be repeated.",
+    links: [
+      { href: "https://github.com/KamyarZeinalipour/HumanAnnotation-UI-Ar-Text-To-Cross", label: "Arabic clues" },
+      { href: "https://github.com/KamyarZeinalipour/HumanAnnotation-UI-PMCQ", label: "Persian questions" },
+    ],
+  },
+  {
     name: "Seventeen research releases",
     kind: "Open code and models",
     body: "Every paper with code has one repository and one model collection, cross-linked, with the datasets and adapters that produced the numbers in the tables. Most are LoRA adapters, so the results can be reproduced on a single GPU.",
-    links: [{ href: "#code", label: "See all of them" }],
+    links: [{ href: "research.html#code", label: "See all of them" }],
   },
 ];
 
