@@ -2,7 +2,7 @@
    It plays a single tour through the scenes, then stops on the first one. Tabs
    jump to any scene, a button pauses or replays the tour, and under
    prefers-reduced-motion every scene is drawn in its finished state. */
-import { PUZZLE, PROTEIN, SENSE, SURPRISAL, MSFT, CLUES, BENCH, CROSS } from "./data.js";
+import { PUZZLE, PROTEIN, SENSE, SURPRISAL, MSFT, CLUES, BENCH, CROSS, LEARN } from "./data.js";
 import { buildGraph } from "./graph.js";
 import { sceneProtein3D, sceneDrug3D } from "./mol3d.js";
 
@@ -911,6 +911,149 @@ const CROSS_SLIDES = [
 
 function sceneCrossword2(mount, alive) { slideScene(mount, alive, CROSS_SLIDES); }
 
+/* ---------------- learning, paper by paper ---------------- */
+/* Turkish quiz: a generated question with the correct option lighting up. */
+function slideQuiz(g) {
+  const d = LEARN.quiz;
+  g.append(s("text", { x: 20, y: 24, class: "st-kicker" }, d.subject));
+  const q = s("g", { class: "sl-card" });
+  q.append(s("rect", { x: 20, y: 38, width: 600, height: 88, rx: 8 }), s("text", { x: 36, y: 60, class: "st-kicker" }, "Generated question"));
+  q.append(s("text", { x: 36, y: 88, class: "st-clue-line" }, d.q), s("text", { x: 36, y: 110, class: "st-gloss" }, d.qGloss));
+  g.append(q);
+  const opts = d.options.map((o, i) => {
+    const y = 148 + i * 70;
+    const og = s("g", { class: `sl-opt ${o.ok ? "ok" : ""}` });
+    og.append(s("rect", { x: 20, y, width: 600, height: 58, rx: 8 }), s("text", { x: 36, y: y + 26, class: "sl-opt-key" }, "ABC"[i] + "."));
+    og.append(s("text", { x: 62, y: y + 26, class: "st-clue-line" }, o.t), s("text", { x: 62, y: y + 45, class: "st-gloss" }, o.g));
+    g.append(og);
+    return og;
+  });
+  return (ms) => { reveal(q, clamp01(ms / 380)); opts.forEach((o, i) => { reveal(o, clamp01((ms - 700 - i * 220) / 320), 6); o.classList.toggle("lit", ms > 2200); }); };
+}
+
+/* Syntax feedback: errors found in a real student essay, with corrections. */
+function slideEssay(g) {
+  const d = LEARN.essay;
+  const card = s("g", { class: "sl-card" });
+  // keep each error phrase on one line: glue its words while wrapping
+  let glued = d.text;
+  d.fixes.forEach((f) => { glued = glued.replace(f.find, f.find.replace(/ /g, "\u0001")); });
+  const lines = wrapWords(glued, 84).map((ln) => ln.replace(/\u0001/g, " "));
+  card.append(s("rect", { x: 20, y: 14, width: 600, height: 40 + lines.length * 22, rx: 8 }), s("text", { x: 36, y: 36, class: "st-kicker" }, "Student essay"));
+  const spans = [];
+  lines.forEach((ln, i) => {
+    const t = s("text", { x: 36, y: 62 + i * 22, class: "st-ci-text" });
+    let rest = ln;
+    // split each line around any of the error phrases it contains
+    while (rest.length) {
+      const hit = d.fixes.map((f, k) => ({ k, at: rest.indexOf(f.find) })).filter((h) => h.at >= 0).sort((a, b) => a.at - b.at)[0];
+      if (!hit) { t.append(document.createTextNode(rest)); break; }
+      if (hit.at) t.append(document.createTextNode(rest.slice(0, hit.at)));
+      const sp = s("tspan", { class: "fb-err" }, d.fixes[hit.k].find);
+      spans.push({ sp, k: hit.k });
+      t.append(sp);
+      rest = rest.slice(hit.at + d.fixes[hit.k].find.length);
+    }
+    card.append(t);
+  });
+  g.append(card);
+  const top = 14 + 40 + lines.length * 22 + 24;
+  const cards = d.fixes.map((f, k) => {
+    const y = top + k * 74;
+    const c = s("g", { class: "fb-card" });
+    c.append(s("rect", { x: 20, y, width: 600, height: 62, rx: 8 }), s("text", { x: 36, y: y + 24, class: "st-kicker" }, f.kind));
+    c.append(s("text", { x: 36, y: y + 47, class: "fb-old" }, f.find), s("text", { x: 300, y: y + 47, class: "fb-arrow" }, "becomes"), s("text", { x: 370, y: y + 47, class: "fb-new" }, f.fix));
+    g.append(c);
+    return c;
+  });
+  return (ms) => {
+    reveal(card, clamp01(ms / 380));
+    spans.forEach(({ sp, k }) => sp.classList.toggle("on", ms > 800 + k * 700));
+    cards.forEach((c, k) => reveal(c, clamp01((ms - 1000 - k * 700) / 320), 6));
+  };
+}
+
+/* MultiHint-9K: the generator, critic and refiner loops from the paper's Figure 1. */
+function slideHints(g) {
+  const d = LEARN.hints;
+  const nodes = [
+    { x: 20, y: 70, t: "Generator", sub: "writes Q and A" },
+    { x: 180, y: 70, t: "Critic", sub: "rates A, B or C" },
+    { x: 340, y: 70, t: "Hint architect", sub: "writes the hint" },
+    { x: 500, y: 70, t: "Hint critic", sub: "rates A, B or C" },
+  ];
+  g.append(s("text", { x: 20, y: 40, class: "st-kicker" }, "Three languages in parallel, 21 agents, from the paper's pipeline"));
+  const boxes = nodes.map((n) => {
+    const b = s("g", { class: "cw-box" });
+    b.append(s("rect", { x: n.x, y: n.y, width: 120, height: 64, rx: 8 }), s("text", { x: n.x + 60, y: n.y + 28, "text-anchor": "middle", class: "cw-box-t" }, n.t), s("text", { x: n.x + 60, y: n.y + 48, "text-anchor": "middle", class: "st-gloss" }, n.sub));
+    g.append(b);
+    return b;
+  });
+  const arrows = [[140, 180], [300, 340], [460, 500]].map(([a, b]) => { const p2 = s("path", { d: `M ${a} 102 H ${b - 6} M ${b - 12} 96 L ${b - 6} 102 L ${b - 12} 108`, class: "st-flow" }); g.append(p2); return p2; });
+  const loops = [[240, 80], [560, 400]].map(([from, to]) => {
+    const p2 = s("path", { d: `M ${from} 134 C ${from} 178, ${to} 178, ${to} 134`, class: "fb-loop" });
+    g.append(p2, s("text", { x: (from + to) / 2, y: 184, "text-anchor": "middle", class: "fb-loop-t" }, "B or C: refine and retry"));
+    return p2;
+  });
+  const stats = s("g", { class: "sl-card" });
+  stats.append(s("rect", { x: 20, y: 214, width: 600, height: 236, rx: 8 }), s("text", { x: 36, y: 240, class: "st-kicker" }, "Wikipedia articles in, verified tuples out"));
+  const max = Math.max(...d.articles.map((a) => a[1]));
+  const bars = d.articles.map(([lang, n], i) => {
+    const y = 262 + i * 40;
+    stats.append(s("text", { x: 36, y: y + 14, class: "st-clue-it" }, lang));
+    const bar = s("rect", { x: 120, y, width: 0, height: 18, rx: 3, class: "st-bar" });
+    const val = s("text", { x: 126, y: y + 14, class: "st-val" }, n.toLocaleString("en-US"));
+    stats.append(bar, val);
+    return { bar, val, w: (n / max) * 380 };
+  });
+  const out = s("text", { x: 36, y: 412, class: "cw-count sm" }, "");
+  stats.append(out, s("text", { x: 36, y: 436, class: "st-gloss" }, `QA-hint tuples kept. Without the critic, ${d.noCritic} of hints would contain errors.`));
+  g.append(stats);
+  return (ms) => {
+    boxes.forEach((b, i) => reveal(b, clamp01((ms - i * 260) / 300), 6));
+    arrows.forEach((a, i) => { a.style.opacity = clamp01((ms - 300 - i * 260) / 300); });
+    loops.forEach((l, i) => { l.style.opacity = clamp01((ms - 1200 - i * 300) / 400); });
+    reveal(stats, clamp01((ms - 1500) / 380));
+    bars.forEach((b, i) => { const t = ease(clamp01((ms - 1800 - i * 150) / 600)); b.bar.setAttribute("width", (b.w * t).toFixed(1)); b.val.setAttribute("x", (126 + b.w * t).toFixed(1)); });
+    const c = ease(clamp01((ms - 2600) / 900));
+    out.textContent = c > 0 ? Math.round(d.tuples * c).toLocaleString("en-US") : "";
+  };
+}
+
+/* Iterative ICL: evaluating a nested expression where + comes before *. */
+function slideICL(g) {
+  const d = LEARN.icl;
+  const rule = s("g", { class: "sl-tag" });
+  rule.append(s("rect", { x: 20, y: 18, width: 230, height: 28, rx: 14 }), s("text", { x: 135, y: 37, "text-anchor": "middle" }, `Rule: ${d.rule}`));
+  const expr = s("text", { x: 320, y: 110, class: "icl-expr", "text-anchor": "middle" }, d.expr);
+  g.append(rule, expr);
+  const steps = d.steps.map((st, i) => {
+    const y = 160 + i * 52;
+    const r = s("g", { class: "icl-step" });
+    r.append(s("rect", { x: 170, y, width: 300, height: 40, rx: 8 }), s("text", { x: 190, y: y + 26, class: "st-clue-n" }, String(i + 1)), s("text", { x: 320, y: y + 27, class: "icl-step-t", "text-anchor": "middle" }, st));
+    g.append(r);
+    return r;
+  });
+  const res = s("g");
+  res.append(s("text", { x: 320, y: 450, class: "cw-count", "text-anchor": "middle" }, `= ${d.result}`), s("text", { x: 320, y: 474, class: "st-gloss", "text-anchor": "middle" }, d.usual));
+  g.append(res);
+  return (ms) => {
+    reveal(rule, clamp01(ms / 300), 4);
+    expr.style.opacity = clamp01((ms - 200) / 400);
+    steps.forEach((r, i) => { reveal(r, clamp01((ms - 700 - i * 420) / 300), 6); r.classList.toggle("on", ms > 700 + i * 420 && ms < 700 + (i + 1) * 420 + 200); });
+    reveal(res, clamp01((ms - 700 - steps.length * 420) / 400), 6);
+  };
+}
+
+const LEARN_SLIDES = [
+  { paper: "Turkish quizzes", venue: "ISPR 2024", href: "https://arxiv.org/abs/2406.03397", task: "A quiz question generated from Turkish course material.", label: "a Turkish chemistry question with the correct option highlighted", build: slideQuiz, dur: 3600 },
+  { paper: "Syntax feedback", venue: "AIEER 2024", href: "https://arxiv.org/abs/2501.07740", task: "Feedback on a real student essay.", label: "a student essay with three errors found and corrected", build: slideEssay, dur: 3800 },
+  { paper: "MultiHint-9K", venue: "AIED 2026 workshops", href: "https://ceur-ws.org/Vol-4248/short11.pdf", task: "Agents that write, judge and repair hints.", label: "the generator, critic and refiner pipeline and the dataset counts", build: slideHints, dur: 4200 },
+  { paper: "Iterative ICL for algebra", venue: "ACM SAC 2026", href: "https://doi.org/10.1145/3748522.3779772", task: "A nested expression solved step by step, under a changed rule.", label: "the expression ((4 + 0) * (3 + 1) + (2 + 4)) evaluated in five steps to 40", build: slideICL, dur: 4000 },
+];
+
+function sceneLearning(mount, alive) { slideScene(mount, alive, LEARN_SLIDES); }
+
 /* ---------------- scene: the work as a graph ---------------- */
 function sceneGraph(mount) { buildGraph(mount); }
 
@@ -930,6 +1073,10 @@ const SCENES = [
     text: "My Ph.D. began with crossword clues: a clue has to be true, point to exactly one answer, and be worth solving. Ten papers, from Italian and Arabic to Turkish, English and French, one real example each; pick a paper above the scene to jump to it.",
     links: [{ href: "https://aclanthology.org/2024.lrec-main.297/", label: "Clue-Instruct" }, { href: "crossword.html", label: "Play the crossword" }],
     build: sceneCrossword2, hold: 42000 },
+  { id: "learn", tab: "Learning", sub: "Quizzes, hints, feedback", title: "Material a student can learn from",
+    text: "Quizzes, hints and writing feedback: material that helps a student learn, not just read. Four papers, one real example each; pick a paper above the scene to jump to it.",
+    links: [{ href: "https://ceur-ws.org/Vol-4248/short11.pdf", label: "MultiHint-9K" }, { href: "https://arxiv.org/abs/2501.07740", label: "Syntax feedback" }],
+    build: sceneLearning, hold: 16000 },
   { id: "measure", tab: "Measuring", sub: "Surprisal and difficulty", title: "How hard is a clue?",
     text: "How hard is a clue? Sixty people solved 160 Italian clues for us. The surprisal a model gives the answer tracked how hard they found it, so a generator can aim for an easy or a hard puzzle on purpose.",
     links: [{ href: "https://aclanthology.org/2025.clicit-1.50/", label: "CLiC-it 2025 paper" }, { href: "https://huggingface.co/datasets/Kamyar-zeinalipour/Crossword-Surprisal-IT", label: "The data" }],

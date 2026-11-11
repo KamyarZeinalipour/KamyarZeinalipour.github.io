@@ -817,3 +817,37 @@ export const CROSS = {
     { clue: "Opera divisa in tre cantiche: Inferno, Purgatorio e Paradiso", gloss: "A work in three canticles: Inferno, Purgatorio and Paradiso", hint: [6, 8], answer: "DIVINA COMMEDIA" },
   ],
 };
+
+/* Learning chapter: one real example per paper. English glosses are the author's. */
+export const LEARN = {
+  quiz: {
+    subject: "Kimya (chemistry), Nernst Eşitliği",
+    q: "Nernst Eşitliği hangi durumu hesaplamak için kullanılır?",
+    qGloss: "What is the Nernst equation used to calculate?",
+    options: [
+      { t: "Standart olmayan şartlardaki hücre potansiyelini", g: "The cell potential under non-standard conditions", ok: true },
+      { t: "Tepkime oranını", g: "The reaction quotient" },
+      { t: "Elektron sayısını", g: "The number of electrons" },
+    ],
+  },
+  essay: {
+    text: "Dear local newspaper, I think effects computers have on people are great learning skills because they give us time to chat with friends, helps us learn about the globe and keeps us out of troble! Thing about! Dont you think so? … Well now - there's a new way to chat the computer …",
+    fixes: [
+      { find: "troble!", kind: "Spelling", fix: "trouble" },
+      { find: "Thing about! Dont you think so?", kind: "Punctuation", fix: "Think about! Don't you think so?" },
+      { find: "chat the computer", kind: "Prepositions", fix: "chat on the computer" },
+    ],
+  },
+  hints: {
+    articles: [["English", 3421], ["Italian", 3800], ["Farsi", 3017]],
+    tuples: 9987,
+    noCritic: "about 33%",
+  },
+  icl: {
+    expr: "((4 + 0) * (3 + 1) + (2 + 4))",
+    steps: ["4 + 0 = 4", "3 + 1 = 4", "2 + 4 = 6", "4 + 6 = 10", "4 * 10 = 40"],
+    result: "40",
+    rule: "+ is evaluated before *",
+    usual: "With the usual rule, * first, the same expression gives 22.",
+  },
+};

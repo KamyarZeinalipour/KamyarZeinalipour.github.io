@@ -846,3 +846,21 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .cw-out text { font: 600 13px var(--sans); fill: var(--ink); }
 .cw-dot { fill: var(--accent); }
 .cw-dot.bad { fill: var(--ink-2); }
+
+/* learning slides */
+.fb-err { transition: fill 300ms ease; }
+.fb-err.on { fill: #c0392b; text-decoration: underline; font-weight: 700; }
+:root[data-theme="dark"] .fb-err.on { fill: #ff9b8a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .fb-err.on { fill: #ff9b8a; } }
+.fb-card rect { fill: var(--cell); stroke: var(--rule); }
+.fb-old { font: 400 14px var(--serif); fill: var(--ink-2); text-decoration: line-through; }
+.fb-arrow { font: 600 11px var(--sans); fill: var(--ink-2); }
+.fb-new { font: 600 14px var(--serif); fill: var(--accent); }
+.fb-loop { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 4 4; }
+.fb-loop-t { font: 600 11px var(--sans); fill: var(--accent); }
+.cw-count.sm { font-size: 26px; }
+.icl-expr { font: 600 26px var(--sans); fill: var(--ink); letter-spacing: 0.02em; }
+.icl-step rect { fill: var(--cell); stroke: var(--rule); transition: fill 250ms ease, stroke 250ms ease; }
+.icl-step-t { font: 600 16px var(--sans); fill: var(--ink); }
+.icl-step.on rect { fill: var(--accent-soft); stroke: var(--accent); }
+.sl-card .st-bar { fill: var(--accent); }
