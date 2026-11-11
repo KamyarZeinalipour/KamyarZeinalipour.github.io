@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kamyar Zeinalipour</title>
+<meta name="description" content="Kamyar Zeinalipour is a postdoctoral researcher at the University of Siena, building language models that generate study material in Italian, Arabic, Turkish, Farsi and Sindhi.">
+<link rel="icon" href="images/favicon.ico">
+<meta property="og:title" content="Kamyar Zeinalipour">
+<meta property="og:description" content="Language models that make study material, in languages that rarely get any. Papers, code and models from the University of Siena.">
+<meta property="og:type" content="profile">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/portrait.jpg">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  // Set the theme before first paint so the page never flashes the wrong one.
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="#top"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#papers">Papers</a>
+      <a href="#code">Code</a>
+      <a href="#about">About</a>
+    </nav>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Language models that make study material,
+          <span class="line2">in languages that rarely get any.</span></h1>
+        <p class="lede">I am <strong>Kamyar Zeinalipour</strong>, a postdoctoral researcher at DIISM,
+          University of Siena. I turn ordinary text into crosswords, quizzes, hints and writing
+          feedback that teachers can use, across Italian, Arabic, Turkish, Farsi, Sindhi and
+          English, and I measure whether what comes out is actually good.</p>
+
+        <ul class="id-row">
+          <li><a href="https://scholar.google.com/citations?user=RewxhZwAAAAJ">Google Scholar</a></li>
+          <li><a href="https://github.com/KamyarZeinalipour">GitHub</a></li>
+          <li><a href="https://huggingface.co/Kamyar-zeinalipour">Hugging Face</a></li>
+          <li><a href="https://www.linkedin.com/in/kamyarzeinalipour">LinkedIn</a></li>
+          <li><a href="https://orcid.org/0009-0006-3014-2511">ORCID</a></li>
+        </ul>
+
+        <p class="langs">
+          <b>Working languages of the research:</b>
+          <span lang="it">Italiano</span>
+          <span lang="ar">العربية</span>
+          <span lang="tr">Türkçe</span>
+          <span lang="fa">فارسی</span>
+          <span lang="sd">سنڌي</span>
+          <span lang="en">English</span>
+        </p>
+      </div>
+
+      <div class="puzzle-panel">
+        <div class="puzzle-head">
+          <h2 id="puzzle-title">A crossword about the research</h2>
+          <p>Pick a clue to light up its answer.</p>
+        </div>
+        <div class="board" id="board" role="img" aria-labelledby="puzzle-title" aria-describedby="puzzle-desc"></div>
+        <p id="puzzle-desc" class="visually-hidden">An eleven by nine crossword grid. Every answer is a word from this research. The clues below the grid give each answer and link to the paper or repository it refers to.</p>
+        <div class="clues" id="clues"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <h2 id="work-h">Four lines of work</h2>
+      <p class="band-intro">They share one question: can a language model produce material a teacher
+        would hand to a student without editing it first, and how would we know?</p>
+
+      <div class="lines">
+        <article class="line wide">
+          <div>
+            <h3>Study material, generated and checked</h3>
+            <p class="cite">Crosswords in
+              <a href="https://aclanthology.org/2024.clicit-1.110/">Italian</a>,
+              <a href="https://aclanthology.org/2023.arabicnlp-1.23/">Arabic</a> and
+              <a href="https://arxiv.org/abs/2405.07035">Turkish</a>.
+              Quizzes in <a href="https://arxiv.org/abs/2406.03397">Turkish</a>,
+              multiple-choice questions in <a href="https://aclanthology.org/2025.loreslm-1.27/">Persian</a>.</p>
+          </div>
+          <div>
+            <p>A crossword clue is a small, strict test of a generator: it has to be true, it has to
+              point at exactly one answer, and it has to be worth solving. I started there, with
+              Italian, then rebuilt the pipeline for Arabic and Turkish, where the puzzle conventions
+              and the morphology are not the same.</p>
+            <p>The same question carried into quizzes, Persian multiple-choice items, pedagogical
+              hints that help without giving the answer away, and syntax feedback on student essays.
+              Each one shipped with the data and the fine-tuned models, so the claim can be checked.</p>
+          </div>
+        </article>
+
+        <article class="line">
+          <h3>Benchmarks for languages that have none</h3>
+          <p>Most evaluation suites stop at English. I built commonsense benchmarks for
+            <a href="https://aclanthology.org/2025.ijcnlp-long.187/">Farsi</a> and
+            <a href="https://aclanthology.org/2025.wacl-1.1/">Arabic</a>, a dialogue benchmark
+            covering <a href="https://aclanthology.org/2025.arabicnlp-main.39/">Egyptian, Maghrebi
+            and Modern Standard Arabic</a>, and instruction data that gets
+            <a href="https://aclanthology.org/2026.loreslm-1.22/">Sindhi</a> models to reason in steps.</p>
+          <p class="cite">Every dataset and adapter is public.</p>
+        </article>
+
+        <article class="line">
+          <h3>Measuring what models really do</h3>
+          <p>Sixty people solved 160 Italian clues while we recorded how long each took. Clue
+            difficulty tracks the
+            <a href="https://aclanthology.org/2025.clicit-1.50/">surprisal a model assigns to the
+            answer</a>, which gives puzzle generators an objective dial instead of a setter's
+            instinct.</p>
+          <p>Related work asks where models break: plural nouns that have no singular, across
+            <a href="https://aclanthology.org/2026.eacl-long.308/">many languages at once</a>.</p>
+        </article>
+
+        <article class="line">
+          <h3>Science and industry</h3>
+          <p>The same fine-tuning methods, pointed at other data. Protein sequences designed with
+            <a href="https://aclanthology.org/2024.langmol-1.5/">language models</a>. Knowledge
+            graphs built from industrial text and
+            <a href="https://aclanthology.org/2026.acl-industry.140/">turned back into text</a> to
+            see what survived the round trip. Italian question answering over
+            <a href="https://aclanthology.org/2026.eacl-industry.70/">pharmaceutical regulatory
+            documents</a>.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="papers" aria-labelledby="papers-h">
+    <div class="wrap">
+      <h2 id="papers-h">Papers</h2>
+      <p class="band-intro" id="papers-intro">Counts below come from my
+        <a href="https://scholar.google.com/citations?user=RewxhZwAAAAJ">Google Scholar profile</a>,
+        read in November 2026.</p>
+
+      <figure class="figure">
+        <div id="chart-holder" style="aspect-ratio: 16 / 7; max-width: 40rem;"></div>
+        <figcaption id="chart-cap">Papers per year. Preprints are counted in the year Scholar lists
+          them. 2026 includes work published and in press.</figcaption>
+      </figure>
+
+      <fieldset class="filters" id="filters">
+        <legend>Filter by subject</legend>
+      </fieldset>
+
+      <div id="papers-out" aria-live="polite">
+        <p class="empty-note">Loading the publication list.</p>
+      </div>
+      <noscript>
+        <p class="empty-note">The publication list needs JavaScript. The full list is on
+          <a href="https://scholar.google.com/citations?user=RewxhZwAAAAJ">Google Scholar</a>.</p>
+      </noscript>
+    </div>
+  </section>
+
+  <section class="band" id="code" aria-labelledby="code-h">
+    <div class="wrap">
+      <h2 id="code-h">Code and models</h2>
+      <p class="band-intro">Each paper has one repository and one model collection, and the two link
+        to each other. Most released checkpoints are LoRA adapters, so the work can be reproduced
+        on a single GPU rather than a cluster.</p>
+      <div id="releases-out">
+        <p class="empty-note">Loading the release list.</p>
+      </div>
+      <noscript>
+        <p class="empty-note">This table needs JavaScript. Browse the repositories on
+          <a href="https://github.com/KamyarZeinalipour?tab=repositories">GitHub</a> and the model
+          collections on <a href="https://huggingface.co/Kamyar-zeinalipour">Hugging Face</a>.</p>
+      </noscript>
+    </div>
+  </section>
+
+  <section class="band band-alt" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <h2 id="about-h">About</h2>
+      <div class="about-grid">
+        <img class="portrait" src="images/portrait.jpg" width="560" height="560"
+             alt="Kamyar Zeinalipour, seated outdoors with a coffee." fetchpriority="low">
+        <div class="about-text">
+          <p>I finished my Ph.D. at the University of Siena in February 2026, supervised by Marco
+            Gori, and I stayed on at DIISM as a postdoctoral researcher with Marco Maggini. Before
+            Siena I studied applied mathematics here and applied statistics at the University of
+            Hormozgan, which is where the habit of checking a claim against data comes from.</p>
+          <p>I have spent stretches as a visiting researcher at the University of Massachusetts
+            Amherst, at Inria in Nice and at the University of Gothenburg, and I work as a
+            generative AI engineer at YUKAI! in Siena, where the research methods meet deadlines
+            and real users. I have supervised ten master's students through their theses.</p>
+          <p>If you want to collaborate on educational NLP, on a language that needs resources, or
+            on evaluation that goes beyond a leaderboard, write to me.</p>
+          <ul class="contact-links">
+            <li><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a></li>
+            <li><a href="https://sailab.diism.unisi.it/people/kamyar-zeinalipour">SAILab page</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="year-head" style="margin-top:2.5rem">Recent path</h3>
+      <ol class="path" id="path-out"></ol>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p>Built by hand. <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>
