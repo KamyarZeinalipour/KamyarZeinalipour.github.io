@@ -23,6 +23,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Bake the lists from assets/data.js into the HTML for crawlers.
+      - name: Prerender lists
+        run: |
+          python3 -m http.server 8731 >/dev/null 2>&1 &
+          sleep 2
+          CHROME=$(command -v google-chrome || command -v chromium) node .github/scripts/prerender.mjs .
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
