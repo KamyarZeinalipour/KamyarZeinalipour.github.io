@@ -593,6 +593,15 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .wg-node.paper circle { fill: var(--ink-2); }
 .wg-node.paper, .wg-node.topic, .wg-node.lang { cursor: pointer; }
 .wg-node.paper:hover circle { fill: var(--accent); }
+/* Open European LLMs (Villanova) is the lead line of work: amber node, amber label, model releases as diamonds */
+.wg-node.topic.lead circle { fill: var(--accent); }
+.wg-node.topic.lead .wg-label { fill: var(--accent); font-size: 17px; font-weight: 700; }
+.wg-node.release rect { fill: var(--accent); stroke: var(--paper); stroke-width: 1.5; transition: opacity 200ms ease; }
+.wg-node.release { cursor: pointer; }
+.wg-node.release:hover rect { fill: var(--ink); }
+.wg.focus .wg-node.on.release rect { fill: var(--accent); }
+.wg-key.topic.lead { border-color: var(--accent); color: var(--accent); }
+.wg-key.topic.lead[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--paper); }
 .wg-label { font: 600 15px var(--sans); fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
 .wg-node.lang .wg-label { font-weight: 500; fill: var(--ink-2); }
 .wg.focus .wg-node:not(.on), .wg.focus .wg-edge:not(.on) { opacity: 0.12; }
@@ -612,7 +621,7 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 @media (min-width: 62rem) { .built-grid.built-3 { grid-template-columns: repeat(3, 1fr); } }
 
 /* the graph scales with the column; keep its labels legible on phones */
-@media (max-width: 40rem) { .wg-label { font-size: 21px; } .wg-node.topic circle { r: 12px; } }
+@media (max-width: 40rem) { .wg-label { font-size: 21px; } .wg-node.topic circle { r: 12px; } .wg-node.topic.lead circle { r: 15px; } .wg-node.topic.lead .wg-label { font-size: 23px; } }
 
 /* ---------- home: the showcase, one scene per research area ---------- */
 .hero-solo h1 { max-width: 22ch; }
@@ -909,3 +918,9 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
   .sl-chip text, .sl-tag text, .st-tile text, .cal-val, .st-val, .st-rel, .st-simval, .st-verdict, .st-clue-n) { font-size: 12px; }
 .st-svg.narrow .cw-count.sm { font-size: 22px; }
 .st-svg.narrow .icl-expr { font-size: 20px; }
+
+/* Villanova: the lead chapter and its time line */
+.st-tab.lead .st-tab-title { color: var(--accent); }
+.vl-axis { stroke: var(--accent); stroke-width: 2; fill: none; }
+.vl-dot { fill: var(--accent); stroke: var(--paper-2); stroke-width: 3; }
+.vl-card.now rect { stroke: var(--accent); stroke-width: 1.6; }

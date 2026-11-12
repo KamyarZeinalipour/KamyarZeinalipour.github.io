@@ -2,7 +2,7 @@
    It plays a single tour through the scenes, then stops on the first one. Tabs
    jump to any scene, a button pauses or replays the tour, and under
    prefers-reduced-motion every scene is drawn in its finished state. */
-import { PROTEIN, SENSE, SURPRISAL, MSFT, CLUES, BENCH, CROSS, LEARN, CALAMITA, BANANAS } from "./data.js";
+import { PROTEIN, SENSE, SURPRISAL, MSFT, CLUES, BENCH, CROSS, LEARN, CALAMITA, BANANAS, VILLANOVA } from "./data.js";
 import { buildGraph } from "./graph.js";
 import { sceneProtein3D, sceneDrug3D } from "./mol3d.js";
 
@@ -111,7 +111,64 @@ function maskedLine(parent, x, y, text, cls, mask = [], on = "st-absurd") {
 }
 const reveal = (node, v, dy = 8) => { node.style.opacity = v; node.style.transform = `translateY(${((1 - ease(v)) * dy).toFixed(1)}px)`; };
 
-/* ---------------- Multi-SFT, five real examples (a slide in the Languages chapter) ---------------- */
+/* ---------------- Villanova: three releases, and my part in them ---------------- */
+function slideVillanova(g) {
+  const n = narrow();
+  const kick = wrapNarrow("Open models trained in Italy, for English, Italian, German, Spanish and French", 44);
+  kick.forEach((ln, k) => g.append(s("text", { x: pick(20, 8), y: 24 + k * 16, class: "st-kicker" }, ln)));
+  const top = 24 + (kick.length - 1) * 16;
+  // Wide: three cards on a time line. Narrow: the time line runs down the left edge.
+  const cw = n ? W - 36 : 186, wrapN = n ? 44 : 27;
+  const axisY = top + 40;
+  let y = n ? top + 24 : top + 64;
+  const cards = VILLANOVA.map((r, i) => {
+    const x = n ? 28 : 20 + i * 207;
+    const lines = wrapWords(r.what, wrapN);
+    const c = s("g", { class: `sl-card vl-card${i === VILLANOVA.length - 1 ? " now" : ""}` });
+    const rect = s("rect", { x, y, width: cw, height: 0, rx: 8 });
+    c.append(rect, s("text", { x: x + 14, y: y + 22, class: "st-kicker" }, r.when),
+             s("text", { x: x + 14, y: y + 44, class: "cw-box-t" }, r.name));
+    lines.forEach((ln, k) => c.append(s("text", { x: x + 14, y: y + 66 + k * 16, class: "st-gloss" }, ln)));
+    g.append(c);
+    const h = 66 + (lines.length - 1) * 16 + 16;
+    const dot = s("circle", { cx: n ? 14 : x + cw / 2, cy: n ? y + 18 : axisY, r: 6, class: "vl-dot" });
+    const card = { c, rect, h, dot, y };
+    if (n) y += h + 14;
+    return card;
+  });
+  const hMax = Math.max(...cards.map((c) => c.h));
+  cards.forEach((c) => c.rect.setAttribute("height", n ? c.h : hMax));
+  const axis = n
+    ? s("path", { d: `M 14 ${cards[0].y + 18} V ${cards[cards.length - 1].y + 18}`, class: "vl-axis" })
+    : s("path", { d: `M ${20 + cw / 2} ${axisY} H ${20 + 2 * 207 + cw / 2}`, class: "vl-axis" });
+  g.append(axis, ...cards.map((c) => c.dot));
+  const len = n ? cards[cards.length - 1].y - cards[0].y : 2 * 207;
+  axis.style.strokeDasharray = `${len} ${len}`;
+  // My part: the instruction data, counted up.
+  const d = VILLANOVA.find((r) => r.data).data;
+  const my = n ? y + 4 : top + 64 + hMax + 26;
+  const mine = s("g", { class: "sl-card out" });
+  const ml = wrapWords(`conversations of instruction data in ${d.name}, curated, deduplicated and language-checked, under ${d.license}.`, pick(76, 44));
+  const nl = wrapWords("Then Multi-SFT, our paper on permissively licensed instruction data, which all four Villanova2 models cite.", pick(76, 44));
+  const count = s("text", { x: TX(), y: my + 62, class: "cw-count" }, "0");
+  mine.append(s("rect", { x: L(), y: my, width: CW(), height: 74 + (ml.length + nl.length) * 16 + 14, rx: 8 }),
+              s("text", { x: TX(), y: my + 24, class: "st-kicker" }, "My part: the instruction data"), count);
+  ml.forEach((ln, k) => mine.append(s("text", { x: TX(), y: my + 84 + k * 16, class: "st-gloss" }, ln)));
+  nl.forEach((ln, k) => mine.append(s("text", { x: TX(), y: my + 84 + (ml.length + k) * 16 + 6, class: "st-gloss" }, ln)));
+  g.append(mine);
+  return (ms) => {
+    axis.style.strokeDashoffset = (len * (1 - ease(clamp01((ms - 200) / 1200)))).toFixed(1);
+    cards.forEach((c, i) => {
+      reveal(c.c, clamp01((ms - 300 - i * 450) / 380), 8);
+      c.dot.style.opacity = clamp01((ms - 300 - i * 450) / 250);
+    });
+    reveal(mine, clamp01((ms - 1800) / 380), 8);
+    const t = ease(clamp01((ms - 2000) / 1300));
+    count.textContent = Math.round(d.n * t).toLocaleString("en-US");
+  };
+}
+
+/* ---------------- Multi-SFT, five real examples ---------------- */
 function slideMSFT(g) {
   const x0 = pick(14, 4), cw = W - 2 * x0, tx = x0 + pick(16, 12), qx = x0 + pick(36, 30);
   let y = 10;
@@ -364,47 +421,41 @@ function sceneKG(mount, alive) {
   });
 }
 
-/* ---------------- scene: surprisal and clue difficulty ---------------- */
-function sceneMeasuring(mount, alive) {
-  const svg = stageSvg("Bars showing the surprisal Llama-3-8B assigns to the answers of eight Italian crossword clues, from lowest to highest, with each answer revealed in crossword tiles. English glosses are the author's.");
-  mount.append(svg);
+/* ---------------- surprisal and clue difficulty (a slide in the Measuring chapter) ---------------- */
+function slideSurprisal(g) {
   const kick = wrapWords("Surprisal of the answer, Llama-3-8B, low to high", pick(200, 44));
-  kick.forEach((ln, k) => svg.append(s("text", { x: pick(20, 8), y: 28 + k * 16, class: "st-kicker" }, ln)));
+  kick.forEach((ln, k) => g.append(s("text", { x: pick(20, 8), y: 28 + k * 16, class: "st-kicker" }, ln)));
   const rows = [...SURPRISAL].sort((a, b) => a.s - b.s);
   const max = Math.max(...rows.map((r) => r.s));
   const x = pick(20, 8), bx = pick(300, 8), bmax = pick(250, 120), ts = pick(15, 16), tstep = pick(17, 18);
   const items = rows.map((r, i) => {
     const y = pick(64 + i * 53, 28 + (kick.length - 1) * 16 + 36 + i * 64);
-    svg.append(s("text", { x, y, class: "st-clue-it", lang: "it" }, r.clue));
-    svg.append(s("text", { x, y: y + 17, class: "st-gloss" }, r.glossClue));
+    g.append(s("text", { x, y, class: "st-clue-it", lang: "it" }, r.clue));
+    g.append(s("text", { x, y: y + 17, class: "st-gloss" }, r.glossClue));
     const barY = pick(y - 14, y + 29);
     const bar = s("rect", { x: bx, y: barY, height: 14, width: 0, rx: 3, class: "st-bar" });
     const val = s("text", { x: bx + 6, y: barY + 11, class: "st-val" }, r.s.toFixed(1));
-    svg.append(bar, val);
+    g.append(bar, val);
     const tx0 = pick(300, W - 8 - r.answer.length * tstep + (tstep - ts)), ty = pick(y + 4, y + 27);
     const tiles = [...r.answer.toUpperCase()].map((ch, j) => {
-      const g = s("g", { class: "st-tile" });
-      g.append(s("rect", { x: tx0 + j * tstep, y: ty, width: ts, height: ts, rx: 2 }),
+      const tg = s("g", { class: "st-tile" });
+      tg.append(s("rect", { x: tx0 + j * tstep, y: ty, width: ts, height: ts, rx: 2 }),
                s("text", { x: tx0 + j * tstep + ts / 2, y: ty + pick(11.5, 12.5), "text-anchor": "middle" }, ch));
-      g.style.opacity = 0;
-      svg.append(g);
-      return g;
+      tg.style.opacity = 0;
+      g.append(tg);
+      return tg;
     });
     return { bar, val, tiles, w: (r.s / max) * bmax };
   });
-  fitHeight(svg);
-  run(alive, (ms) => {
-    items.forEach((it, i) => {
-      const t = ease(clamp01((ms - i * 130) / 700));
-      it.bar.setAttribute("width", (it.w * t).toFixed(1));
-      it.val.setAttribute("x", (bx + 6 + it.w * t).toFixed(1));
-      it.tiles.forEach((g, j) => {
-        const v = clamp01((ms - 1900 - i * 140 - j * 45) / 200);
-        g.style.opacity = v;
-        g.style.transform = `scaleY(${ease(v).toFixed(3)})`;
-      });
+  return (ms) => items.forEach((it, i) => {
+    const t = ease(clamp01((ms - i * 130) / 700));
+    it.bar.setAttribute("width", (it.w * t).toFixed(1));
+    it.val.setAttribute("x", (bx + 6 + it.w * t).toFixed(1));
+    it.tiles.forEach((tg, j) => {
+      const v = clamp01((ms - 1900 - i * 140 - j * 45) / 200);
+      tg.style.opacity = v;
+      tg.style.transform = `scaleY(${ease(v).toFixed(3)})`;
     });
-    return ms < 1900 + items.length * 140 + 600;
   });
 }
 
@@ -1240,24 +1291,30 @@ function slideBananas(g) {
   };
 }
 
-const LANG_SLIDES = [
+const LLM_SLIDES = [
+  { paper: "Villanova", venue: "Villanova.AI, 2025 to 2026", href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", task: "Three releases of open models for Europe's languages, and the instruction data I built.", label: "the Villanova 2512 Preview, Villanova-2B-2603 and Villanova2 releases on a time line, then 1,711,114 conversations of instruction data in Villanova-SFT-2603", build: slideVillanova, dur: 5200 },
   { paper: "Multi-SFT", venue: "arXiv 2026", href: "https://arxiv.org/abs/2610.22086", task: "Instruction data in Europe's languages, behind Villanova2.", label: "five real Multi-SFT examples in French, Italian, German, Spanish and English, each an instruction and its answer", build: slideMSFT, dur: 7400 },
+];
+function sceneLLM(mount, alive) { slideScene(mount, alive, LLM_SLIDES); }
+
+const MEASURE_SLIDES = [
+  { paper: "Surprisal and difficulty", venue: "CLiC-it 2025", href: "https://aclanthology.org/2025.clicit-1.50/", task: "Does a model's surprise at the answer track how hard people find the clue?", label: "the surprisal Llama-3-8B gives the answers of eight Italian clues, low to high, each answer in tiles", build: slideSurprisal, dur: 4200 },
   { paper: "CALAMITA", venue: "IJCoL 2026", href: "https://arxiv.org/abs/2512.04759", task: "A community benchmark for Italian.", label: "22 challenges and 95 subtasks grouped by the ability they test, with ECWCA under commonsense reasoning", build: slideCalamita, dur: 4200 },
   { paper: "Elections go bananas", venue: "EACL 2026", href: "https://aclanthology.org/2026.eacl-long.308/", task: "How a plural drifts away from its singular, read by LLMs in Italian, Russian and English corpora.", label: "eyelash and eyelashes, banana and bananas meaning crazy, and the Russian plural for elections, then the Italian rifiuti meaning waste appearing around 1930", build: slideBananas, dur: 5200 },
 ];
-function sceneLanguages2(mount, alive) { slideScene(mount, alive, LANG_SLIDES); }
+function sceneMeasure(mount, alive) { slideScene(mount, alive, MEASURE_SLIDES); }
 
 /* ---------------- scene: the work as a graph ---------------- */
 function sceneGraph(mount) { buildGraph(mount); }
 
 const SCENES = [
   { id: "work", tab: "The work", sub: "31 papers, connected", title: "Every paper, connected",
-    text: "Thirty-one papers, four lines of work, nine languages. This map shows how they connect: pick a language or a line of work, and the papers behind it light up.",
+    text: "Thirty-one papers and three Villanova releases, across five lines of work and nine languages. The Villanova work, open European LLMs, is in amber. Pick a language or a line of work, and the papers behind it light up.",
     links: [{ href: "publications.html", label: "All publications" }], build: sceneGraph, hold: 8000 },
-  { id: "langs", tab: "Languages", sub: "Three papers, Europe's languages", title: "Open models for Europe's languages",
-    text: "Most open models are strongest in English. At Villanova.AI we train them in Italy for Europe's own languages, starting from the data they learn from. Three papers: the instruction data, a community benchmark for Italian, and what LLMs can tell us about how words change.",
-    links: [{ href: "https://arxiv.org/abs/2610.22086", label: "Multi-SFT paper" }, { href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", label: "Villanova2" }],
-    build: sceneLanguages2, hold: 18000 },
+  { id: "llm", tab: "Open LLMs", sub: "Villanova, trained in Italy", title: "Open models for Europe's languages", lead: true,
+    text: "The biggest project I am part of. At Villanova.AI we train open language models in Italy for English, Italian, German, Spanish and French, with open weights and documented data. I built the instruction data for the first generation, and Multi-SFT, our paper on that kind of data, is cited by all four Villanova2 models.",
+    links: [{ href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", label: "Villanova2" }, { href: "https://arxiv.org/abs/2610.22086", label: "Multi-SFT paper" }],
+    build: sceneLLM, hold: 13500 },
   { id: "bench", tab: "Benchmarks", sub: "Six papers, six languages", title: "Benchmarks for languages that have none",
     text: "Before a model can be trusted in Arabic, Farsi or Sindhi, someone has to test it there. Each slide is a real item from one of the benchmarks I built, one paper at a time; pick a paper above the scene to jump to it.",
     links: [{ href: "https://huggingface.co/datasets/Kamyar-zeinalipour/ArabicSense", label: "ArabicSense" }, { href: "https://aclanthology.org/2025.ijcnlp-long.187/", label: "FarSense" }],
@@ -1270,10 +1327,10 @@ const SCENES = [
     text: "Quizzes, hints and writing feedback: material that helps a student learn, not just read. Four papers, one real example each; pick a paper above the scene to jump to it.",
     links: [{ href: "https://ceur-ws.org/Vol-4248/short11.pdf", label: "MultiHint-9K" }, { href: "https://arxiv.org/abs/2501.07740", label: "Syntax feedback" }],
     build: sceneLearning, hold: 16000 },
-  { id: "measure", tab: "Measuring", sub: "Surprisal and difficulty", title: "How hard is a clue?",
-    text: "How hard is a clue? Sixty people solved 160 Italian clues for us. The surprisal a model gives the answer tracked how hard they found it, so a generator can aim for an easy or a hard puzzle on purpose.",
-    links: [{ href: "https://aclanthology.org/2025.clicit-1.50/", label: "CLiC-it 2025 paper" }, { href: "https://huggingface.co/datasets/Kamyar-zeinalipour/Crossword-Surprisal-IT", label: "The data" }],
-    build: sceneMeasuring, hold: 6500 },
+  { id: "measure", tab: "Measuring", sub: "What models really do", title: "Measuring what models really do",
+    text: "What do models really do with language? Three papers: whether a model's surprise at an answer tracks how hard sixty people found 160 Italian clues, a community benchmark of 22 challenges for Italian, and what LLMs show about plurals that drift away from their singular.",
+    links: [{ href: "https://aclanthology.org/2025.clicit-1.50/", label: "CLiC-it 2025 paper" }, { href: "https://arxiv.org/abs/2512.04759", label: "CALAMITA" }],
+    build: sceneMeasure, hold: 14500 },
   { id: "protein", tab: "Proteins", sub: "Sequence to structure", title: "From a sentence to a fold",
     text: "To a language model, a protein is a sentence in a twenty-letter alphabet. In the paper, fine-tuned models write new sequences, AlphaFold 2 folds them, and pLDDT and TM-score judge the fold. Shown here: a real folded protein, coloured by position along the chain.",
     links: [{ href: "https://aclanthology.org/2024.langmol-1.5/", label: "Design proteins with LLMs" }, { href: "https://www.rcsb.org/structure/1UBQ", label: "PDB 1UBQ" }],
@@ -1331,7 +1388,7 @@ export function buildStage() {
 
   let current = -1, token = 0, timer = null, touring = false, visited = 0;
   const tabs = SCENES.map((sc, i) => {
-    const b = el("button", { type: "button", className: "st-tab", id: `st-tab-${sc.id}` });
+    const b = el("button", { type: "button", className: sc.lead ? "st-tab lead" : "st-tab", id: `st-tab-${sc.id}` });
     b.setAttribute("role", "tab");
     b.setAttribute("aria-controls", "st-panel");
     b.append(el("span", { className: "st-tab-title", textContent: sc.tab }),

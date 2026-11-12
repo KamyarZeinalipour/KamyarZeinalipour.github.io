@@ -3,7 +3,7 @@
    subjects and, where certain, its language. The layout is computed once with a
    small force simulation (seeded, so it is the same on every visit), then the
    graph assembles in a single orchestrated sequence and stays still. */
-import { PAPERS, TOPICS, LANGS, PAPER_LANGS } from "./data.js";
+import { PAPERS, TOPICS, LANGS, PAPER_LANGS, VILLANOVA, VILLANOVA_LANGS } from "./data.js";
 
 const NS = "http://www.w3.org/2000/svg";
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -31,8 +31,9 @@ function rng(seed) {
   };
 }
 
-const W = 640, H = 560, CX = W / 2, CY = H / 2;
-const ANCHOR = { edu: [190, 175], lang: [455, 175], ling: [190, 395], sci: [455, 395] };
+const W = 640, H = 600, CX = W / 2, CY = H / 2;
+// Open European LLMs sits on top, apart from the four research lines below it.
+const ANCHOR = { llm: [322, 70], edu: [180, 215], lang: [465, 215], ling: [190, 450], sci: [455, 450] };
 
 function buildModel() {
   const nodes = [];
@@ -42,7 +43,7 @@ function buildModel() {
 
   for (const [k, label] of Object.entries(TOPICS)) {
     const [x, y] = ANCHOR[k];
-    add({ id: `t:${k}`, kind: "topic", key: k, label, x, y, fixed: true });
+    add({ id: `t:${k}`, kind: "topic", key: k, label, x, y, fixed: true, lead: k === "llm" });
   }
   const used = new Set(Object.values(PAPER_LANGS).flat());
   const rand = rng(7);
@@ -51,6 +52,13 @@ function buildModel() {
     add({ id: `l:${k}`, kind: "lang", key: k, label: v.native, name: v.name,
       x: CX + (rand() - 0.5) * 200, y: CY + (rand() - 0.5) * 200 });
   }
+  // Villanova releases: model nodes on the Open European LLMs line, linked to their five languages.
+  VILLANOVA.forEach((r, i) => {
+    const n = add({ id: `r:${r.id}`, kind: "release", release: r,
+      x: ANCHOR.llm[0] + (i - 1) * 60, y: ANCHOR.llm[1] + 50 });
+    edges.push({ a: n, b: byId.get("t:llm"), kind: "topic" });
+    for (const l of VILLANOVA_LANGS) if (byId.has(`l:${l}`)) edges.push({ a: n, b: byId.get(`l:${l}`), kind: "lang" });
+  });
   PAPERS.forEach((p, i) => {
     const n = add({ id: `p:${i}`, kind: "paper", paper: p,
       x: CX + (rand() - 0.5) * 300, y: CY + (rand() - 0.5) * 300 });
@@ -71,8 +79,9 @@ function layout({ nodes, edges }) {
         const a = nodes[i], b = nodes[j];
         let dx = a.x - b.x, dy = a.y - b.y;
         let d2 = dx * dx + dy * dy || 0.01;
-        const big = a.kind !== "paper" && b.kind !== "paper";
-        const rep = (a.kind === "paper" && b.kind === "paper" ? 380 : big ? 5200 : 1400) / d2;
+        const heavy = (k) => k === "topic" || k === "lang";
+        const big = heavy(a.kind) && heavy(b.kind);
+        const rep = (!heavy(a.kind) && !heavy(b.kind) ? 380 : big ? 5200 : 1400) / d2;
         const d = Math.sqrt(d2);
         dx /= d; dy /= d;
         a.fx += dx * rep; a.fy += dy * rep;
@@ -105,7 +114,7 @@ function layout({ nodes, edges }) {
    label that overlaps another label moves its node clear, and a paper dot hidden
    under a label moves just outside it. Runs once the svg is in the page. */
 function untangle(nodes) {
-  const labelled = nodes.filter((n) => n.kind !== "paper");
+  const labelled = nodes.filter((n) => n.kind === "topic" || n.kind === "lang");
   const box = (n) => {
     const b = n.el.querySelector("text").getBBox();
     return { x: n.x + b.x - 4, y: n.y + b.y - 3, w: b.width + 8, h: b.height + 6, n };
@@ -113,9 +122,11 @@ function untangle(nodes) {
   const hit = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
   for (let pass = 0; pass < 8; pass++) {
     let moved = false;
-    const boxes = labelled.map(box);
+    // Labels, plus the circles of the lines of work, which a label must not cover.
+    const circles = nodes.filter((m) => m.kind === "topic").map((m) => ({ x: m.x - 16, y: m.y - 16, w: 32, h: 32, n: m }));
+    const boxes = [...labelled.map(box), ...circles];
     for (const a of boxes) {
-      if (a.n.kind !== "lang") continue;
+      if (a.n.kind !== "lang" || a.w === 32) continue;
       for (const b of boxes) {
         if (a === b || !hit(a, b)) continue;
         const up = a.y + a.h / 2 < b.y + b.h / 2;
@@ -128,7 +139,7 @@ function untangle(nodes) {
   }
   const boxes = labelled.map(box);
   for (const n of nodes) {
-    if (n.kind !== "paper") continue;
+    if (n.kind !== "paper" && n.kind !== "release") continue;
     for (const b of boxes) {
       if (n.x < b.x - 5 || n.x > b.x + b.w + 5 || n.y < b.y - 5 || n.y > b.y + b.h + 5) continue;
       n.y = n.y < b.y + b.h / 2 ? b.y - 7 : b.y + b.h + 7;
@@ -149,7 +160,7 @@ export function buildGraph(mount = $("#fig-graph")) {
   const svg = svgEl("svg", { viewBox: `${vx.toFixed(0)} ${vy.toFixed(0)} ${vw.toFixed(0)} ${vh.toFixed(0)}`, class: "wg", role: "img" });
   const langCount = nodes.filter((n) => n.kind === "lang").length;
   svg.setAttribute("aria-label",
-    `A graph of ${PAPERS.length} papers linked to ${Object.keys(TOPICS).length} lines of work and ${langCount} languages. Use the buttons below to highlight one of them.`);
+    `A graph of ${PAPERS.length} papers and ${VILLANOVA.length} Villanova model releases, linked to ${Object.keys(TOPICS).length} lines of work and ${langCount} languages. Open European LLMs, the Villanova work, is drawn on top in amber. Use the buttons below to highlight one of them.`);
 
   const gEdges = svgEl("g", { class: "wg-edges" });
   const gNodes = svgEl("g", { class: "wg-nodes" });
@@ -162,19 +173,26 @@ export function buildGraph(mount = $("#fig-graph")) {
 
   const status = el("p", { className: "wg-status" });
   status.setAttribute("aria-live", "polite");
-  const idle = `${PAPERS.length} papers, ${langCount} languages, ${Object.keys(TOPICS).length} lines of work. Pick one to see what connects.`;
+  const idle = `${PAPERS.length} papers, ${VILLANOVA.length} Villanova releases, ${langCount} languages, ${Object.keys(TOPICS).length} lines of work. Pick one to see what connects.`;
   status.textContent = idle;
 
   for (const n of nodes) {
-    const g = svgEl("g", { class: `wg-node ${n.kind}` });
+    const g = svgEl("g", { class: `wg-node ${n.kind}${n.lead ? " lead" : ""}` });
     n.el = g;
-    if (n.kind === "paper") {
+    if (n.kind === "release") {
+      // A model release: an amber diamond, larger than a paper dot.
+      g.append(svgEl("rect", { x: -6.5, y: -6.5, width: 13, height: 13, rx: 1.5, transform: "rotate(45)" }));
+      const say = `${n.release.name}, ${n.release.when}. ${n.release.what}`;
+      g.addEventListener("mouseenter", () => { status.textContent = say; });
+      g.addEventListener("mouseleave", () => { status.textContent = active ? active.msg : idle; });
+      g.addEventListener("click", () => { window.location.href = n.release.href; });
+    } else if (n.kind === "paper") {
       g.append(svgEl("circle", { r: 4.2 }));
       g.addEventListener("mouseenter", () => { status.textContent = `${n.paper.y}. ${n.paper.t}`; });
       g.addEventListener("mouseleave", () => { status.textContent = active ? active.msg : idle; });
       g.addEventListener("click", () => { window.location.href = `publications.html#${slug(n.paper)}`; });
     } else {
-      const r = n.kind === "topic" ? 10 : 7;
+      const r = n.lead ? 13 : n.kind === "topic" ? 10 : 7;
       g.append(svgEl("circle", { r }));
       let t;
       if (n.kind === "topic") {
@@ -203,9 +221,11 @@ export function buildGraph(mount = $("#fig-graph")) {
     svg.classList.add("focus");
     for (const m of nodes) m.el.classList.toggle("on", linked.has(m));
     for (const e of edges) e.el.classList.toggle("on", e.b === n);
-    const count = linked.size - 1;
+    const papers = [...linked].filter((m) => m.kind === "paper").length;
+    const releases = [...linked].filter((m) => m.kind === "release").length;
     const label = n.kind === "lang" ? n.name : n.label;
-    const msg = `${label}: ${count} ${count === 1 ? "paper" : "papers"}.`;
+    const msg = `${label}: ${papers} ${papers === 1 ? "paper" : "papers"}` +
+      (releases ? ` and ${releases} Villanova ${releases === 1 ? "release" : "releases"}.` : ".");
     status.textContent = msg;
     active = { node: n, msg };
     buttons.forEach((b, key) => b.setAttribute("aria-pressed", String(key === n.id)));
@@ -222,8 +242,8 @@ export function buildGraph(mount = $("#fig-graph")) {
   const row = el("div", { className: "wg-keys" });
   row.setAttribute("role", "group");
   row.setAttribute("aria-label", "Highlight a line of work or a language");
-  for (const n of nodes.filter((m) => m.kind !== "paper")) {
-    const b = el("button", { type: "button", className: `wg-key ${n.kind}` });
+  for (const n of nodes.filter((m) => m.kind === "topic" || m.kind === "lang")) {
+    const b = el("button", { type: "button", className: `wg-key ${n.kind}${n.lead ? " lead" : ""}` });
     b.textContent = n.kind === "lang" ? n.label : n.label;
     if (n.kind === "lang") { b.lang = n.key; b.title = n.name; }
     b.setAttribute("aria-pressed", "false");
@@ -257,8 +277,10 @@ export function buildGraph(mount = $("#fig-graph")) {
     return;
   }
   nodes.forEach((n) => place(n, CX, CY, 0));
-  const order = [...nodes.filter((n) => n.kind === "topic"), ...nodes.filter((n) => n.kind === "lang"), ...nodes.filter((n) => n.kind === "paper")];
-  const delay = new Map(order.map((n, i) => [n, n.kind === "topic" ? i * 90 : n.kind === "lang" ? 380 + i * 45 : 760 + i * 22]));
+  const kinds = ["topic", "release", "lang", "paper"];
+  const order = kinds.flatMap((k) => nodes.filter((n) => n.kind === k));
+  const startAt = { topic: 0, release: 300, lang: 420, paper: 800 }, gap = { topic: 90, release: 90, lang: 45, paper: 22 };
+  const delay = new Map(kinds.flatMap((k) => nodes.filter((n) => n.kind === k).map((n, i) => [n, startAt[k] + i * gap[k]])));
   const dur = 720;
   const ease = (t) => 1 - Math.pow(1 - t, 3);
   const total = Math.max(...delay.values()) + dur;

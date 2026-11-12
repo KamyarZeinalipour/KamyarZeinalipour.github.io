@@ -136,9 +136,11 @@ export const BUILT = [
   },
 ];
 
+/* Lines of work. Open European LLMs comes first: it is the largest piece of work. */
 export const TOPICS = {
+  llm: "Open European LLMs",
   edu: "Educational content",
-  lang: "Languages and benchmarks",
+  lang: "Multilingual benchmarks",
   sci: "Science and industry",
   ling: "Linguistics and evaluation",
 };
@@ -182,7 +184,7 @@ export const PAPERS = [
     code: "https://github.com/KamyarZeinalipour/TalkFa" },
   { y: 2026, t: "Multi-SFT: Permissively-Licensed Multilingual Instruction-Following",
     a: "D. Baiamonte, K. Zeinalipour, E. Fano, S. Simonazzi, A. Zugarini",
-    v: "Preprint, arXiv:2610.22086", c: 0, topics: ["lang"],
+    v: "Preprint, arXiv:2610.22086", c: 0, topics: ["llm"],
     hf: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa",
     link: "https://arxiv.org/abs/2610.22086" },
   { y: 2026, t: "Elections go bananas: A First Large-scale Multilingual Study of Pluralia Tantum using LLMs",
@@ -632,6 +634,21 @@ export const PROTEIN = {
   name: "Human insulin, B chain",
   seq: "FVNQHLCGSHLVEALYLVCGERGFFYTPKT",
 };
+
+/* Villanova releases (Villanova.AI). Facts as stated on the model cards and in BUILT above. */
+export const VILLANOVA = [
+  { id: "2512", name: "Villanova 2512 Preview", when: "December 2025", short: "Dec 2025",
+    what: "The first Villanova models: 2B, released as a preview, a month after I joined the team.",
+    href: "https://huggingface.co/collections/VillanovaAI/villanova-2512-preview-6953ffa8283974a6e0668070" },
+  { id: "2603", name: "Villanova-2B-2603", when: "2026", short: "2026",
+    what: "Base, instruction-tuned and vision-language 2B models, instruction-tuned on the data I built.",
+    data: { name: "Villanova-SFT-2603", n: 1711114, license: "Apache 2.0" },
+    href: "https://huggingface.co/collections/VillanovaAI/villanova-2603-69cbcb03a570c5feae0b91a1" },
+  { id: "v2", name: "Villanova2", when: "November 2026", short: "Nov 2026",
+    what: "A dense 2.4B and a 15.5B mixture of experts with 3.9B active, a 131k-token context, open weights and documented data. All four models cite Multi-SFT.",
+    href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa" },
+];
+export const VILLANOVA_LANGS = ["en", "it", "de", "es", "fr"];
 
 /* ---------- the work as a graph (home page) ----------
    Languages are linked to a paper only where the paper's language is certain.
