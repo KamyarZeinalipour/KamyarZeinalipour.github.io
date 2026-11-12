@@ -1369,7 +1369,9 @@ export function buildStage() {
 
   // Desktop: the story opens under its chapter, in a vertical list. Narrow screens:
   // the chapters are a grid and the story sits under it.
-  const wide = window.matchMedia("(min-width: 60rem)");
+  // In the split hero the chapters are a compact grid under the headline, so the story
+  // always opens under the grid instead of under its chapter.
+  const wide = root.classList.contains("split") ? { matches: false, addEventListener() {} } : window.matchMedia("(min-width: 60rem)");
   const placeStory = () => {
     list.setAttribute("aria-orientation", wide.matches ? "vertical" : "horizontal");
     if (current < 0) return;

@@ -926,3 +926,30 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .vl-axis { stroke: var(--accent); stroke-width: 2; fill: none; }
 .vl-dot { fill: var(--accent); stroke: var(--paper-2); stroke-width: 3; }
 .vl-card.now rect { stroke: var(--accent); stroke-width: 1.6; }
+
+/* ---------- home: split hero, headline on the left and the animated scene on the right ---------- */
+.hero-split { border-bottom: 1px solid var(--rule); }
+.stage.split { grid-template-areas: "text" "side" "main"; }
+.stage.split .hero-text { grid-area: text; }
+.stage.split .st-side { grid-area: side; }
+.stage.split .st-main { grid-area: main; }
+.stage.split .st-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.4rem, 1fr)); gap: 0.25rem; }
+.stage.split .st-tab { padding: 0.45rem 0.6rem 0.65rem; }
+.stage.split .st-tab-title { font-size: 1rem; }
+.stage.split .st-tab-sub { display: none; }
+.stage.split .st-prog { left: 0.6rem; right: 0.6rem; }
+.stage.split .st-story { padding: 0.8rem 0 0; }
+.stage.split .hero-text h1 { margin-bottom: 0.7rem; }
+@media (min-width: 60rem) {
+  .stage.split {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    grid-template-areas: "text main" "side main";
+    grid-template-rows: auto 1fr;
+    gap: 1.6rem 3rem;
+    align-items: start;
+  }
+  .stage.split .hero-text h1 { font-size: clamp(2rem, 1rem + 2.1vw, 3rem); text-wrap: balance; }
+  .stage.split .st-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stage.split .st-tab[aria-selected="true"] { border-radius: 6px; }
+  .stage.split .st-main { align-self: start; margin-top: -0.6rem; }
+}
