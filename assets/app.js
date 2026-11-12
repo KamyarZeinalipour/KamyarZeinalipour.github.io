@@ -14,7 +14,10 @@ const named = (href, text, label) => {
   return a;
 };
 /* h2 when the section has no heading of its own, h3 under one. */
-const level = (mount) => (mount.closest("section")?.querySelector("h2") ? "h3" : "h2");
+// h3 when the section already has its own h2 (one outside the mount, so the
+// prerendered copy inside it does not count), h2 otherwise.
+const level = (mount) => ([...(mount.closest("section")?.querySelectorAll("h2") || [])]
+  .some((h) => !mount.contains(h)) ? "h3" : "h2");
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const el = (tag, props = {}, kids = []) => {
@@ -546,6 +549,7 @@ function buildCerts() {
 function buildPath() {
   const ol = $("#path-out");
   if (!ol) return;
+  ol.replaceChildren(); // drop the prerendered copy
   for (const s of PATH) {
     const li = el("li");
     li.append(el("p", { className: "when", textContent: s.when }));

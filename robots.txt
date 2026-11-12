@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kamyarzeinalipour.github.io/sitemap.xml
