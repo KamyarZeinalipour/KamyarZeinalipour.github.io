@@ -418,7 +418,7 @@ export const UPDATES = [
     text: "Finished publishing seventeen research releases: every paper with code now has one repository and one model collection, cross-linked." },
   { when: "2026-09", date: "September 2026", page: "about.html#service", pageLabel: "Service",
     text: "At CLiC-it 2026 in Palermo I co-organised the Turing Hotel, a live Turing test in Italian where people and artificial agents share a table and try to tell each other apart, and the Villanova.AI team presented the Villanova-2B models." },
-  { when: "2026-07", date: "July 2026", page: "about.html", pageLabel: "About",
+  { when: "2026-08", date: "August 2026", page: "about.html", pageLabel: "About",
     text: "Started as a postdoctoral researcher at DIISM, University of Siena, with Marco Gori and Marco Maggini, alongside my work at Villanova.AI and YUKAI!." },
   { when: "2026-06", date: "June 2026", ref: "From Graph to Text and Back",
     text: "The round-trip knowledge graph work was presented at ACL 2026, in the industry track.",
@@ -502,7 +502,7 @@ export const CERTS = [
 ];
 
 export const PATH = [
-  { when: "Jul 2026 to now", what: "Postdoctoral researcher", where: "University of Siena, DIISM",
+  { when: "Aug 2026 to now", what: "Postdoctoral researcher", where: "University of Siena, DIISM",
     note: "Natural language processing for education and for languages with few resources, at SAILab with Marco Gori and Marco Maggini." },
   { when: "Nov 2025 to now", what: "AI engineer", where: "Villanova.AI, Cagliari",
     note: "Open language models for Europe's languages, part of the IPCEI-CIS European AI programme. Built Villanova-SFT-2603, the 1.71-million-conversation instruction dataset for the first-generation Villanova models, worked on Villanova-2B-2603, and was part of the team behind Villanova2." },
