@@ -101,6 +101,41 @@ function layout({ nodes, edges }) {
   }
 }
 
+/* Labels are measured at the size they are drawn (larger on phones). A language
+   label that overlaps another label moves its node clear, and a paper dot hidden
+   under a label moves just outside it. Runs once the svg is in the page. */
+function untangle(nodes) {
+  const labelled = nodes.filter((n) => n.kind !== "paper");
+  const box = (n) => {
+    const b = n.el.querySelector("text").getBBox();
+    return { x: n.x + b.x - 4, y: n.y + b.y - 3, w: b.width + 8, h: b.height + 6, n };
+  };
+  const hit = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+  for (let pass = 0; pass < 8; pass++) {
+    let moved = false;
+    const boxes = labelled.map(box);
+    for (const a of boxes) {
+      if (a.n.kind !== "lang") continue;
+      for (const b of boxes) {
+        if (a === b || !hit(a, b)) continue;
+        const up = a.y + a.h / 2 < b.y + b.h / 2;
+        a.n.y += up ? -(a.y + a.h - b.y) - 1 : b.y + b.h - a.y + 1;
+        moved = true;
+        break;
+      }
+    }
+    if (!moved) break;
+  }
+  const boxes = labelled.map(box);
+  for (const n of nodes) {
+    if (n.kind !== "paper") continue;
+    for (const b of boxes) {
+      if (n.x < b.x - 5 || n.x > b.x + b.w + 5 || n.y < b.y - 5 || n.y > b.y + b.h + 5) continue;
+      n.y = n.y < b.y + b.h / 2 ? b.y - 7 : b.y + b.h + 7;
+    }
+  }
+}
+
 export function buildGraph(mount = $("#fig-graph")) {
   if (!mount) return;
   const model = buildModel();
@@ -203,6 +238,16 @@ export function buildGraph(mount = $("#fig-graph")) {
   document.addEventListener("keydown", onKey);
 
   mount.append(svg, status, row);
+  untangle(nodes);
+  for (const e of edges) {
+    e.el.setAttribute("x1", e.a.x); e.el.setAttribute("y1", e.a.y);
+    e.el.setAttribute("x2", e.b.x); e.el.setAttribute("y2", e.b.y);
+  }
+  {
+    const xs2 = nodes.map((n) => n.x), ys2 = nodes.map((n) => n.y);
+    const x0 = Math.min(...xs2) - padX, y0 = Math.min(...ys2) - padY;
+    svg.setAttribute("viewBox", `${x0.toFixed(0)} ${y0.toFixed(0)} ${(Math.max(...xs2) - x0 + padX).toFixed(0)} ${(Math.max(...ys2) - y0 + padY + 24).toFixed(0)}`);
+  }
 
   // Assemble: topics, then languages, then papers fly out from the centre; edges last.
   const place = (n, x, y, s) => n.el.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s.toFixed(3)})`);

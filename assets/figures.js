@@ -1,7 +1,7 @@
 /* Figures for the research page. Each one runs only if its mount point exists.
    Motion plays once when the figure scrolls into view, can be replayed by the
    reader, and is skipped entirely under prefers-reduced-motion. */
-import { SENSE, SURPRISAL, PROTEIN, MULTI } from "./data.js";
+import { SENSE, SURPRISAL, PROTEIN, MSFT } from "./data.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const el = (tag, props = {}, kids = []) => {
@@ -18,44 +18,54 @@ const whenVisible = (node, fn) => {
   io.observe(node);
 };
 
-/* ---------- one instruction, five languages ---------- */
+/* ---------- Multi-SFT: five real examples, one per language ---------- */
+const LANG_NAMES = { fr: "French", it: "Italian", de: "German", es: "Spanish", en: "English" };
 function figMulti() {
   const mount = $("#fig-multi");
   if (!mount) return;
   const tabs = el("div", { className: "seg" });
   tabs.setAttribute("role", "group");
   tabs.setAttribute("aria-label", "Language");
+  const src = el("p", { className: "fig-progress" });
   const out = el("p", { className: "typed" });
-  out.setAttribute("aria-live", "polite");
+  const ans = el("p", { className: "typed-a" });
+  const live = el("div", {}, [src, out, ans]);
+  // Typing word by word would be read out word by word; announce the whole example once instead.
+  const say = el("p", { className: "visually-hidden" });
+  say.setAttribute("aria-live", "polite");
   let timer = null;
 
   const show = (item, btn) => {
     tabs.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-    out.lang = item.code.toLowerCase();
+    src.textContent = `${LANG_NAMES[item.lang]}, from ${item.src}`;
+    out.lang = ans.lang = item.lang;
+    ans.textContent = item.a;
     clearTimeout(timer);
-    const words = item.text.split(" ");
-    if (calm()) { out.textContent = item.text; return; }
+    if (calm()) { out.textContent = item.q; ans.classList.add("in"); return; }
+    ans.classList.remove("in");
+    const words = item.q.split(" ");
     out.textContent = "";
     let i = 0;
     const tick = () => {
       out.textContent = words.slice(0, ++i).join(" ");
-      if (i < words.length) timer = setTimeout(tick, 110);
+      if (i < words.length) timer = setTimeout(tick, 90);
+      else timer = setTimeout(() => ans.classList.add("in"), 250);
     };
     tick();
   };
 
-  MULTI.forEach((m, i) => {
-    const b = el("button", { type: "button", textContent: m.code, title: m.lang });
+  MSFT.forEach((m) => {
+    const b = el("button", { type: "button", textContent: m.code, title: LANG_NAMES[m.lang] });
     b.setAttribute("aria-pressed", "false");
-    b.setAttribute("aria-label", m.lang);
-    b.addEventListener("click", () => show(m, b));
+    b.setAttribute("aria-label", LANG_NAMES[m.lang]);
+    b.addEventListener("click", () => { show(m, b); say.textContent = `${LANG_NAMES[m.lang]}. ${m.q} ${m.a}`; });
     tabs.append(b);
-    if (i === 0) b.dataset.first = "1";
   });
-  mount.append(tabs, out);
-  out.textContent = MULTI[0].text;
-  tabs.querySelector("button").setAttribute("aria-pressed", "true");
-  whenVisible(mount, () => show(MULTI[0], tabs.querySelector("button")));
+  mount.append(tabs, live, say);
+  const first = () => tabs.querySelector("button");
+  show(MSFT[0], first());
+  if (!calm()) { clearTimeout(timer); out.textContent = MSFT[0].q; ans.classList.add("in"); }
+  whenVisible(mount, () => show(MSFT[0], first()));
 }
 
 /* ---------- ArabicSense: which one makes sense ---------- */

@@ -6,6 +6,15 @@ import { buildStage } from "./stage.js";
 const slug = (p) => (p.t.split(":")[0] + " " + p.y).toLowerCase()
   .normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
 const paperByRef = (ref) => PAPERS.find((p) => p.t.startsWith(ref));
+const shortTitle = (p) => p.t.split(":")[0];
+/* A link whose visible text is short ("Code") but whose accessible name says what it is for. */
+const named = (href, text, label) => {
+  const a = el("a", { href, textContent: text });
+  a.setAttribute("aria-label", label);
+  return a;
+};
+/* h2 when the section has no heading of its own, h3 under one. */
+const level = (mount) => (mount.closest("section")?.querySelector("h2") ? "h3" : "h2");
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const el = (tag, props = {}, kids = []) => {
@@ -47,6 +56,28 @@ function initTheme() {
   });
   systemDark.addEventListener("change", () => { if (!document.documentElement.dataset.theme) paint(); });
   paint();
+}
+
+/* ---------------- header on phones ---------------- */
+/* Hidden while scrolling down, back as soon as the reader scrolls up or tabs into it. */
+function initHeader() {
+  const head = $(".masthead");
+  if (!head) return;
+  const phone = window.matchMedia("(max-width: 40rem)");
+  let lastY = window.scrollY, queued = false;
+  const update = () => {
+    queued = false;
+    const y = window.scrollY;
+    if (!phone.matches || y < head.offsetHeight || head.contains(document.activeElement)) {
+      head.classList.remove("tucked");
+      lastY = y;
+      return;
+    }
+    if (y > lastY + 6) { head.classList.add("tucked"); lastY = y; }
+    else if (y < lastY - 6) { head.classList.remove("tucked"); lastY = y; }
+  };
+  window.addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+  head.addEventListener("focusin", () => head.classList.remove("tucked"));
 }
 
 /* ---------------- crossword: playable ---------------- */
@@ -249,9 +280,12 @@ function buildPuzzle() {
     PUZZLE.entries.forEach(solvedCheck);
     highlight(null);
     save();
-    announce("Cleared. Pick a clue, then type.");
+    announce(window.matchMedia("(pointer: coarse)").matches ? "Cleared. Tap a square or a clue, then type." : "Cleared. Pick a clue, then type.");
   });
 
+  if (status && window.matchMedia("(pointer: coarse)").matches) {
+    status.textContent = "Tap a square or a clue, then type.";
+  }
   restore();
   PUZZLE.entries.forEach(solvedCheck);
 }
@@ -265,7 +299,9 @@ function buildChart() {
   const years = [...counts.keys()].sort();
   const max = Math.max(...counts.values());
 
-  const W = 640, H = 280, padL = 8, padR = 8, padT = 34, padB = 34;
+  // Drawn at about the width it is shown at, so 11 to 12 px labels stay 11 to 12 px.
+  const narrow = holder.clientWidth < 480;
+  const W = narrow ? 360 : 640, H = narrow ? 230 : 280, padL = 8, padR = 8, padT = 34, padB = 34;
   const plotW = W - padL - padR, plotH = H - padT - padB;
   const band = plotW / years.length;
   const barW = Math.min(76, band * 0.52);
@@ -332,7 +368,7 @@ function buildPapers() {
     for (const p of list) {
       if (p.y !== year && !limit) {
         year = p.y;
-        ul.append(el("li", { className: "year-head", textContent: String(year) }));
+        ul.append(el("li", { className: "year-head" }, el("h2", { textContent: String(year) })));
       }
       const li = el("li", { className: "paper", id: slug(p) });
       const h = el("h3", {}, el("a", { href: p.link, textContent: p.t }));
@@ -340,10 +376,10 @@ function buildPapers() {
       if (p.c > 0) side.append(el("span", {
         className: "cites", textContent: `${p.c} ${p.c === 1 ? "citation" : "citations"}`,
       }));
-      if (p.code) side.append(el("a", { href: p.code, textContent: "Code" }));
-      if (p.hf) side.append(el("a", { href: p.hf, textContent: "Models" }));
+      if (p.code) side.append(named(p.code, "Code", `Code for ${shortTitle(p)}`));
+      if (p.hf) side.append(named(p.hf, "Models", `Models for ${shortTitle(p)}`));
       li.append(h, el("p", { className: "authors", textContent: p.a }),
-        el("p", { className: "meta", textContent: limit ? `${p.v}, ${p.y}` : p.v }), side);
+        el("p", { className: "meta", textContent: limit && !p.v.includes(String(p.y)) ? `${p.v}, ${p.y}` : p.v }), side);
       ul.append(li);
     }
     out.replaceChildren(ul);
@@ -384,7 +420,7 @@ function buildReleases() {
     tr.append(el("th", { scope: "row", textContent: r.name }));
     tr.append(el("td", { className: "what", textContent: r.what }));
     const links = el("td", { className: "links" });
-    links.append(el("a", { href: r.repo, textContent: "Code" }), el("a", { href: r.hf, textContent: "Models" }));
+    links.append(named(r.repo, "Code", `Code for ${r.name}`), named(r.hf, "Models", `Models for ${r.name}`));
     tr.append(links);
     body.append(tr);
   }
@@ -398,11 +434,12 @@ function buildBuilt() {
   if (!mount) return;
   const limit = Number(mount.dataset.limit || 0);
   const list = limit ? BUILT.slice(0, limit) : BUILT;
+  const h = level(mount);
   const frag = document.createDocumentFragment();
   for (const b of list) {
     const art = el("article", { className: "built" });
     art.append(el("p", { className: "kind", textContent: b.kind }));
-    art.append(el("h3", { textContent: b.name }));
+    art.append(el(h, { textContent: b.name }));
     art.append(el("p", { textContent: b.body }));
     art.append(linkList(b.links));
     frag.append(art);
@@ -424,7 +461,12 @@ function buildUpdates() {
   const mount = $("#updates-out");
   if (!mount) return;
   const limit = Number(mount.dataset.limit || 0);
-  const all = allUpdates();
+  let all = allUpdates();
+  const builtMount = $("#built-out");
+  if (limit && builtMount) {
+    const shown = new Set(BUILT.slice(0, Number(builtMount.dataset.limit || BUILT.length)).map((b) => b.name));
+    all = all.filter((u) => !shown.has(u.about));
+  }
   const list = limit ? all.slice(0, limit) : all;
   if (!list.length) {
     mount.replaceChildren(el("p", { className: "empty-note", textContent: "No updates yet." }));
@@ -519,6 +561,7 @@ function buildPath() {
 
 try {
   initTheme();
+  initHeader();
   buildPuzzle();
   buildChart();
   buildPapers();

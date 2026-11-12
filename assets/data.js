@@ -116,7 +116,7 @@ export const BUILT = [
     body: "Turns a time series into a graph, as a natural visibility, horizontal visibility or quantile graph, so that graph neural networks can classify signals such as ECGs. It came out of my master's thesis.",
     links: [
       { href: "https://pypi.org/project/ts2g/", label: "PyPI" },
-      { href: "https://github.com/k4my4r/ts2g", label: "Code" },
+      { href: "https://github.com/k4my4r/ts2g", label: "Code on GitHub" },
     ],
   },
   {
@@ -393,10 +393,10 @@ export const TEACHING = [
    BUILT a `news: { when, date, text }` field and it is added here automatically,
    on the updates page and in "Latest" on the home page. */
 export const UPDATES = [
-  { when: "2026-11-11", date: "11 November 2026", ref: "Multi-SFT",
+  { when: "2026-11-11", date: "11 November 2026", ref: "Multi-SFT", about: "Villanova2",
     text: "Villanova.AI released Villanova2: a dense 2.4B and a 15.5B mixture of experts for Europe's languages, with open weights and documented open data. All four models cite Multi-SFT, our paper on permissively licensed multilingual instruction data.",
     href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", hrefLabel: "The models" },
-  { when: "2026-11", date: "November 2026",
+  { when: "2026-11", date: "November 2026", about: "Tildea",
     text: "Tildea opened in early access: paste a job posting and it writes a resume for it from what you have really done, and leaves out anything you have not.",
     href: "https://tildea.ai", hrefLabel: "tildea.ai" },
   { when: "2026-11", date: "November 2026", page: "research.html#code", pageLabel: "All seventeen releases",
@@ -448,7 +448,7 @@ export const UPDATES = [
 /* Service, talks and certificates. Sources are in paper_releases/PROFILE_FACTS.md. */
 export const SERVICE = [
   { role: "Area chair, then reviewer", where: "ACL Rolling Review", when: "since 2024",
-    note: "Area chair for the March cycle; reviewer before and since." },
+    note: "Area chair in the March cycle; a reviewer since then." },
   { role: "Co-organiser, Turing Hotel", where: "CLiC-it 2026, Palermo", when: "Sep 2026",
     note: "A live, multi-party Turing test in Italian, built on UNaIVERSE: people and artificial agents at one table, each trying to tell the other apart." },
   { role: "Publicity co-chair", where: "AIML Systems 2025, Bengaluru", when: "Oct 2025",
@@ -632,16 +632,6 @@ export const PROTEIN = {
   name: "Human insulin, B chain",
   seq: "FVNQHLCGSHLVEALYLVCGERGFFYTPKT",
 };
-
-/* One instruction in the five languages Villanova2 covers. An illustration
-   written for this page, not an item from Multi-SFT. */
-export const MULTI = [
-  { code: "EN", lang: "English", text: "Explain in two sentences why the sky is blue." },
-  { code: "IT", lang: "Italiano", text: "Spiega in due frasi perché il cielo è blu." },
-  { code: "DE", lang: "Deutsch", text: "Erkläre in zwei Sätzen, warum der Himmel blau ist." },
-  { code: "ES", lang: "Español", text: "Explica en dos frases por qué el cielo es azul." },
-  { code: "FR", lang: "Français", text: "Explique en deux phrases pourquoi le ciel est bleu." },
-];
 
 /* ---------- the work as a graph (home page) ----------
    Languages are linked to a paper only where the paper's language is certain.
