@@ -21,7 +21,12 @@ const prof = fs.mkdtempSync(path.join(os.tmpdir(), "pre-prof-"));
 const chrome = spawn(CH, ["--headless=new", "--no-first-run", "--no-sandbox", "--remote-debugging-port=9334",
   `--user-data-dir=${prof}`, "about:blank"], { stdio: "ignore" });
 let tabs;
-for (let i = 0; i < 100; i++) { try { tabs = await (await fetch("http://127.0.0.1:9334/json/list")).json(); break; } catch { await sleep(200); } }
+// Chrome can be slow to start on a busy build machine: wait up to a minute for a page target.
+for (let i = 0; i < 300; i++) {
+  try { tabs = await (await fetch("http://127.0.0.1:9334/json/list")).json(); if (tabs.some((t) => t.type === "page")) break; } catch {}
+  await sleep(200);
+}
+if (!tabs || !tabs.some((t) => t.type === "page")) throw new Error("Chrome did not start within 60 seconds");
 const ws = new WebSocket(tabs.find((t) => t.type === "page").webSocketDebuggerUrl);
 await new Promise((r) => ws.addEventListener("open", r));
 let id = 0; const pending = new Map();
