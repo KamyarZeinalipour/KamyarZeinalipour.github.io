@@ -989,7 +989,8 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .wg.play .wg-node.grabbed circle, .wg.play .wg-node.grabbed rect { fill: var(--accent); }
 
 /* home graph: a fixed, comfortable size centred in its panel, so it never outgrows the text beside it */
-.home-graph #home-graph { width: min(100%, 46rem, calc(74vh * 1.12)); margin-inline: auto; }
+.home-graph #home-graph { width: min(100%, 34rem); margin-inline: auto; }
+@media (min-width: 60rem) { .home-graph #home-graph { width: min(100%, 46rem, calc(74vh * 1.12)); } }
 .home-graph figcaption { margin-inline: auto; }
 @media (min-width: 60rem) { .home-graph { align-items: center; } }
 /* hover card */
@@ -1004,3 +1005,12 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .wg-tip span { display: block; font-size: 0.82rem; color: var(--ink-2); margin-top: 0.2rem; line-height: 1.4; }
 .wg-tip small { display: block; font-size: 0.72rem; color: var(--accent); margin-top: 0.35rem; }
 @media (prefers-reduced-motion: reduce) { .wg-tip { transition: none; } }
+/* Balance on every screen: the text starts at the page column's left edge (where the menu starts) and the
+   graph ends at its right edge (where the header ends); only the panel colour runs to the screen edge.
+   Percent padding on a grid item is a share of its own column, so 100% - 36rem lands on the 72rem column. */
+@media (min-width: 60rem) {
+  .home-text { padding-left: max(var(--gut), calc(100% - 36rem + var(--gut))); padding-right: clamp(1.5rem, 3vw, 3rem); }
+  .home-graph { padding-left: clamp(1.5rem, 3vw, 3rem); padding-right: max(var(--gut), calc(100% - 36rem + var(--gut))); }
+  .home-graph #home-graph { width: min(100%, 46rem, calc(70vh * 1.12)); }
+  .home-hero-in { min-height: min(80vh, 48rem); }
+}
