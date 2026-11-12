@@ -29,7 +29,7 @@ const hasWebGL = () => {
 };
 
 /* teal, sea green, amber */
-const STOPS = [[18, 96, 106], [89, 165, 143], [224, 160, 60]];
+const STOPS = [[91, 58, 41], [168, 152, 138], [217, 105, 63]];
 function gradient(t) {
   const x = Math.max(0, Math.min(1, t)) * (STOPS.length - 1);
   const i = Math.min(STOPS.length - 2, Math.floor(x)), f = x - i;
@@ -154,9 +154,9 @@ export function sceneDrug3D(mount, alive, fallback) {
       v.addModel(pdb, "pdb");
       const first = 225, last = 498;
       v.setStyle({ hetflag: false }, { cartoon: { colorfunc: (a) => gradient((a.resi - first) / (last - first)), opacity: 0.78, thickness: 0.45 } });
-      v.setStyle({ resn: "STI" }, { stick: { color: "#e0a03c", radius: 0.32 }, sphere: { color: "#f0b454", scale: 0.3 } });
+      v.setStyle({ resn: "STI" }, { stick: { color: "#d9693f", radius: 0.32 }, sphere: { color: "#e8845a", scale: 0.3 } });
       v.addStyle({ byres: true, hetflag: false, within: { distance: 4.2, sel: { resn: "STI" } } },
-        { stick: { color: "#7d8f91", radius: 0.12 } });
+        { stick: { color: "#8a817a", radius: 0.12 } });
       // Frame the whole protein, centred on the drug, then move in a little.
       v.zoomTo();
       v.center({ resn: "STI" });
