@@ -72,7 +72,7 @@ function page(p, m, related) {
   ].filter(Boolean).join("\n");
   const ld = {
     "@context": "https://schema.org", "@type": "ScholarlyArticle", headline: p.t, name: p.t,
-    datePublished: m.date, url, description: m.summary,
+    datePublished: m.date, url, description: m.summary, image: `${SITE}/images/papers/${s}.jpg`,
     author: m.authors.map((a) => (a === ME ? { "@type": "Person", "@id": `${SITE}/#person`, name: a, url: `${SITE}/` } : { "@type": "Person", name: a })),
     isPartOf: { "@type": journal ? "Periodical" : "PublicationEvent", name: m.venue },
     ...(p.link ? { sameAs: [p.link] } : {}),
@@ -104,8 +104,12 @@ function page(p, m, related) {
 <meta property="og:type" content="article">
 <meta property="og:url" content="${url}">
 <meta property="og:site_name" content="Kamyar Zeinalipour">
-<meta property="og:image" content="${SITE}/images/og-card.jpg">
+<meta property="og:image" content="${SITE}/images/papers/${s}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(p.t)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/images/papers/${s}.jpg">
 ${scholar}
 <script type="application/ld+json">
 ${JSON.stringify(ld, null, 1).replace(/</g, "\\u003c")}
