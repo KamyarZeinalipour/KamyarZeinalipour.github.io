@@ -1348,6 +1348,9 @@ const SCENES = [
 export function buildStage() {
   const root = $("#stage");
   if (!root) return;
+  // a page can leave out scenes it already shows elsewhere: data-skip="work"
+  const skip = (root.dataset.skip || "").split(" ");
+  const SC = SCENES.filter((sc) => !skip.includes(sc.id));
 
   const side = el("div", { className: "st-side" });
   const list = el("div", { className: "st-list" });
@@ -1389,7 +1392,7 @@ export function buildStage() {
   });
 
   let current = -1, token = 0, timer = null, touring = false, visited = 0;
-  const tabs = SCENES.map((sc, i) => {
+  const tabs = SC.map((sc, i) => {
     const b = el("button", { type: "button", className: sc.lead ? "st-tab lead" : "st-tab", id: `st-tab-${sc.id}` });
     b.setAttribute("role", "tab");
     b.setAttribute("aria-controls", "st-panel");
@@ -1402,7 +1405,7 @@ export function buildStage() {
       const back = ev.key === "ArrowUp" || ev.key === "ArrowLeft";
       if (!fwd && !back) return;
       ev.preventDefault();
-      const j = (i + (fwd ? 1 : SCENES.length - 1)) % SCENES.length;
+      const j = (i + (fwd ? 1 : SC.length - 1)) % SC.length;
       stopTour(); show(j); tabs[j].focus();
     });
     list.append(b);
@@ -1412,7 +1415,7 @@ export function buildStage() {
   function show(i) {
     current = i;
     const my = ++token;
-    const sc = SCENES[i];
+    const sc = SC[i];
     tabs.forEach((b, j) => {
       b.setAttribute("aria-selected", String(j === i));
       b.tabIndex = j === i ? 0 : -1;
@@ -1448,18 +1451,18 @@ export function buildStage() {
   function next() {
     if (!touring) return;
     visited++;
-    if (visited >= SCENES.length) { stopTour(); show(0); return; }
-    show((current + 1) % SCENES.length);
-    timer = setTimeout(next, SCENES[current].hold);
+    if (visited >= SC.length) { stopTour(); show(0); return; }
+    show((current + 1) % SC.length);
+    timer = setTimeout(next, SC[current].hold);
   }
   function startTour(from) {
     touring = true; visited = 0; paintTour();
     show(from);
-    timer = setTimeout(next, SCENES[from].hold);
+    timer = setTimeout(next, SC[from].hold);
   }
   tour.addEventListener("click", () => {
     if (touring) stopTour();
-    else startTour(current >= 0 ? (current + 1) % SCENES.length : 0);
+    else startTour(current >= 0 ? (current + 1) % SC.length : 0);
   });
   document.addEventListener("visibilitychange", () => { if (document.hidden && touring) stopTour(); });
 

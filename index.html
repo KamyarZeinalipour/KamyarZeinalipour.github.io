@@ -135,27 +135,14 @@
 
 <main id="main">
 
-  <section class="hero hero-top hero-split" aria-labelledby="hero-h">
-    <div class="wrap">
-      <!-- left: the headline, then the chapters of the work; right: the animated scene -->
-      <div id="stage" class="stage split">
-        <div class="hero-text">
-          <h1 id="hero-h">Language models for Europe's languages,
-            <span class="line2">and for the ones with almost no data at all.</span></h1>
-          <p class="hero-also">Also in classrooms, protein design and gas turbines.</p>
-          <p class="role-line">Kamyar Zeinalipour, University of Siena and Villanova.AI.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band intro" aria-labelledby="intro-h">
-    <div class="wrap">
-      <h2 id="intro-h" class="visually-hidden">Introduction</h2>
-        <p class="lede">I work on open models and the data that makes them useful: the
-          multilingual instruction data behind an open European LLM, benchmarks for languages that
-          have none, study material a teacher can hand to a student, and models pointed at proteins and
-          industrial plant data.</p>
+  <section class="hero home-hero" aria-labelledby="hero-h">
+    <div class="wrap home-hero-in">
+      <div class="home-text">
+        <h1 id="hero-h">Language models for Europe's languages,
+          <span class="line2">and for the ones with almost no data at all.</span></h1>
+        <p class="hero-also">Also in classrooms, protein design and gas turbines.</p>
+        <p class="role-line">Kamyar Zeinalipour, postdoctoral researcher at the University of Siena and AI engineer at Villanova.AI.</p>
+        <p class="home-go"><a class="go-main" href="research.html">See the research</a><a href="publications.html">Publications</a></p>
         <ul class="id-row">
           <li><a href="https://scholar.google.com/citations?user=RewxhZwAAAAJ">Google Scholar</a></li>
           <li><a href="https://github.com/KamyarZeinalipour">GitHub</a></li>
@@ -163,45 +150,32 @@
           <li><a href="https://www.linkedin.com/in/kamyarzeinalipour">LinkedIn</a></li>
           <li><a href="https://orcid.org/0009-0006-3014-2511">ORCID</a></li>
         </ul>
-        <p class="counts">Public and reproducible:
-          <a href="https://huggingface.co/Kamyar-zeinalipour">95 models and 88 datasets on Hugging
-          Face</a>, <a href="https://github.com/KamyarZeinalipour?tab=repositories">35 repositories
-          on GitHub</a>, counted in November 2026.</p>
-    </div>
-  </section>
-
-  <section class="band" aria-labelledby="sel-h">
-    <div class="wrap">
-      <h2 id="sel-h">Selected work</h2>
-      <div id="built-out" class="built-grid built-3" data-limit="3">
-        <!-- prerendered from data.js; app.js redraws it -->
-        <article class="built"><p class="kind">Open European language models, Villanova.AI, November 2026</p><h3>Villanova2</h3><p>The second generation of Villanova, released in November 2026: a dense 2.4B and a 15.5B mixture of experts with 3.9B active parameters, a 131k-token context, and base, instruction-tuned and vision-language versions, for English, Italian, German, Spanish and French. Open weights and documented open data. All four cite Multi-SFT, our paper on permissively licensed multilingual instruction data.</p><p class="cite links"><a href="https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa">Villanova2 models</a> <a href="https://arxiv.org/abs/2610.22086">Multi-SFT paper</a></p></article><article class="built"><p class="kind">Product I run</p><h3>Tildea</h3><p>Paste a job posting and Tildea writes a resume for it from your own profile, then checks every claim against what you actually said you have done and removes anything you did not. It scores the result the way an applicant tracking system reads it, and handles cover letters and interview prep for the same job.</p><p class="cite links"><a href="https://tildea.ai">tildea.ai</a></p></article><article class="built"><p class="kind">Open European language models, Villanova.AI, 2025 to 2026</p><h3>Villanova, first generation</h3><p>The first Villanova models: a 2B model released as a preview in December 2025 and as Villanova-2B-2603 in March 2026, with base, instruction-tuned and vision-language versions for the same five languages. I built Villanova-SFT-2603, its instruction-tuning data: 1,711,114 conversations, curated, deduplicated and language-checked, released under Apache 2.0.</p><p class="cite links"><a href="https://huggingface.co/collections/VillanovaAI/villanova-2603-69cbcb03a570c5feae0b91a1">Villanova-2B-2603</a> <a href="https://huggingface.co/datasets/VillanovaAI/villanova-sft-2603">Villanova-SFT-2603 dataset</a> <a href="https://huggingface.co/collections/VillanovaAI/villanova-2512-preview-6953ffa8283974a6e0668070">2512 Preview</a></p></article>
       </div>
-      <p class="cite"><a href="projects.html">All projects</a></p>
+      <figure class="home-graph">
+        <div id="home-graph"></div>
+        <figcaption>Thirty-one papers and the nine languages they work in. Point at a language or a line of work to see what connects.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="band band-alt" aria-labelledby="latest-h">
-    <div class="wrap">
-      <h2 id="latest-h">Latest</h2>
-      <div id="updates-out" data-limit="4">
+  <section class="band home-two" aria-label="Latest news and recent papers">
+    <div class="wrap two-col">
+      <div>
+        <h2 id="latest-h">Latest</h2>
+        <div id="updates-out" data-limit="3">
         <!-- prerendered from data.js; app.js redraws it -->
         <ol class="updates"><li><p class="when">November 2026</p><div><p>Finished publishing seventeen research releases: every paper with code now has one repository and one model collection, cross-linked.</p><p class="cite links"><a href="research.html#code">All seventeen releases</a></p></div></li><li><p class="when">September 2026</p><div><p>At CLiC-it 2026 in Palermo I co-organised the Turing Hotel, a live Turing test in Italian where people and artificial agents share a table and try to tell each other apart, and the Villanova.AI team presented the Villanova-2B models.</p><p class="cite links"><a href="about.html#service">Service</a></p></div></li><li><p class="when">August 2026</p><div><p>Started as a postdoctoral researcher at DIISM, University of Siena, with Marco Gori and Marco Maggini, alongside my work at Villanova.AI and YUKAI!.</p><p class="cite links"><a href="about.html">About</a></p></div></li><li><p class="when">July 2026</p><div><p>Taught Large Language Models for Developers at Zucchetti: twenty hours in English, from the transformer to production systems, with a lab for every lecture.</p><p class="cite links"><a href="teaching.html">Teaching</a> <a href="https://github.com/KamyarZeinalipour/zucchetti-llm-course">The course</a></p></div></li></ol>
       </div>
-      <p class="cite"><a href="updates.html">Everything, in order</a></p>
-    </div>
-  </section>
-
-  <section class="band" aria-labelledby="recent-h">
-    <div class="wrap">
-      <h2 id="recent-h">Recent papers</h2>
-      <p class="band-intro">Thirty-one in total, across educational NLP, multilingual benchmarks,
-        evaluation, and applications in science and industry.</p>
-      <div id="papers-out" data-limit="5">
+        <p class="cite"><a href="updates.html">All updates</a></p>
+      </div>
+      <div>
+        <h2 id="recent-h">Recent papers</h2>
+        <div id="papers-out" data-limit="3">
         <!-- prerendered from data.js; app.js redraws it -->
         <ul class="papers"><li class="paper" id="multihint-9k-2026"><h3><a href="https://ceur-ws.org/Vol-4248/short11.pdf">MultiHint-9K: Orchestrating Human and AI Agency for Scalable Pedagogical Hint Generation</a></h3><p class="authors">K. Zeinalipour, A. Sadeghi, G. Angelini, L. Rigutini, M. Gori, M. Maggini</p><p class="meta">AIED 2026 workshops, CEUR 4248</p><div class="side"><a href="https://github.com/KamyarZeinalipour/MultiHint-9K" aria-label="Code for MultiHint-9K">Code</a><a href="https://huggingface.co/collections/Kamyar-zeinalipour/multihint-9k-aied-2026-6af4875966cf330a922a1d87" aria-label="Models for MultiHint-9K">Models</a></div></li><li class="paper" id="pharmaqa-it-2026"><h3><a href="https://aclanthology.org/2026.eacl-industry.70/">PharmaQA.IT: an Italian dataset for Q&amp;A in the pharmaceutical domain</a></h3><p class="authors">K. Zeinalipour, A. Zugarini, A. Zanollo, L. Rigutini</p><p class="meta">EACL 2026, industry track</p><div class="side"><a href="https://github.com/KamyarZeinalipour/PharmaQA.IT" aria-label="Code for PharmaQA.IT">Code</a><a href="https://huggingface.co/collections/Kamyar-zeinalipour/pharmaqait-eacl-2026-6af48b09756c4d246ff52887" aria-label="Models for PharmaQA.IT">Models</a></div></li><li class="paper" id="enabling-structured-reasoning-in-sindhi-with-culturally-grou"><h3><a href="https://aclanthology.org/2026.loreslm-1.22/">Enabling Structured Reasoning in Sindhi with Culturally Grounded Instruction Tuning</a></h3><p class="authors">M. Mehak, K. Zeinalipour, P. Soomro, C. Chesi, M. Gori, M. Maggini</p><p class="meta">LoResLM 2026</p><div class="side"><a href="https://github.com/KamyarZeinalipour/Sindhi-Reasoning" aria-label="Code for Enabling Structured Reasoning in Sindhi with Culturally Grounded Instruction Tuning">Code</a><a href="https://huggingface.co/collections/Kamyar-zeinalipour/sindhi-reasoning-instruct-loreslm-2026-6af467d9e0f19e13ad2d14c0" aria-label="Models for Enabling Structured Reasoning in Sindhi with Culturally Grounded Instruction Tuning">Models</a></div></li><li class="paper" id="from-graph-to-text-and-back-2026"><h3><a href="https://aclanthology.org/2026.acl-industry.140/">From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs</a></h3><p class="authors">K. Zeinalipour, S. Severini, A. Borghini, S. Cardarelli, M. Maggini, M. Gori</p><p class="meta">ACL 2026, industry track</p><div class="side"><span class="cites">1 citation</span><a href="https://github.com/KamyarZeinalipour/round-trip-kg" aria-label="Code for From Graph to Text and Back">Code</a><a href="https://huggingface.co/collections/Kamyar-zeinalipour/from-graph-to-text-and-back-acl-2026-6af4841166cf330a92294b6c" aria-label="Models for From Graph to Text and Back">Models</a></div></li><li class="paper" id="pharmistral-2026"><h3><a href="https://doi.org/10.1016/j.cmpbup.2026.100257">PharMistral: Drug generation for novel protein targets by Mistral Large Language Model</a></h3><p class="authors">A. Bendjeddou, K. Zeinalipour, D. Bardou, M. Maggini, F. Scarselli, M. Bianchini</p><p class="meta">Computer Methods and Programs in Biomedicine Update 10, 2026</p><div class="side"><span class="cites">1 citation</span><a href="https://github.com/KamyarZeinalipour/PharMistral" aria-label="Code for PharMistral">Code</a><a href="https://huggingface.co/collections/Kamyar-zeinalipour/pharmistral-cmpb-update-2026-6af48fca521e8481db608782" aria-label="Models for PharMistral">Models</a></div></li></ul>
       </div>
-      <p class="cite"><a href="publications.html">All thirty-one papers</a></p>
+        <p class="cite"><a href="publications.html">All thirty-one papers</a></p>
+      </div>
     </div>
   </section>
 </main>
