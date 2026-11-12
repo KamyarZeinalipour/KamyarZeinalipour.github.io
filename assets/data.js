@@ -374,6 +374,16 @@ export const RELEASES = [
 /* Teaching and supervision. */
 export const TEACHING = [
   {
+    role: "Lecturer, Large Language Models for Developers",
+    where: "Zucchetti",
+    when: "July 2026",
+    body: "A 20-hour course in English for software developers: ten two-hour lectures from the transformer to production systems, through prompt engineering, retrieval-augmented generation, graph RAG, agents, evaluation, LoRA fine-tuning and multimodal models. Every lecture has a hands-on lab; slides, labs and solutions are public.",
+    links: [
+      { href: "https://kamyarzeinalipour.github.io/zucchetti-llm-course/", label: "Course site and slides" },
+      { href: "https://github.com/KamyarZeinalipour/zucchetti-llm-course", label: "Labs on GitHub" },
+    ],
+  },
+  {
     role: "Teaching assistant, Machine Learning",
     where: "University of Siena",
     when: "Oct 2022 to Feb 2026",
@@ -395,6 +405,9 @@ export const TEACHING = [
    BUILT a `news: { when, date, text }` field and it is added here automatically,
    on the updates page and in "Latest" on the home page. */
 export const UPDATES = [
+  { when: "2026-07", date: "July 2026", page: "teaching.html", pageLabel: "Teaching",
+    text: "Taught Large Language Models for Developers at Zucchetti: twenty hours in English, from the transformer to production systems, with a lab for every lecture.",
+    href: "https://github.com/KamyarZeinalipour/zucchetti-llm-course", hrefLabel: "The course" },
   { when: "2026-11-11", date: "11 November 2026", ref: "Multi-SFT", about: "Villanova2",
     text: "Villanova.AI released Villanova2: a dense 2.4B and a 15.5B mixture of experts for Europe's languages, with open weights and documented open data. All four models cite Multi-SFT, our paper on permissively licensed multilingual instruction data.",
     href: "https://huggingface.co/collections/VillanovaAI/villanova2-6adf59f613d86d7ccbd654fa", hrefLabel: "The models" },

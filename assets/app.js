@@ -504,6 +504,7 @@ function buildTeaching() {
       el("span", { className: "where", textContent: t.where }),
     ]));
     right.append(el("p", { textContent: t.body }));
+    if (t.links) right.append(linkList(t.links));
     li.append(right);
     ol.append(li);
   }
