@@ -972,3 +972,18 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 @media (min-width: 60rem) { .two-col { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 .home-two .papers .authors { display: none; }
 .home-two .updates li { grid-template-columns: 1fr; gap: 0.2rem; }
+
+/* home hero, full width like the SAILab site: text on the left half, the graph on a panel that runs to the right edge */
+.home-hero { padding: 0; }
+.home-hero-in { display: grid; gap: 0; }
+.home-text { padding: clamp(2rem, 6vw, 3rem) var(--gut) 2rem; }
+.home-graph { background: var(--paper-2); border-top: 1px solid var(--rule); padding: 1.5rem var(--gut) 1.75rem; }
+@media (min-width: 60rem) {
+  .home-hero-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(86vh, 52rem); align-items: stretch; }
+  .home-text { align-self: center; padding: 4rem 3.5rem 4rem max(var(--gut), calc((100vw - 72rem) / 2 + var(--gut))); }
+  .home-graph { border-top: 0; border-left: 1px solid var(--rule); display: flex; flex-direction: column; justify-content: center; padding: 2.5rem clamp(1.5rem, 4vw, 4.5rem); }
+  .home-graph figcaption { align-self: center; text-align: center; }
+}
+.wg.play .wg-node { cursor: grab; touch-action: none; }
+.wg.play .wg-node.grabbed { cursor: grabbing; }
+.wg.play .wg-node.grabbed circle, .wg.play .wg-node.grabbed rect { fill: var(--accent); }

@@ -581,7 +581,7 @@ try {
   buildCerts();
   buildFigures();
   buildStage();
-  if ($("#home-graph")) buildGraph($("#home-graph"));
+  if ($("#home-graph")) buildGraph($("#home-graph"), { play: true });
 } catch (err) {
   console.error(err);
   const msg = () => {

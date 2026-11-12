@@ -147,7 +147,7 @@ function untangle(nodes) {
   }
 }
 
-export function buildGraph(mount = $("#fig-graph")) {
+export function buildGraph(mount = $("#fig-graph"), opts = {}) {
   if (!mount) return;
   const model = buildModel();
   layout(model);
@@ -271,6 +271,85 @@ export function buildGraph(mount = $("#fig-graph")) {
 
   // Assemble: topics, then languages, then papers fly out from the centre; edges last.
   const place = (n, x, y, s) => n.el.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s.toFixed(3)})`);
+
+  /* Play: once assembled, nodes can be dragged (their links stretch, and they spring
+     back when let go), and nearby nodes lean away from the pointer. The node under the
+     pointer stays still, so it can always be clicked. Off under reduced motion. */
+  function enablePlay() {
+    svg.classList.add("play");
+    for (const n of nodes) { n.hx = n.x; n.hy = n.y; n.vx = 0; n.vy = 0; }
+    const rest = new Map(edges.map((e) => [e, Math.hypot(e.b.x - e.a.x, e.b.y - e.a.y)]));
+    let ptr = null, drag = null, running = false;
+    const toSvg = (ev) => new DOMPoint(ev.clientX, ev.clientY).matrixTransform(svg.getScreenCTM().inverse());
+    const drawEdges = () => {
+      for (const e of edges) {
+        e.el.setAttribute("x1", e.a.x.toFixed(1)); e.el.setAttribute("y1", e.a.y.toFixed(1));
+        e.el.setAttribute("x2", e.b.x.toFixed(1)); e.el.setAttribute("y2", e.b.y.toFixed(1));
+      }
+    };
+    const tick = () => {
+      for (const e of edges) {
+        const dx = e.b.x - e.a.x, dy = e.b.y - e.a.y, d = Math.hypot(dx, dy) || 0.01;
+        const f = (d - rest.get(e)) * 0.01, fx = (dx / d) * f, fy = (dy / d) * f;
+        e.a.vx += fx; e.a.vy += fy; e.b.vx -= fx; e.b.vy -= fy;
+      }
+      let energy = 0;
+      for (const n of nodes) {
+        if (drag && drag.n === n) { n.vx = 0; n.vy = 0; place(n, n.x, n.y, 1.25); continue; }
+        n.vx += (n.hx - n.x) * 0.045; n.vy += (n.hy - n.y) * 0.045;
+        if (ptr && !drag) {
+          const dx = n.x - ptr.x, dy = n.y - ptr.y, d = Math.hypot(dx, dy);
+          if (d > 16 && d < 90) { const f = ((90 - d) / 74) * 0.55; n.vx += (dx / d) * f; n.vy += (dy / d) * f; }
+        }
+        n.vx *= 0.82; n.vy *= 0.82;
+        n.x += n.vx; n.y += n.vy;
+        energy += Math.abs(n.vx) + Math.abs(n.vy) + Math.abs(n.hx - n.x) + Math.abs(n.hy - n.y);
+        place(n, n.x, n.y, 1);
+      }
+      drawEdges();
+      if (ptr || drag || energy > 0.6) requestAnimationFrame(tick);
+      else {
+        running = false;
+        for (const n of nodes) { n.x = n.hx; n.y = n.hy; place(n, n.x, n.y, 1); }
+        drawEdges();
+      }
+    };
+    const wake = () => { if (!running) { running = true; requestAnimationFrame(tick); } };
+    svg.addEventListener("pointermove", (ev) => {
+      if (ev.pointerType === "touch" && !drag) return;
+      ptr = toSvg(ev);
+      if (drag) {
+        if (Math.hypot(ev.clientX - drag.sx, ev.clientY - drag.sy) > 4) drag.moved = true;
+        drag.n.x = ptr.x; drag.n.y = ptr.y;
+      }
+      wake();
+    });
+    svg.addEventListener("pointerleave", () => { if (!drag) { ptr = null; wake(); } });
+    for (const n of nodes) {
+      n.el.addEventListener("pointerdown", (ev) => {
+        if (ev.button !== 0) return;
+        drag = { n, sx: ev.clientX, sy: ev.clientY, moved: false };
+        n.el.setPointerCapture(ev.pointerId);
+        n.el.classList.add("grabbed");
+        ev.preventDefault();
+        wake();
+      });
+      const end = (ev) => {
+        if (!drag || drag.n !== n) return;
+        n.el.classList.remove("grabbed");
+        if (drag.moved) n.el.dataset.dragged = "1";
+        drag = null;
+        if (ev.pointerType === "touch") ptr = null;
+        wake();
+      };
+      n.el.addEventListener("pointerup", end);
+      n.el.addEventListener("pointercancel", end);
+      // a drag is not a click: swallow the click that follows it
+      n.el.addEventListener("click", (ev) => {
+        if (n.el.dataset.dragged) { delete n.el.dataset.dragged; ev.stopImmediatePropagation(); ev.preventDefault(); }
+      }, true);
+    }
+  }
   if (calm()) {
     nodes.forEach((n) => place(n, n.x, n.y, 1));
     svg.classList.add("assembled");
@@ -294,7 +373,7 @@ export function buildGraph(mount = $("#fig-graph")) {
       place(n, CX + (n.x - CX) * e, CY + (n.y - CY) * e, e);
     }
     if (el < total) requestAnimationFrame(frame);
-    else svg.classList.add("assembled");
+    else { svg.classList.add("assembled"); if (opts.play) enablePlay(); }
   };
   const go = () => requestAnimationFrame(frame);
   if ("IntersectionObserver" in window) {
