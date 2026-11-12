@@ -315,6 +315,54 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
       }
     };
     const wake = () => { if (!running) { running = true; requestAnimationFrame(tick); } };
+
+    /* Hover card: what a node is, next to it. Lines of work and languages also light up
+       their links while the pointer is on them; a click still pins the highlight. */
+    mount.style.position = "relative";
+    const card = el("div", { className: "wg-tip" });
+    card.setAttribute("aria-hidden", "true");
+    mount.append(card);
+    const linkedTo = (n) => { const set = new Set([n]); for (const e of edges) if (e.b === n) set.add(e.a); return set; };
+    const describe = (n) => {
+      if (n.kind === "paper") return [n.paper.t, `${n.paper.v}, ${n.paper.y}`, "Click to open in Publications"];
+      if (n.kind === "release") return [n.release.name, `${n.release.when}. ${n.release.what}`, "Click to see the models"];
+      const set = linkedTo(n);
+      const papers = [...set].filter((m) => m.kind === "paper").length;
+      const rel = [...set].filter((m) => m.kind === "release").length;
+      const name = n.kind === "lang" ? `${n.name} (${n.label})` : n.label;
+      return [name, `${papers} ${papers === 1 ? "paper" : "papers"}${rel ? ` and ${rel} Villanova ${rel === 1 ? "release" : "releases"}` : ""}`, "Click to keep it highlighted"];
+    };
+    const preview = (n) => {
+      if (active || (n.kind !== "lang" && n.kind !== "topic")) return;
+      const set = linkedTo(n);
+      svg.classList.add("focus");
+      for (const m of nodes) m.el.classList.toggle("on", set.has(m));
+      for (const e of edges) e.el.classList.toggle("on", e.b === n);
+    };
+    const unpreview = () => {
+      if (active) return;
+      svg.classList.remove("focus");
+      nodes.forEach((m) => m.el.classList.remove("on"));
+      edges.forEach((e) => e.el.classList.remove("on"));
+    };
+    const showCard = (n) => {
+      if (drag) return;
+      const [title, line, hint] = describe(n);
+      card.replaceChildren(el("b", { textContent: title }), el("span", { textContent: line }), el("small", { textContent: hint }));
+      const box = mount.getBoundingClientRect(), r = n.el.getBoundingClientRect();
+      card.classList.add("on");
+      const w = card.offsetWidth, h = card.offsetHeight;
+      let x = r.left + r.width / 2 - box.left - w / 2, y = r.top - box.top - h - 12;
+      if (y < 4) y = r.bottom - box.top + 12;
+      x = Math.max(4, Math.min(box.width - w - 4, x));
+      card.style.transform = `translate(${x.toFixed(0)}px, ${y.toFixed(0)}px)`;
+    };
+    const hideCard = () => card.classList.remove("on");
+    for (const n of nodes) {
+      n.el.addEventListener("pointerenter", (ev) => { if (ev.pointerType === "touch") return; preview(n); showCard(n); });
+      n.el.addEventListener("pointerleave", () => { unpreview(); hideCard(); });
+      n.el.addEventListener("pointerdown", hideCard);
+    }
     svg.addEventListener("pointermove", (ev) => {
       if (ev.pointerType === "touch" && !drag) return;
       ptr = toSvg(ev);
