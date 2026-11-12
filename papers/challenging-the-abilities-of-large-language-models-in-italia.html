@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Challenging the Abilities of Large Language Models in Italian, 2026: Kamyar Zeinalipour</title>
+<meta name="description" content="Challenging the Abilities of Large Language Models in Italian: a Community Initiative. Malvina Nissim, Danilo Croce, Viviana Patti, Pierpaolo Basile, Giuseppe Attanasio, Elio Musacchio, Matteo Rinaldi, Federico Borazio, Maria Francis, Jacopo Gili, Daniel Scalena, Begoña Altuna, Ekhi Azurmendi, Valer">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141110" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://kamyarzeinalipour.github.io/papers/challenging-the-abilities-of-large-language-models-in-italia.html">
+<meta property="og:title" content="Challenging the Abilities of Large Language Models in Italian: a Community Initiative">
+<meta property="og:description" content="The paper describes CALAMITA, a benchmarking initiative coordinated by the Italian Association for Computational Linguistics in which more than 80 contributors built over 20 tasks and almost 100 subtasks to evaluate LLMs in Italian. It reports results for four open-weight LLMs and discusses lessons on fine-grained metrics, shared evaluation pipelines and community involvement.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kamyarzeinalipour.github.io/papers/challenging-the-abilities-of-large-language-models-in-italia.html">
+<meta property="og:site_name" content="Kamyar Zeinalipour">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="Challenging the Abilities of Large Language Models in Italian: a Community Initiative">
+<meta name="citation_author" content="Malvina Nissim">
+<meta name="citation_author" content="Danilo Croce">
+<meta name="citation_author" content="Viviana Patti">
+<meta name="citation_author" content="Pierpaolo Basile">
+<meta name="citation_author" content="Giuseppe Attanasio">
+<meta name="citation_author" content="Elio Musacchio">
+<meta name="citation_author" content="Matteo Rinaldi">
+<meta name="citation_author" content="Federico Borazio">
+<meta name="citation_author" content="Maria Francis">
+<meta name="citation_author" content="Jacopo Gili">
+<meta name="citation_author" content="Daniel Scalena">
+<meta name="citation_author" content="Begoña Altuna">
+<meta name="citation_author" content="Ekhi Azurmendi">
+<meta name="citation_author" content="Valerio Basile">
+<meta name="citation_author" content="Luisa Bentivogli">
+<meta name="citation_author" content="Arianna Bisazza">
+<meta name="citation_author" content="Marianna Bolognesi">
+<meta name="citation_author" content="Dominique Brunato">
+<meta name="citation_author" content="Tommaso Caselli">
+<meta name="citation_author" content="Silvia Casola">
+<meta name="citation_author" content="Maria Cassese">
+<meta name="citation_author" content="Mauro Cettolo">
+<meta name="citation_author" content="Claudia Collacciani">
+<meta name="citation_author" content="Leonardo De Cosmo">
+<meta name="citation_author" content="Maria Pia Di Buono">
+<meta name="citation_author" content="Andrea Esuli">
+<meta name="citation_author" content="Julen Etxaniz">
+<meta name="citation_author" content="Chiara Ferrando">
+<meta name="citation_author" content="Alessia Fidelangeli">
+<meta name="citation_author" content="Simona Frenda">
+<meta name="citation_author" content="Achille Fusco">
+<meta name="citation_author" content="Marco Gaido">
+<meta name="citation_author" content="Andrea Galassi">
+<meta name="citation_author" content="Federico Galli">
+<meta name="citation_author" content="Luca Giordano">
+<meta name="citation_author" content="Mattia Goffetti">
+<meta name="citation_author" content="Itziar Gonzalez-Dios">
+<meta name="citation_author" content="Lorenzo Gregori">
+<meta name="citation_author" content="Giulia Grundler">
+<meta name="citation_author" content="Sandro Iannaccone">
+<meta name="citation_author" content="Chunyang Jiang">
+<meta name="citation_author" content="Moreno La Quatra">
+<meta name="citation_author" content="Francesca Lagioia">
+<meta name="citation_author" content="Soda Marem Lo">
+<meta name="citation_author" content="Marco Madeddu">
+<meta name="citation_author" content="Bernardo Magnini">
+<meta name="citation_author" content="Raffaele Manna">
+<meta name="citation_author" content="Fabio Mercorio">
+<meta name="citation_author" content="Paola Merlo">
+<meta name="citation_author" content="Arianna Muti">
+<meta name="citation_author" content="Vivi Nastase">
+<meta name="citation_author" content="Matteo Negri">
+<meta name="citation_author" content="Dario Onorati">
+<meta name="citation_author" content="Elena Palmieri">
+<meta name="citation_author" content="Sara Papi">
+<meta name="citation_author" content="Lucia Passaro">
+<meta name="citation_author" content="Giulia Pensa">
+<meta name="citation_author" content="Andrea Piergentili">
+<meta name="citation_author" content="Daniele Potertì">
+<meta name="citation_author" content="Giovanni Puccetti">
+<meta name="citation_author" content="Federico Ranaldi">
+<meta name="citation_author" content="Leonardo Ranaldi">
+<meta name="citation_author" content="Andrea Amelio Ravelli">
+<meta name="citation_author" content="Martina Rosola">
+<meta name="citation_author" content="Elena Sofia Ruzzetti">
+<meta name="citation_author" content="Giuseppe Samo">
+<meta name="citation_author" content="Andrea Santilli">
+<meta name="citation_author" content="Piera Santin">
+<meta name="citation_author" content="Gabriele Sarti">
+<meta name="citation_author" content="Giovanni Sartor">
+<meta name="citation_author" content="Beatrice Savoldi">
+<meta name="citation_author" content="Antonio Serino">
+<meta name="citation_author" content="Andrea Seveso">
+<meta name="citation_author" content="Lucia Siciliani">
+<meta name="citation_author" content="Paolo Torroni">
+<meta name="citation_author" content="Rossella Varvara">
+<meta name="citation_author" content="Andrea Zaninello">
+<meta name="citation_author" content="Asya Zanollo">
+<meta name="citation_author" content="Fabio Massimo Zanzotto">
+<meta name="citation_author" content="Kamyar Zeinalipour">
+<meta name="citation_author" content="Andrea Zugarini">
+<meta name="citation_publication_date" content="2026/06/01">
+<meta name="citation_journal_title" content="Italian Journal of Computational Linguistics (IJCoL)">
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2512.04759">
+<meta name="citation_abstract_html_url" content="https://kamyarzeinalipour.github.io/papers/challenging-the-abilities-of-large-language-models-in-italia.html">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "Challenging the Abilities of Large Language Models in Italian: a Community Initiative",
+ "name": "Challenging the Abilities of Large Language Models in Italian: a Community Initiative",
+ "datePublished": "2026-06-01",
+ "url": "https://kamyarzeinalipour.github.io/papers/challenging-the-abilities-of-large-language-models-in-italia.html",
+ "description": "The paper describes CALAMITA, a benchmarking initiative coordinated by the Italian Association for Computational Linguistics in which more than 80 contributors built over 20 tasks and almost 100 subtasks to evaluate LLMs in Italian. It reports results for four open-weight LLMs and discusses lessons on fine-grained metrics, shared evaluation pipelines and community involvement.",
+ "author": [
+  {
+   "@type": "Person",
+   "name": "Malvina Nissim"
+  },
+  {
+   "@type": "Person",
+   "name": "Danilo Croce"
+  },
+  {
+   "@type": "Person",
+   "name": "Viviana Patti"
+  },
+  {
+   "@type": "Person",
+   "name": "Pierpaolo Basile"
+  },
+  {
+   "@type": "Person",
+   "name": "Giuseppe Attanasio"
+  },
+  {
+   "@type": "Person",
+   "name": "Elio Musacchio"
+  },
+  {
+   "@type": "Person",
+   "name": "Matteo Rinaldi"
+  },
+  {
+   "@type": "Person",
+   "name": "Federico Borazio"
+  },
+  {
+   "@type": "Person",
+   "name": "Maria Francis"
+  },
+  {
+   "@type": "Person",
+   "name": "Jacopo Gili"
+  },
+  {
+   "@type": "Person",
+   "name": "Daniel Scalena"
+  },
+  {
+   "@type": "Person",
+   "name": "Begoña Altuna"
+  },
+  {
+   "@type": "Person",
+   "name": "Ekhi Azurmendi"
+  },
+  {
+   "@type": "Person",
+   "name": "Valerio Basile"
+  },
+  {
+   "@type": "Person",
+   "name": "Luisa Bentivogli"
+  },
+  {
+   "@type": "Person",
+   "name": "Arianna Bisazza"
+  },
+  {
+   "@type": "Person",
+   "name": "Marianna Bolognesi"
+  },
+  {
+   "@type": "Person",
+   "name": "Dominique Brunato"
+  },
+  {
+   "@type": "Person",
+   "name": "Tommaso Caselli"
+  },
+  {
+   "@type": "Person",
+   "name": "Silvia Casola"
+  },
+  {
+   "@type": "Person",
+   "name": "Maria Cassese"
+  },
+  {
+   "@type": "Person",
+   "name": "Mauro Cettolo"
+  },
+  {
+   "@type": "Person",
+   "name": "Claudia Collacciani"
+  },
+  {
+   "@type": "Person",
+   "name": "Leonardo De Cosmo"
+  },
+  {
+   "@type": "Person",
+   "name": "Maria Pia Di Buono"
+  },
+  {
+   "@type": "Person",
+   "name": "Andrea Esuli"
+  },
+  {
+   "@type": "Person",
+   "name": "Julen Etxaniz"
+  },
+  {
+   "@type": "Person",
+   "name": "Chiara Ferrando"
+  },
+  {
+   "@type": "Person",
+   "name": "Alessia Fidelangeli"
+  },
+  {
+   "@type": "Person",
+   "name": "Simona Frenda"
+  },
+  {
+   "@type": "Person",
+   "name": "Achille Fusco"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Gaido"
+  },
+  {
+   "@type": "Person",
+   "name": "Andrea Galassi"
+  },
+  {
+   "@type": "Person",
+   "name": "Federico Galli"
+  },
+  {
+   "@type": "Person",
+   "name": "Luca Giordano"
+  },
+  {
+   "@type": "Person",
+   "name": "Mattia Goffetti"
+  },
+  {
+   "@type": "Person",
+   "name": "Itziar Gonzalez-Dios"
+  },
+  {
+   "@type": "Person",
+   "name": "Lorenzo Gregori"
+  },
+  {
+   "@type": "Person",
+   "name": "Giulia Grundler"
+  },
+  {
+   "@type": "Person",
+   "name": "Sandro Iannaccone"
+  },
+  {
+   "@type": "Person",
+   "name": "Chunyang Jiang"
+  },
+  {
+   "@type": "Person",
+   "name": "Moreno La Quatra"
+  },
+  {
+   "@type": "Person",
+   "name": "Francesca Lagioia"
+  },
+  {
+   "@type": "Person",
+   "name": "Soda Marem Lo"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Madeddu"
+  },
+  {
+   "@type": "Person",
+   "name": "Bernardo Magnini"
+  },
+  {
+   "@type": "Person",
+   "name": "Raffaele Manna"
+  },
+  {
+   "@type": "Person",
+   "name": "Fabio Mercorio"
+  },
+  {
+   "@type": "Person",
+   "name": "Paola Merlo"
+  },
+  {
+   "@type": "Person",
+   "name": "Arianna Muti"
+  },
+  {
+   "@type": "Person",
+   "name": "Vivi Nastase"
+  },
+  {
+   "@type": "Person",
+   "name": "Matteo Negri"
+  },
+  {
+   "@type": "Person",
+   "name": "Dario Onorati"
+  },
+  {
+   "@type": "Person",
+   "name": "Elena Palmieri"
+  },
+  {
+   "@type": "Person",
+   "name": "Sara Papi"
+  },
+  {
+   "@type": "Person",
+   "name": "Lucia Passaro"
+  },
+  {
+   "@type": "Person",
+   "name": "Giulia Pensa"
+  },
+  {
+   "@type": "Person",
+   "name": "Andrea Piergentili"
+  },
+  {
+   "@type": "Person",
+   "name": "Daniele Potertì"
+  },
+  {
+   "@type": "Person",
+   "name": "Giovanni Puccetti"
+  },
+  {
+   "@type": "Person",
+   "name": "Federico Ranaldi"
+  },
+  {
+   "@type": "Person",
+   "name": "Leonardo Ranaldi"
+  },
+  {
+   "@type": "Person",
+   "name": "Andrea Amelio Ravelli"
+  },
+  {
+   "@type": "Person",
+   "name": "Martina Rosola"
+  },
+  {
+   "@type": "Person",
+   "name": "Elena Sofia Ruzzetti"
+  },
+  {
+   "@type": "Person",
+   "name": "Giuseppe Samo"
+  },
+  {
+   "@type": "Person",
+   "name": "Andrea Santilli"
+  },
+  {
+   "@type": "Person",
+   "name": "Piera Santin"
+  },
+  {
+   "@type": "Person",
+   "name": "Gabriele Sarti"
+  },
+  {
+   "@type": "Person",
+   "name": "Giovanni Sartor"
+  },
+  {
+   "@type": "Person",
+   "name": "Beatrice Savoldi"
+  },
+  {
+   "@type": "Person",
+   "name": "Antonio Serino"
+  },
+  {
+   "@type": "Person",
+   "name": "Andrea Seveso"
+  },
+  {
+   "@type": "Person",
+   "name": "Lucia Siciliani"
+  },
+  {
+   "@type": "Person",
+   "name": "Paolo Torroni"
+  },
+  {
+   "@type": "Person",
+   "name": "Rossella Varvara"
+  },
+  {
+   "@type": "Person",
+   "name": "Andrea Zaninello"
+  },
+  {
+   "@type": "Person",
+   "name": "Asya Zanollo"
+  },
+  {
+   "@type": "Person",
+   "name": "Fabio Massimo Zanzotto"
+  },
+  {
+   "@type": "Person",
+   "@id": "https://kamyarzeinalipour.github.io/#person",
+   "name": "Kamyar Zeinalipour",
+   "url": "https://kamyarzeinalipour.github.io/"
+  },
+  {
+   "@type": "Person",
+   "name": "Andrea Zugarini"
+  }
+ ],
+ "isPartOf": {
+  "@type": "Periodical",
+  "name": "Italian Journal of Computational Linguistics (IJCoL), vol. 12, n. 1 (June 2026), Accademia University Press, DOI 10.17454/ijcol121.02"
+ },
+ "sameAs": [
+  "https://arxiv.org/abs/2512.04759"
+ ],
+ "about": [
+  "Linguistics and evaluation"
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body class="paper-page has-scene">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" aria-current="page">Publications</a>
+      <a href="../teaching.html">Teaching</a>
+      <a href="../updates.html">Updates</a>
+      <a href="../about.html">About</a></div>
+  </nav>
+</header>
+
+<main id="main">
+  <article>
+    <section class="page-head paper-head">
+      <div class="wrap paper-head-in">
+        <div class="paper-head-text">
+        <p class="crumbs"><a href="../publications.html">Publications</a> / <a href="../publications.html#challenging-the-abilities-of-large-language-models-in-italia">2026</a></p>
+        <h1>Challenging the Abilities of Large Language Models in Italian: a Community Initiative</h1>
+        <p class="paper-authors">Malvina Nissim, Danilo Croce, Viviana Patti, Pierpaolo Basile, Giuseppe Attanasio, Elio Musacchio, Matteo Rinaldi, Federico Borazio, Maria Francis, Jacopo Gili, Daniel Scalena, Begoña Altuna, Ekhi Azurmendi, Valerio Basile, Luisa Bentivogli, Arianna Bisazza, Marianna Bolognesi, Dominique Brunato, Tommaso Caselli, Silvia Casola, Maria Cassese, Mauro Cettolo, Claudia Collacciani, Leonardo De Cosmo, Maria Pia Di Buono, Andrea Esuli, Julen Etxaniz, Chiara Ferrando, Alessia Fidelangeli, Simona Frenda, Achille Fusco, Marco Gaido, Andrea Galassi, Federico Galli, Luca Giordano, Mattia Goffetti, Itziar Gonzalez-Dios, Lorenzo Gregori, Giulia Grundler, Sandro Iannaccone, Chunyang Jiang, Moreno La Quatra, Francesca Lagioia, Soda Marem Lo, Marco Madeddu, Bernardo Magnini, Raffaele Manna, Fabio Mercorio, Paola Merlo, Arianna Muti, Vivi Nastase, Matteo Negri, Dario Onorati, Elena Palmieri, Sara Papi, Lucia Passaro, Giulia Pensa, Andrea Piergentili, Daniele Potertì, Giovanni Puccetti, Federico Ranaldi, Leonardo Ranaldi, Andrea Amelio Ravelli, Martina Rosola, Elena Sofia Ruzzetti, Giuseppe Samo, Andrea Santilli, Piera Santin, Gabriele Sarti, Giovanni Sartor, Beatrice Savoldi, Antonio Serino, Andrea Seveso, Lucia Siciliani, Paolo Torroni, Rossella Varvara, Andrea Zaninello, Asya Zanollo, Fabio Massimo Zanzotto, <strong>Kamyar Zeinalipour</strong>, Andrea Zugarini</p>
+        <p class="paper-venue">Italian Journal of Computational Linguistics (IJCoL), vol. 12, n. 1 (June 2026), Accademia University Press, DOI 10.17454/ijcol121.02<br><span>Published online on <time datetime="2026-06-01">1 June 2026</time>, 3 citations on Google Scholar</span></p>
+        <p class="home-go paper-links">
+        <a class="go-main" href="https://arxiv.org/abs/2512.04759">Read the paper</a>
+        <a href="https://arxiv.org/pdf/2512.04759">PDF</a>
+        </p>
+        </div>
+        <figure class="paper-scene">
+          <div id="paper-scene" data-href="https://arxiv.org/abs/2512.04759"></div>
+          <figcaption>The idea of the paper in one short animation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap paper-body">
+        <h2>In short</h2>
+        <p class="paper-summary">The paper describes CALAMITA, a benchmarking initiative coordinated by the Italian Association for Computational Linguistics in which more than 80 contributors built over 20 tasks and almost 100 subtasks to evaluate LLMs in Italian. It reports results for four open-weight LLMs and discusses lessons on fine-grained metrics, shared evaluation pipelines and community involvement.</p>
+        <p class="paper-topics"><a class="chip" href="../research.html">Linguistics and evaluation</a></p>
+
+        <h2 id="cite-h">Cite</h2>
+        <pre class="bib" aria-labelledby="cite-h"><code id="bib">@article{Nissim_2026,
+ title={Challenging the Abilities of Large Language Models in Italian: a Community Initiative},
+ volume={12},
+ ISSN={2499-4553},
+ url={http://dx.doi.org/10.17454/ijcol121.02},
+ DOI={10.17454/ijcol121.02},
+ number={1},
+ journal={Italian Journal of Computational Linguistics},
+ publisher={Lexis srl},
+ author={Nissim, Malvina and Croce, Danilo and Patti, Viviana and Basile, Pierpaolo and Attanasio, Giuseppe and Musacchio, Elio and Rinaldi, Matteo and Borazio, Federico},
+ year={2026},
+ pages={33} 
+}</code></pre>
+        <p><button class="chip copy-bib" type="button" data-target="bib">Copy BibTeX</button></p>
+
+        <h2>Related papers</h2>
+        <ul class="related">
+          <li><a href="elections-go-bananas-2026.html">Elections go bananas: A First Large-scale Multilingual Study of Pluralia Tantum using LLMs</a><span>EACL 2026</span></li>
+          <li><a href="iterative-in-context-learning-to-enhance-llms-abstract-reaso.html">Iterative In-Context Learning to Enhance LLMs Abstract Reasoning: The Case-Study of Algebraic Tasks</a><span>ACM SAC 2026</span></li>
+          <li><a href="surprisal-and-crossword-clues-difficulty-2025.html">Surprisal and Crossword Clues Difficulty: Evaluating Linguistic Processing between LLMs and Humans</a><span>CLiC-it 2025</span></li>
+          <li><a href="italian-crossword-generator-2025.html">Italian Crossword Generator: An In-depth Linguistic Analysis in Educational Word Puzzles</a><span>Italian Journal of Computational Linguistics 11</span></li>
+        </ul>
+        <p class="cite"><a href="../publications.html">All thirty-one papers</a></p>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="../assets/app.js"></script>
+</body>
+</html>

@@ -108,7 +108,7 @@ export function sceneProtein3D(mount, alive, fallback) {
     setTimeout(() => { if (alive()) sp.classList.add("in"); }, i * 28);
   });
 
-  Promise.all([loadLib(), fetch("assets/pdb/1ubq.pdb").then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); })])
+  Promise.all([loadLib(), fetch(new URL("./pdb/1ubq.pdb", import.meta.url)).then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); })])
     .then(([$3Dmol, pdb]) => {
       if (!alive()) return;
       setTimeout(() => {
@@ -145,7 +145,7 @@ export function sceneDrug3D(mount, alive, fallback) {
   ]);
   mount.append(legend, el("p", { className: "m3-note", textContent: "An example structure from the Protein Data Bank (PDB 1IEP), not taken from the paper." }));
 
-  Promise.all([loadLib(), fetch("assets/pdb/1iep.pdb").then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); })])
+  Promise.all([loadLib(), fetch(new URL("./pdb/1iep.pdb", import.meta.url)).then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); })])
     .then(([$3Dmol, pdb]) => {
       if (!alive()) return;
       f.status.remove();

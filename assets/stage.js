@@ -1474,3 +1474,34 @@ export function buildStage() {
   }, { threshold: 0.3 });
   io.observe(root);
 }
+
+
+/* ---------- a paper's own page: play the animation made for that paper ---------- */
+export function buildPaperScene() {
+  const mount = $("#paper-scene");
+  if (!mount) return;
+  const href = mount.dataset.href;
+  const alive = () => mount.isConnected;
+  const slide = [...LLM_SLIDES, ...BENCH_SLIDES, ...CROSS_SLIDES, ...LEARN_SLIDES, ...MEASURE_SLIDES].find((sl) => sl.href === href);
+  const scene = slide ? null : SCENES.find((sc) => sc.id !== "work" && sc.links.some((l) => l.href === href));
+  if (!slide && !scene) { mount.closest(".paper-scene")?.remove(); document.body.classList.remove("has-scene"); return; }
+  const view = el("div", { className: "st-view" });
+  const again = el("button", { type: "button", className: "chip play-again", textContent: "Play again" });
+  mount.append(view);
+  if (!calm()) mount.after(again);
+  const play = () => {
+    view.classList.remove("in");
+    view.replaceChildren();
+    W = view.clientWidth > 0 && view.clientWidth < 560 ? NARROW_W : 640;
+    if (slide) slideScene(view, alive, [slide]);
+    else scene.build(view, alive);
+    void view.offsetWidth;
+    view.classList.add("in");
+  };
+  again.addEventListener("click", play);
+  if (calm() || !("IntersectionObserver" in window)) { play(); return; }
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) if (e.isIntersecting) { io.disconnect(); play(); }
+  }, { threshold: 0.25 });
+  io.observe(mount);
+}

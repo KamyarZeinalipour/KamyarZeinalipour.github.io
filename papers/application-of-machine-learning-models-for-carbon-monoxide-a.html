@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines, 2026: Kamyar Zeinalipour</title>
+<meta name="description" content="Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines. Kamyar Zeinalipour, Laure Barriere, David Ghelardi, Marco Gori. Neural Networks: Overview of Current Theories and Applications, Smart Innovation, Systems and Technologies, Springer, pa">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141110" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://kamyarzeinalipour.github.io/papers/application-of-machine-learning-models-for-carbon-monoxide-a.html">
+<meta property="og:title" content="Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines">
+<meta property="og:description" content="The paper compares machine learning models (linear regression, SVM, decision trees, XGBoost, MLP, LSTM, GRU and KNN) for predicting carbon monoxide and nitrogen oxides emissions from gas turbines as part of a predictive emission monitoring system. It gives a side-by-side view of which methods estimate these emissions most accurately.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kamyarzeinalipour.github.io/papers/application-of-machine-learning-models-for-carbon-monoxide-a.html">
+<meta property="og:site_name" content="Kamyar Zeinalipour">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines">
+<meta name="citation_author" content="Kamyar Zeinalipour">
+<meta name="citation_author" content="Laure Barriere">
+<meta name="citation_author" content="David Ghelardi">
+<meta name="citation_author" content="Marco Gori">
+<meta name="citation_publication_date" content="2026/04/01">
+<meta name="citation_journal_title" content="Neural Networks: Overview of Current Theories and Applications">
+<meta name="citation_doi" content="10.1007/978-981-95-4072-3_21">
+<meta name="citation_abstract_html_url" content="https://kamyarzeinalipour.github.io/papers/application-of-machine-learning-models-for-carbon-monoxide-a.html">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines",
+ "name": "Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines",
+ "datePublished": "2026-04-01",
+ "url": "https://kamyarzeinalipour.github.io/papers/application-of-machine-learning-models-for-carbon-monoxide-a.html",
+ "description": "The paper compares machine learning models (linear regression, SVM, decision trees, XGBoost, MLP, LSTM, GRU and KNN) for predicting carbon monoxide and nitrogen oxides emissions from gas turbines as part of a predictive emission monitoring system. It gives a side-by-side view of which methods estimate these emissions most accurately.",
+ "author": [
+  {
+   "@type": "Person",
+   "@id": "https://kamyarzeinalipour.github.io/#person",
+   "name": "Kamyar Zeinalipour",
+   "url": "https://kamyarzeinalipour.github.io/"
+  },
+  {
+   "@type": "Person",
+   "name": "Laure Barriere"
+  },
+  {
+   "@type": "Person",
+   "name": "David Ghelardi"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Gori"
+  }
+ ],
+ "isPartOf": {
+  "@type": "Periodical",
+  "name": "Neural Networks: Overview of Current Theories and Applications, Smart Innovation, Systems and Technologies, Springer, pages 247-260 (DOI 10.1007/978-981-95-4072-3_21)"
+ },
+ "sameAs": [
+  "https://doi.org/10.1007/978-981-95-4072-3_21"
+ ],
+ "identifier": {
+  "@type": "PropertyValue",
+  "propertyID": "DOI",
+  "value": "10.1007/978-981-95-4072-3_21"
+ },
+ "about": [
+  "Science and industry"
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body class="paper-page">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" aria-current="page">Publications</a>
+      <a href="../teaching.html">Teaching</a>
+      <a href="../updates.html">Updates</a>
+      <a href="../about.html">About</a></div>
+  </nav>
+</header>
+
+<main id="main">
+  <article>
+    <section class="page-head paper-head">
+      <div class="wrap paper-head-in">
+        <div class="paper-head-text">
+        <p class="crumbs"><a href="../publications.html">Publications</a> / <a href="../publications.html#application-of-machine-learning-models-for-carbon-monoxide-a">2026</a></p>
+        <h1>Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines</h1>
+        <p class="paper-authors"><strong>Kamyar Zeinalipour</strong>, Laure Barriere, David Ghelardi, Marco Gori</p>
+        <p class="paper-venue">Neural Networks: Overview of Current Theories and Applications, Smart Innovation, Systems and Technologies, Springer, pages 247-260 (DOI 10.1007/978-981-95-4072-3_21)<br><span>Published online on <time datetime="2026-04-01">1 April 2026</time>, 6 citations on Google Scholar</span></p>
+        <p class="home-go paper-links">
+        <a class="go-main" href="https://doi.org/10.1007/978-981-95-4072-3_21">Read the paper</a>
+        </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap paper-body">
+        <h2>In short</h2>
+        <p class="paper-summary">The paper compares machine learning models (linear regression, SVM, decision trees, XGBoost, MLP, LSTM, GRU and KNN) for predicting carbon monoxide and nitrogen oxides emissions from gas turbines as part of a predictive emission monitoring system. It gives a side-by-side view of which methods estimate these emissions most accurately.</p>
+        <p class="paper-topics"><a class="chip" href="../research.html">Science and industry</a></p>
+
+        <h2 id="cite-h">Cite</h2>
+        <pre class="bib" aria-labelledby="cite-h"><code id="bib">@inbook{Zeinalipour_2026,
+ title={Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines},
+ ISBN={9789819540723},
+ ISSN={2190-3026},
+ url={http://dx.doi.org/10.1007/978-981-95-4072-3_21},
+ DOI={10.1007/978-981-95-4072-3_21},
+ booktitle={Neural Networks: Overview of Current Theories and Applications},
+ publisher={Springer Nature Singapore},
+ author={Zeinalipour, Kamyar and Barriere, Laure and Ghelardi, David and Gori, Marco},
+ year={2026},
+ pages={247–260} 
+}</code></pre>
+        <p><button class="chip copy-bib" type="button" data-target="bib">Copy BibTeX</button></p>
+
+        <h2>Related papers</h2>
+        <ul class="related">
+          <li><a href="pharmaqa-it-2026.html">PharmaQA.IT: an Italian dataset for Q&amp;A in the pharmaceutical domain</a><span>EACL 2026, industry track</span></li>
+          <li><a href="from-graph-to-text-and-back-2026.html">From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs</a><span>ACL 2026, industry track</span></li>
+          <li><a href="pharmistral-2026.html">PharMistral: Drug generation for novel protein targets by Mistral Large Language Model</a><span>Computer Methods and Programs in Biomedicine Update 10</span></li>
+          <li><a href="adaptive-nox-emissions-forecasting-for-gas-turbines-via-dyna.html">Adaptive NOx Emissions Forecasting for Gas Turbines via Dynamic PCA-Driven Clustering</a><span>AI-ML-Systems 2025</span></li>
+        </ul>
+        <p class="cite"><a href="../publications.html">All thirty-one papers</a></p>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="../assets/app.js"></script>
+</body>
+</html>

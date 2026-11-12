@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automating Turkish Educational Quiz Generation Using Large Language Models, 2024: Kamyar Zeinalipour</title>
+<meta name="description" content="Automating Turkish Educational Quiz Generation Using Large Language Models. Kamyar Zeinalipour, Yusuf Gökberk Keptiğ, Marco Maggini, Marco Gori. 4th International Conference on Intelligent Systems and Pattern Recognition (ISPR 2024), Istanbul, Turkey, 2024.">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141110" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://kamyarzeinalipour.github.io/papers/automating-turkish-educational-quiz-generation-using-large-l.html">
+<meta property="og:title" content="Automating Turkish Educational Quiz Generation Using Large Language Models">
+<meta property="og:description" content="The paper introduces Turkish-Quiz-Instruct, a dataset of Turkish educational texts paired with multiple-choice and short-answer questions, and uses GPT-4-Turbo, GPT-3.5-Turbo and Llama-2 models to generate quizzes from Turkish content. The results show these models can produce coherent and relevant Turkish quiz questions.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kamyarzeinalipour.github.io/papers/automating-turkish-educational-quiz-generation-using-large-l.html">
+<meta property="og:site_name" content="Kamyar Zeinalipour">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="Automating Turkish Educational Quiz Generation Using Large Language Models">
+<meta name="citation_author" content="Kamyar Zeinalipour">
+<meta name="citation_author" content="Yusuf Gökberk Keptiğ">
+<meta name="citation_author" content="Marco Maggini">
+<meta name="citation_author" content="Marco Gori">
+<meta name="citation_publication_date" content="2024/06/26">
+<meta name="citation_conference_title" content="4th International Conference on Intelligent Systems and Pattern Recognition (ISPR 2024), Istanbul, Turkey">
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2406.03397">
+<meta name="citation_abstract_html_url" content="https://kamyarzeinalipour.github.io/papers/automating-turkish-educational-quiz-generation-using-large-l.html">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "Automating Turkish Educational Quiz Generation Using Large Language Models",
+ "name": "Automating Turkish Educational Quiz Generation Using Large Language Models",
+ "datePublished": "2024-06-26",
+ "url": "https://kamyarzeinalipour.github.io/papers/automating-turkish-educational-quiz-generation-using-large-l.html",
+ "description": "The paper introduces Turkish-Quiz-Instruct, a dataset of Turkish educational texts paired with multiple-choice and short-answer questions, and uses GPT-4-Turbo, GPT-3.5-Turbo and Llama-2 models to generate quizzes from Turkish content. The results show these models can produce coherent and relevant Turkish quiz questions.",
+ "author": [
+  {
+   "@type": "Person",
+   "@id": "https://kamyarzeinalipour.github.io/#person",
+   "name": "Kamyar Zeinalipour",
+   "url": "https://kamyarzeinalipour.github.io/"
+  },
+  {
+   "@type": "Person",
+   "name": "Yusuf Gökberk Keptiğ"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Maggini"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Gori"
+  }
+ ],
+ "isPartOf": {
+  "@type": "PublicationEvent",
+  "name": "4th International Conference on Intelligent Systems and Pattern Recognition (ISPR 2024), Istanbul, Turkey"
+ },
+ "sameAs": [
+  "https://arxiv.org/abs/2406.03397"
+ ],
+ "about": [
+  "Educational content"
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body class="paper-page has-scene">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" aria-current="page">Publications</a>
+      <a href="../teaching.html">Teaching</a>
+      <a href="../updates.html">Updates</a>
+      <a href="../about.html">About</a></div>
+  </nav>
+</header>
+
+<main id="main">
+  <article>
+    <section class="page-head paper-head">
+      <div class="wrap paper-head-in">
+        <div class="paper-head-text">
+        <p class="crumbs"><a href="../publications.html">Publications</a> / <a href="../publications.html#automating-turkish-educational-quiz-generation-using-large-l">2024</a></p>
+        <h1>Automating Turkish Educational Quiz Generation Using Large Language Models</h1>
+        <p class="paper-authors"><strong>Kamyar Zeinalipour</strong>, Yusuf Gökberk Keptiğ, Marco Maggini, Marco Gori</p>
+        <p class="paper-venue">4th International Conference on Intelligent Systems and Pattern Recognition (ISPR 2024), Istanbul, Turkey<br><span>Presented on <time datetime="2024-06-26">26 June 2024</time>, 20 citations on Google Scholar</span></p>
+        <p class="home-go paper-links">
+        <a class="go-main" href="https://arxiv.org/abs/2406.03397">Read the paper</a>
+        <a href="https://arxiv.org/pdf/2406.03397">PDF</a>
+        <a href="https://github.com/KamyarZeinalipour/Turkish_Quiz_Generator">Code</a>
+        <a href="https://huggingface.co/collections/Kamyar-zeinalipour/turkish-educational-quiz-generation-ispr-2024-6af4852f9293af6e63c1acda">Models and data</a>
+        </p>
+        </div>
+        <figure class="paper-scene">
+          <div id="paper-scene" data-href="https://arxiv.org/abs/2406.03397"></div>
+          <figcaption>The idea of the paper in one short animation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap paper-body">
+        <h2>In short</h2>
+        <p class="paper-summary">The paper introduces Turkish-Quiz-Instruct, a dataset of Turkish educational texts paired with multiple-choice and short-answer questions, and uses GPT-4-Turbo, GPT-3.5-Turbo and Llama-2 models to generate quizzes from Turkish content. The results show these models can produce coherent and relevant Turkish quiz questions.</p>
+        <p class="paper-topics"><a class="chip" href="../research.html">Educational content</a></p>
+
+        <h2 id="cite-h">Cite</h2>
+        <pre class="bib" aria-labelledby="cite-h"><code id="bib">@inproceedings{zeinalipour2024automating,
+  title = {Automating Turkish Educational Quiz Generation Using Large Language Models},
+  author = {Kamyar Zeinalipour and Yusuf Gökberk Keptiğ and Marco Maggini and Marco Gori},
+  booktitle = {4th International Conference on Intelligent Systems and Pattern Recognition (ISPR 2024)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2406.03397}
+}</code></pre>
+        <p><button class="chip copy-bib" type="button" data-target="bib">Copy BibTeX</button></p>
+
+        <h2>Related papers</h2>
+        <ul class="related">
+          <li><a href="multihint-9k-2026.html">MultiHint-9K: Orchestrating Human and AI Agency for Scalable Pedagogical Hint Generation</a><span>AIED 2026 workshops, CEUR 4248</span></li>
+          <li><a href="persianmcq-instruct-2025.html">PersianMCQ-Instruct: A Comprehensive Resource for Generating Multiple-Choice Questions in Persian</a><span>LoResLM 2025</span></li>
+          <li><a href="from-arabic-text-to-puzzles-2025.html">From Arabic Text to Puzzles: LLM-Driven Development of Arabic Educational Crosswords</a><span>LoResLM 2025</span></li>
+          <li><a href="italian-crossword-generator-2025.html">Italian Crossword Generator: An In-depth Linguistic Analysis in Educational Word Puzzles</a><span>Italian Journal of Computational Linguistics 11</span></li>
+        </ul>
+        <p class="cite"><a href="../publications.html">All thirty-one papers</a></p>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="../assets/app.js"></script>
+</body>
+</html>

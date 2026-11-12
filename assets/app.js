@@ -1,11 +1,13 @@
 import { PUZZLE, PAPERS, TOPICS, RELEASES, PATH, BUILT, TEACHING, UPDATES, SERVICE, TALKS, CERTS } from "./data.js";
 import { buildFigures } from "./figures.js";
-import { buildStage } from "./stage.js";
+import { buildStage, buildPaperScene } from "./stage.js";
 import { buildGraph } from "./graph.js";
 
 /* A stable anchor for each paper: the part of the title before the colon, plus the year. */
 const slug = (p) => (p.t.split(":")[0] + " " + p.y).toLowerCase()
   .normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
+/* The paper's own page (papers/<slug>.html); same rule as tools/build-papers.mjs. */
+export const pagePath = (p) => `papers/${slug(p).replace(/-+$/, "")}.html`;
 const paperByRef = (ref) => PAPERS.find((p) => p.t.startsWith(ref));
 const shortTitle = (p) => p.t.split(":")[0];
 /* A link whose visible text is short ("Code") but whose accessible name says what it is for. */
@@ -375,11 +377,12 @@ function buildPapers() {
         ul.append(el("li", { className: "year-head" }, el("h2", { textContent: String(year) })));
       }
       const li = el("li", { className: "paper", id: slug(p) });
-      const h = el("h3", {}, el("a", { href: p.link, textContent: p.t }));
+      const h = el("h3", {}, el("a", { href: pagePath(p), textContent: p.t }));
       const side = el("div", { className: "side" });
       if (p.c > 0) side.append(el("span", {
         className: "cites", textContent: `${p.c} ${p.c === 1 ? "citation" : "citations"}`,
       }));
+      if (p.link) side.append(named(p.link, "Paper", `Paper: ${shortTitle(p)}`));
       if (p.code) side.append(named(p.code, "Code", `Code for ${shortTitle(p)}`));
       if (p.hf) side.append(named(p.hf, "Models", `Models for ${shortTitle(p)}`));
       li.append(h, el("p", { className: "authors", textContent: p.a }),
@@ -582,6 +585,15 @@ try {
   buildFigures();
   buildStage();
   if ($("#home-graph")) buildGraph($("#home-graph"), { play: true });
+  buildPaperScene();
+  for (const b of document.querySelectorAll(".copy-bib")) {
+    b.addEventListener("click", async () => {
+      const text = document.getElementById(b.dataset.target)?.textContent || "";
+      try { await navigator.clipboard.writeText(text); b.textContent = "Copied"; }
+      catch { const r = document.createRange(); r.selectNodeContents(document.getElementById(b.dataset.target)); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = "Selected, press Cmd+C"; }
+      setTimeout(() => { b.textContent = "Copy BibTeX"; }, 2200);
+    });
+  }
 } catch (err) {
   console.error(err);
   const msg = () => {

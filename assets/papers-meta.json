@@ -1,0 +1,522 @@
+{
+ "MultiHint-9K: Orchestrating Human and AI Agency for Scalable Pedagogical Hint Generation": {
+  "date": "2026-06-27",
+  "kind": "workshop",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Amir Sadeghi",
+   "Giovanni Angelini",
+   "Leonardo Rigutini",
+   "Marco Gori",
+   "Marco Maggini"
+  ],
+  "venue": "Proceedings of the Workshop on Orchestrating Human and AI Agency for Proactive and Reflective Learning (HAI-Agency 2026), co-located with the 27th International Conference on Artificial Intelligence in Education (AIED 2026), Seoul, Republic of Korea, CEUR Workshop Proceedings Vol-4248",
+  "summary": "The paper builds a pipeline in which human annotators set quality rubrics and AI agents generate, critique and refine Socratic hints, producing MultiHint-9K: 9,987 verified question-answer-hint tuples in English, Italian and Farsi. Fine-tuning five open models (7B to 24B) on the data improved ROUGE-L by about 67% over the base models, with the largest gains in Farsi.",
+  "bib": "@inproceedings{zeinalipour2026multihintk,\n  title = {MultiHint-9K: Orchestrating Human and AI Agency for Scalable Pedagogical Hint Generation},\n  author = {Kamyar Zeinalipour and Amir Sadeghi and Giovanni Angelini and Leonardo Rigutini and Marco Gori and Marco Maggini},\n  booktitle = {Proceedings of the Workshop on Orchestrating Human and AI Agency for Proactive and Reflective Learning (HAI-Agency 2026), co-located with AIED 2026},\n  year = {2026},\n  series = {CEUR Workshop Proceedings},\n  volume = {4248},\n  url = {https://ceur-ws.org/Vol-4248/short11.pdf}\n}"
+ },
+ "PharmaQA.IT: an Italian dataset for Q&A in the pharmaceutical domain": {
+  "date": "2026-03-25",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Andrea Zugarini",
+   "Asya Zanollo",
+   "Leonardo Rigutini"
+  ],
+  "venue": "Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguistics (Volume 5: Industry Track), EACL 2026, Rabat, Morocco",
+  "summary": "The paper introduces PharmaQA.IT, an Italian extractive question-answering dataset of 861 expert-checked question-answer pairs built from official medicine leaflets (RCP) of the Italian Medicines Agency, using a semi-automatic pipeline with a multimodal LLM over 1,077 leaflets. Tests on open and proprietary LLMs show that open models come close to closed ones when combined with chunking and retrieval.",
+  "bib": "@inproceedings{zeinalipour-etal-2026-pharmaqa,\n    title = \"{P}harma{QA}.{IT}: an {I}talian dataset for {Q}{\\&}{A} in the pharmaceutical domain\",\n    author = \"Zeinalipour, Kamyar  and\n      Zugarini, Andrea  and\n      Zanollo, Asya  and\n      Rigutini, Leonardo\",\n    editor = {Matusevych, Yevgen  and\n      Eryi{\\u{g}}it, G{\\\"u}l{\\c{s}}en  and\n      Aletras, Nikolaos},\n    booktitle = \"Proceedings of the 19th Conference of the {E}uropean Chapter of the {A}ssociation for {C}omputational {L}inguistics (Volume 5: Industry Track)\",\n    month = mar,\n    year = \"2026\",\n    address = \"Rabat, Morocco\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2026.eacl-industry.70/\",\n    doi = \"10.18653/v1/2026.eacl-industry.70\",\n    pages = \"937--947\",\n    ISBN = \"979-8-89176-384-5\"\n}"
+ },
+ "Enabling Structured Reasoning in Sindhi with Culturally Grounded Instruction Tuning": {
+  "date": "2026-03-29",
+  "kind": "workshop",
+  "authors": [
+   "Mehak Mehak",
+   "Kamyar Zeinalipour",
+   "Pireh Soomro",
+   "Cristiano Chesi",
+   "Marco Gori",
+   "Marco Maggini"
+  ],
+  "venue": "Proceedings of the Second Workshop on Language Models for Low-Resource Languages (LoResLM 2026), at EACL 2026, Rabat, Morocco",
+  "summary": "The paper introduces Sindhi-Reasoning-Instruct, a culturally grounded Sindhi instruction dataset, and fine-tunes six LLaMA and Mistral models (1B to 24B) for deductive, inductive and causal reasoning. Native, authentic data proved decisive: Mistral-Small-24B improved human quality ratings by 141% over its base version and reached 83% on inductive reasoning tasks.",
+  "bib": "@inproceedings{mehak-etal-2026-enabling,\n    title = \"Enabling Structured Reasoning in {S}indhi with Culturally Grounded Instruction Tuning\",\n    author = \"Mehak, Mehak  and\n      Zeinalipour, Kamyar  and\n      Soomro, Pireh  and\n      Chesi, Cristiano  and\n      Gori, Marco  and\n      Maggini, Marco\",\n    editor = \"Hettiarachchi, Hansi  and\n      Ranasinghe, Tharindu  and\n      Plum, Alistair  and\n      Rayson, Paul  and\n      Mitkov, Ruslan  and\n      Gaber, Mohamed  and\n      Premasiri, Damith  and\n      Tan, Fiona Anting  and\n      Uyangodage, Lasitha\",\n    booktitle = \"Proceedings of the Second Workshop on Language Models for Low-Resource Languages ({L}o{R}es{LM} 2026)\",\n    month = mar,\n    year = \"2026\",\n    address = \"Rabat, Morocco\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2026.loreslm-1.22/\",\n    doi = \"10.18653/v1/2026.loreslm-1.22\",\n    pages = \"239--258\",\n    ISBN = \"979-8-89176-377-7\"\n}"
+ },
+ "From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs": {
+  "date": "2026-07-05",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Silvia Severini",
+   "Alessia Borghini",
+   "Sara Cardarelli",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 6: Industry Track), ACL 2026, San Diego, California, USA",
+  "summary": "The paper proposes a self-supervised round-trip pipeline that turns knowledge-graph triples into text, rebuilds the graph from that text, and keeps only verbalizations that allow full recovery of the original graph. The round-trip score correlates strongly with expert judgment, and fine-tuning LLMs on the retained data improves both triple extraction and faithful text generation without manual annotation.",
+  "bib": "@inproceedings{zeinalipour-etal-2026-graph,\n    title = \"From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs\",\n    author = \"Zeinalipour, Kamyar  and\n      Severini, Silvia  and\n      Borghini, Alessia  and\n      Cardarelli, Sara  and\n      Maggini, Marco  and\n      Gori, Marco\",\n    editor = \"Li, Yunyao  and\n      Rehm, Georg  and\n      Tu, Mei\",\n    booktitle = \"Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 6: Industry Track)\",\n    month = jul,\n    year = \"2026\",\n    address = \"San Diego, California, USA\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2026.acl-industry.140/\",\n    doi = \"10.18653/v1/2026.acl-industry.140\",\n    pages = \"2095--2111\",\n    ISBN = \"979-8-89176-394-4\"\n}"
+ },
+ "PharMistral: Drug generation for novel protein targets by Mistral Large Language Model": {
+  "date": "2026-06-12",
+  "kind": "journal-online",
+  "authors": [
+   "Asma Bendjeddou",
+   "Kamyar Zeinalipour",
+   "Dalal Bardou",
+   "Marco Maggini",
+   "Franco Scarselli",
+   "Monica Bianchini"
+  ],
+  "venue": "Computer Methods and Programs in Biomedicine Update, vol. 10 (2026), article 100257, Elsevier",
+  "summary": "The paper presents PharMistral, a Mistral-7B model first trained on over 300,000 human protein sequences and over 1 million drug-like SMILES, then fine-tuned on about 300,000 protein-ligand pairs from ChEMBL to generate candidate drug molecules directly from a protein sequence. On unseen proteins, 99.5% of generated molecules were chemically valid, and 3,383 unique molecules passed drug-likeness and toxicity filters.",
+  "bib": "@article{Bendjeddou_2026, title={PharMistral: Drug generation for novel protein targets by Mistral Large Language Model}, volume={10}, ISSN={2666-9900}, url={http://dx.doi.org/10.1016/j.cmpbup.2026.100257}, DOI={10.1016/j.cmpbup.2026.100257}, journal={Computer Methods and Programs in Biomedicine Update}, publisher={Elsevier BV}, author={Bendjeddou, Asma and Zeinalipour, Kamyar and Bardou, Dalal and Maggini, Marco and Scarselli, Franco and Bianchini, Monica}, year={2026}, month=Dec, pages={100257} }"
+ },
+ "TalkFa: A Unified Benchmark for Farsi Dialogue Generation and Understanding": {
+  "date": "2026-09-01",
+  "kind": "arxiv-v1",
+  "authors": [
+   "Neda Jamshidi",
+   "Kamyar Zeinalipour",
+   "Fahimeh Akbari",
+   "Monica Bianchini",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "arXiv preprint arXiv:2609.01810",
+  "summary": "The paper releases TalkFa, a Farsi dialogue benchmark with three human-reviewed datasets: 4.2K Wikipedia-grounded dialogues, 6.6K dialogues labeled for dialogue acts and emotions, and 2.1K theatrical dialogues with sentiment labels. Experiments with six LLaMA and Mistral models show that LoRA fine-tuning recovers over 90% of its gains with only 25 to 50% of the training data, and that automatic metrics and an LLM judge overrate dialogue quality compared with human evaluation.",
+  "bib": "@misc{jamshidi2026talkfaunifiedbenchmarkfarsi,\n      title={TalkFa: A Unified Benchmark for Farsi Dialogue Generation and Understanding}, \n      author={Neda Jamshidi and Kamyar Zeinalipour and Fahimeh Akbari and Monica Bianchini and Marco Maggini and Marco Gori},\n      year={2026},\n      eprint={2609.01810},\n      archivePrefix={arXiv},\n      primaryClass={cs.CL},\n      url={https://arxiv.org/abs/2609.01810}, \n}"
+ },
+ "Multi-SFT: Permissively-Licensed Multilingual Instruction-Following": {
+  "date": "2026-10-15",
+  "kind": "arxiv-v1",
+  "authors": [
+   "Daniela Baiamonte",
+   "Kamyar Zeinalipour",
+   "Elena Fano",
+   "Stefano Simonazzi",
+   "Andrea Zugarini"
+  ],
+  "venue": "arXiv preprint arXiv:2610.22086",
+  "summary": "The paper builds Multi-SFT, a commercially permissive collection of 502,818 instruction-response pairs in five European languages, made through translation and regeneration pipelines. Fine-tuning nine models (1B to 32B) from the EuroLLM, OLMo 2 and Qwen3 families and testing them on 13 benchmarks shows that Multi-SFT alone is competitive with larger data mixes and official instruction-tuned releases, with clear gains on safety tasks.",
+  "bib": "@misc{baiamonte2026multisftpermissivelylicensedmultilingualinstructionfollowing,\n      title={Multi-SFT: Permissively-Licensed Multilingual Instruction-Following}, \n      author={Daniela Baiamonte and Kamyar Zeinalipour and Elena Fano and Stefano Simonazzi and Andrea Zugarini},\n      year={2026},\n      eprint={2610.22086},\n      archivePrefix={arXiv},\n      primaryClass={cs.CL},\n      url={https://arxiv.org/abs/2610.22086}, \n}"
+ },
+ "Elections go bananas: A First Large-scale Multilingual Study of Pluralia Tantum using LLMs": {
+  "date": "2026-03-25",
+  "kind": "conference",
+  "authors": [
+   "Elena Spaziani",
+   "Kamyar Zeinalipour",
+   "Pierluigi Cassotti",
+   "Nina Tahmasebi"
+  ],
+  "venue": "Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguistics (Volume 1: Long Papers), EACL 2026, Rabat, Morocco",
+  "summary": "The paper studies pluralia tantum, nouns that lack a singular form such as \"scissors\", in Italian, Russian and English, using LLMs as annotators. OpenAI and DeepSeek models reached 51% to 89% accuracy on a hand-annotated test set, and large-scale automatic annotation of corpus sentences revealed patterns of morpho-semantic change.",
+  "bib": "@inproceedings{spaziani-etal-2026-elections,\n    title = \"Elections go bananas: A First Large-scale Multilingual Study of Pluralia Tantum using {LLM}s\",\n    author = \"Spaziani, Elena  and\n      Zeinalipour, Kamyar  and\n      Cassotti, Pierluigi  and\n      Tahmasebi, Nina\",\n    editor = \"Demberg, Vera  and\n      Inui, Kentaro  and\n      Marquez, Llu{\\'i}s\",\n    booktitle = \"Proceedings of the 19th Conference of the {E}uropean Chapter of the {A}ssociation for {C}omputational {L}inguistics (Volume 1: Long Papers)\",\n    month = mar,\n    year = \"2026\",\n    address = \"Rabat, Morocco\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2026.eacl-long.308/\",\n    doi = \"10.18653/v1/2026.eacl-long.308\",\n    pages = \"6547--6570\",\n    ISBN = \"979-8-89176-380-7\"\n}"
+ },
+ "Challenging the Abilities of Large Language Models in Italian: a Community Initiative": {
+  "date": "2026-06-01",
+  "kind": "journal-online",
+  "authors": [
+   "Malvina Nissim",
+   "Danilo Croce",
+   "Viviana Patti",
+   "Pierpaolo Basile",
+   "Giuseppe Attanasio",
+   "Elio Musacchio",
+   "Matteo Rinaldi",
+   "Federico Borazio",
+   "Maria Francis",
+   "Jacopo Gili",
+   "Daniel Scalena",
+   "Begoña Altuna",
+   "Ekhi Azurmendi",
+   "Valerio Basile",
+   "Luisa Bentivogli",
+   "Arianna Bisazza",
+   "Marianna Bolognesi",
+   "Dominique Brunato",
+   "Tommaso Caselli",
+   "Silvia Casola",
+   "Maria Cassese",
+   "Mauro Cettolo",
+   "Claudia Collacciani",
+   "Leonardo De Cosmo",
+   "Maria Pia Di Buono",
+   "Andrea Esuli",
+   "Julen Etxaniz",
+   "Chiara Ferrando",
+   "Alessia Fidelangeli",
+   "Simona Frenda",
+   "Achille Fusco",
+   "Marco Gaido",
+   "Andrea Galassi",
+   "Federico Galli",
+   "Luca Giordano",
+   "Mattia Goffetti",
+   "Itziar Gonzalez-Dios",
+   "Lorenzo Gregori",
+   "Giulia Grundler",
+   "Sandro Iannaccone",
+   "Chunyang Jiang",
+   "Moreno La Quatra",
+   "Francesca Lagioia",
+   "Soda Marem Lo",
+   "Marco Madeddu",
+   "Bernardo Magnini",
+   "Raffaele Manna",
+   "Fabio Mercorio",
+   "Paola Merlo",
+   "Arianna Muti",
+   "Vivi Nastase",
+   "Matteo Negri",
+   "Dario Onorati",
+   "Elena Palmieri",
+   "Sara Papi",
+   "Lucia Passaro",
+   "Giulia Pensa",
+   "Andrea Piergentili",
+   "Daniele Potertì",
+   "Giovanni Puccetti",
+   "Federico Ranaldi",
+   "Leonardo Ranaldi",
+   "Andrea Amelio Ravelli",
+   "Martina Rosola",
+   "Elena Sofia Ruzzetti",
+   "Giuseppe Samo",
+   "Andrea Santilli",
+   "Piera Santin",
+   "Gabriele Sarti",
+   "Giovanni Sartor",
+   "Beatrice Savoldi",
+   "Antonio Serino",
+   "Andrea Seveso",
+   "Lucia Siciliani",
+   "Paolo Torroni",
+   "Rossella Varvara",
+   "Andrea Zaninello",
+   "Asya Zanollo",
+   "Fabio Massimo Zanzotto",
+   "Kamyar Zeinalipour",
+   "Andrea Zugarini"
+  ],
+  "venue": "Italian Journal of Computational Linguistics (IJCoL), vol. 12, n. 1 (June 2026), Accademia University Press, DOI 10.17454/ijcol121.02",
+  "summary": "The paper describes CALAMITA, a benchmarking initiative coordinated by the Italian Association for Computational Linguistics in which more than 80 contributors built over 20 tasks and almost 100 subtasks to evaluate LLMs in Italian. It reports results for four open-weight LLMs and discusses lessons on fine-grained metrics, shared evaluation pipelines and community involvement.",
+  "bib": "@article{Nissim_2026, title={Challenging the Abilities of Large Language Models in Italian: a Community Initiative}, volume={12}, ISSN={2499-4553}, url={http://dx.doi.org/10.17454/ijcol121.02}, DOI={10.17454/ijcol121.02}, number={1}, journal={Italian Journal of Computational Linguistics}, publisher={Lexis srl}, author={Nissim, Malvina and Croce, Danilo and Patti, Viviana and Basile, Pierpaolo and Attanasio, Giuseppe and Musacchio, Elio and Rinaldi, Matteo and Borazio, Federico}, year={2026}, pages={33} }"
+ },
+ "Iterative In-Context Learning to Enhance LLMs Abstract Reasoning: The Case-Study of Algebraic Tasks": {
+  "date": "2026-03-23",
+  "kind": "conference",
+  "authors": [
+   "Stefano Fioravanti",
+   "Matteo Zavatteri",
+   "Roberto Confalonieri",
+   "Kamyar Zeinalipour",
+   "Paolo Frazzetto",
+   "Alessandro Sperduti",
+   "Nicolò Navarin"
+  ],
+  "venue": "Proceedings of the 41st ACM/SIGAPP Symposium on Applied Computing (SAC '26), Thessaloniki, Greece, pages 908-916",
+  "summary": "The paper proposes an in-context learning method that iteratively picks few-shot examples to help LLMs solve algebraic expressions under non-standard rules in which the priority of addition and multiplication is swapped. LLMs handled these tasks poorly, but iterative example selection combined with explicit reasoning instructions helped, and some models generalized better when given simpler examples.",
+  "bib": "@inproceedings{Fioravanti_2026, series={SAC ’26}, title={Iterative In-Context Learning to Enhance LLMs Abstract Reasoning: The Case-Study of Algebraic Tasks}, url={http://dx.doi.org/10.1145/3748522.3779772}, DOI={10.1145/3748522.3779772}, booktitle={Proceedings of the 41st ACM/SIGAPP Symposium on Applied Computing}, publisher={ACM}, author={Fioravanti, Stefano and Zavatteri, Matteo and Confalonieri, Roberto and Zeinalipour, Kamyar and Frazzetto, Paolo and Sperduti, Alessandro and Navarin, Nicolò}, year={2026}, month=Mar, pages={908–916}, collection={SAC ’26} }"
+ },
+ "Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines": {
+  "date": "2026-04-01",
+  "kind": "journal-online",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Laure Barriere",
+   "David Ghelardi",
+   "Marco Gori"
+  ],
+  "venue": "Neural Networks: Overview of Current Theories and Applications, Smart Innovation, Systems and Technologies, Springer, pages 247-260 (DOI 10.1007/978-981-95-4072-3_21)",
+  "summary": "The paper compares machine learning models (linear regression, SVM, decision trees, XGBoost, MLP, LSTM, GRU and KNN) for predicting carbon monoxide and nitrogen oxides emissions from gas turbines as part of a predictive emission monitoring system. It gives a side-by-side view of which methods estimate these emissions most accurately.",
+  "bib": "@inbook{Zeinalipour_2026, title={Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines}, ISBN={9789819540723}, ISSN={2190-3026}, url={http://dx.doi.org/10.1007/978-981-95-4072-3_21}, DOI={10.1007/978-981-95-4072-3_21}, booktitle={Neural Networks: Overview of Current Theories and Applications}, publisher={Springer Nature Singapore}, author={Zeinalipour, Kamyar and Barriere, Laure and Ghelardi, David and Gori, Marco}, year={2026}, pages={247–260} }"
+ },
+ "FarSense: A Comprehensive Commonsense Benchmark and Evaluation Framework for the Farsi Language": {
+  "date": "2025-12-20",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Neda Jamshidi",
+   "Seyedehbahareh Hejazi",
+   "Marco Maggini",
+   "Monica Bianchini",
+   "Simone Paoletti",
+   "Marco Gori"
+  ],
+  "venue": "Proceedings of the 14th International Joint Conference on Natural Language Processing and the 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics (IJCNLP-AACL 2025), Mumbai, India",
+  "summary": "The paper presents FarSense, a Farsi commonsense benchmark with six tasks (true/false, multiple choice, explanation, cause-effect, counterfactual reasoning and knowledge completion) built from about 4,210 Farsi Wikipedia passages and validated by native speakers. It evaluates five major LLMs and shows that fine-tuning six compact models (1B to 24B) on FarSense brings substantial gains.",
+  "bib": "@inproceedings{zeinalipour-etal-2025-farsense,\n    title = \"{F}ar{S}ense: A Comprehensive Commonsense Benchmark and Evaluation Framework for the {F}arsi Language\",\n    author = \"Zeinalipour, Kamyar  and\n      Jamshidi, Neda  and\n      Hejazi, Seyedehbahareh  and\n      Maggini, Marco  and\n      Bianchini, Monica  and\n      Paoletti, Simone  and\n      Gori, Marco\",\n    editor = \"Inui, Kentaro  and\n      Sakti, Sakriani  and\n      Wang, Haofen  and\n      Wong, Derek F.  and\n      Bhattacharyya, Pushpak  and\n      Banerjee, Biplab  and\n      Ekbal, Asif  and\n      Chakraborty, Tanmoy  and\n      Singh, Dhirendra Pratap\",\n    booktitle = \"Proceedings of the 14th International Joint Conference on Natural Language Processing and the 4th Conference of the {A}sia-Pacific Chapter of the {A}ssociation for {C}omputational {L}inguistics\",\n    month = dec,\n    year = \"2025\",\n    address = \"Mumbai, India\",\n    publisher = \"The Asian Federation of Natural Language Processing and The Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2025.ijcnlp-long.187/\",\n    doi = \"10.18653/v1/2025.ijcnlp-long.187\",\n    pages = \"3529--3599\",\n    ISBN = \"979-8-89176-298-5\"\n}"
+ },
+ "Shawarma Chats: A Benchmark Dialogue and Evaluation Platter in Egyptian, Maghrebi and Modern Standard Arabic — A Triple-Dialect Feast for Hungry Language Models": {
+  "date": "2025-11-08",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Mohamed Zaky Saad",
+   "Oumaima Attafi",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "Proceedings of The Third Arabic Natural Language Processing Conference (ArabicNLP 2025), co-located with EMNLP 2025, Suzhou, China",
+  "summary": "The paper introduces Shawarma Chats, 30,000 six-turn dialogues grounded in Wikipedia content and split evenly across Modern Standard, Egyptian and Maghrebi Arabic, built with LLM generation, a self-repair loop and native-speaker checks. LoRA fine-tuning six open LLMs (1B to 24B) on it gave consistent gains, especially for models larger than 7B.",
+  "bib": "@inproceedings{zeinalipour-etal-2025-shawarma,\n    title = \"Shawarma Chats: A Benchmark Exact Dialogue {\\&} Evaluation Platter in {E}gyptian, {M}aghrebi {\\&} {M}odern {S}tandard {A}rabic{---}{A} Triple-Dialect Feast for Hungry Language Models\",\n    author = \"Zeinalipour, Kamyar  and\n      Saad, Mohamed Zaky  and\n      Attafi, Oumaima  and\n      Maggini, Marco  and\n      Gori, Marco\",\n    editor = \"Darwish, Kareem  and\n      Ali, Ahmed  and\n      Abu Farha, Ibrahim  and\n      Touileb, Samia  and\n      Zitouni, Imed  and\n      Abdelali, Ahmed  and\n      Al-Ghamdi, Sharefah  and\n      Alkhereyf, Sakhar  and\n      Zaghouani, Wajdi  and\n      Khalifa, Salam  and\n      AlKhamissi, Badr  and\n      Almatham, Rawan  and\n      Hamed, Injy  and\n      Alyafeai, Zaid  and\n      Alowisheq, Areeb  and\n      Inoue, Go  and\n      Mrini, Khalil  and\n      Alshammari, Waad\",\n    booktitle = \"Proceedings of The Third {A}rabic Natural Language Processing Conference\",\n    month = nov,\n    year = \"2025\",\n    address = \"Suzhou, China\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2025.arabicnlp-main.39/\",\n    doi = \"10.18653/v1/2025.arabicnlp-main.39\",\n    pages = \"472--524\",\n    ISBN = \"979-8-89176-352-4\"\n}"
+ },
+ "ArabicSense: A Benchmark for Evaluating Commonsense Reasoning in Arabic with Large Language Models": {
+  "date": "2025-01-20",
+  "kind": "workshop",
+  "authors": [
+   "Salima Lamsiyah",
+   "Kamyar Zeinalipour",
+   "Samir El amrany",
+   "Matthias Brust",
+   "Marco Maggini",
+   "Pascal Bouvry",
+   "Christoph Schommer"
+  ],
+  "venue": "Proceedings of the 4th Workshop on Arabic Corpus Linguistics (WACL-4), at COLING 2025, Abu Dhabi, UAE",
+  "summary": "The paper introduces ArabicSense, a benchmark for commonsense reasoning in Arabic with three tasks: spotting statements that do not make sense, choosing the reason why, and generating an explanation. Fine-tuning on the dataset helped: Gemma and Mistral-7B reached F1 scores of 95.5% and 94.8% on the second task, and LLaMA-3 led the generation task with a BERTScore F1 of 77.3%.",
+  "bib": "@inproceedings{lamsiyah-etal-2025-arabicsense,\n    title = \"{A}rabic{S}ense: A Benchmark for Evaluating Commonsense Reasoning in {A}rabic with Large Language Models\",\n    author = \"Lamsiyah, Salima  and\n      Zeinalipour, Kamyar  and\n      El amrany, Samir  and\n      Brust, Matthias  and\n      Maggini, Marco  and\n      Bouvry, Pascal  and\n      Schommer, Christoph\",\n    editor = \"Ezzini, Saad  and\n      Alami, Hamza  and\n      Berrada, Ismail  and\n      Benlahbib, Abdessamad  and\n      El Mahdaouy, Abdelkader  and\n      Lamsiyah, Salima  and\n      Derrouz, Hatim  and\n      Haddad Haddad, Amal  and\n      Jarrar, Mustafa  and\n      El-Haj, Mo  and\n      Mitkov, Ruslan  and\n      Rayson, Paul\",\n    booktitle = \"Proceedings of the 4th Workshop on {A}rabic Corpus Linguistics ({WACL}-4)\",\n    month = jan,\n    year = \"2025\",\n    address = \"Abu Dhabi, UAE\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2025.wacl-1.1/\",\n    pages = \"1--11\"\n}"
+ },
+ "PersianMCQ-Instruct: A Comprehensive Resource for Generating Multiple-Choice Questions in Persian": {
+  "date": "2025-01-20",
+  "kind": "workshop",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Neda Jamshidi",
+   "Fahimeh Akbari",
+   "Marco Maggini",
+   "Monica Bianchini",
+   "Marco Gori"
+  ],
+  "venue": "Proceedings of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025), at COLING 2025, Abu Dhabi, UAE",
+  "summary": "The paper releases PersianMCQ-Instruct, a dataset of over 12,000 multiple-choice questions generated from more than 4,000 Persian Wikipedia pages, together with three fine-tuned models (Gemma2-9B, Llama3.1-8B and Mistral-7B) for Persian question generation. Human evaluation and fine-tuning experiments showed clear improvements in Persian MCQ generation.",
+  "bib": "@inproceedings{zeinalipour-etal-2025-persianmcq,\n    title = \"{P}ersian{MCQ}-Instruct: A Comprehensive Resource for Generating Multiple-Choice Questions in {P}ersian\",\n    author = \"Zeinalipour, Kamyar  and\n      Jamshidi, Neda  and\n      Akbari, Fahimeh  and\n      Maggini, Marco  and\n      Bianchini, Monica  and\n      Gori, Marco\",\n    editor = \"Hettiarachchi, Hansi  and\n      Ranasinghe, Tharindu  and\n      Rayson, Paul  and\n      Mitkov, Ruslan  and\n      Gaber, Mohamed  and\n      Premasiri, Damith  and\n      Tan, Fiona Anting  and\n      Uyangodage, Lasitha\",\n    booktitle = \"Proceedings of the First Workshop on Language Models for Low-Resource Languages\",\n    month = jan,\n    year = \"2025\",\n    address = \"Abu Dhabi, United Arab Emirates\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2025.loreslm-1.27/\",\n    pages = \"344--372\"\n}"
+ },
+ "From Arabic Text to Puzzles: LLM-Driven Development of Arabic Educational Crosswords": {
+  "date": "2025-01-20",
+  "kind": "workshop",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Mohamed Zaky Saad",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "Proceedings of the First Workshop on Language Models for Low-Resource Languages (LoResLM 2025), at COLING 2025, Abu Dhabi, UAE",
+  "summary": "The paper presents a tool that generates Arabic educational crossword puzzles from any input text using GPT-4-Turbo, GPT-3.5-Turbo and Llama3-8B-Instruct, together with Arabic-Clue-Instruct, a dataset of over 50,000 entries of text, answers, clues and categories. The model and dataset are publicly released.",
+  "bib": "@inproceedings{zeinalipour-etal-2025-arabic,\n    title = \"From {A}rabic Text to Puzzles: {LLM}-Driven Development of {A}rabic Educational Crosswords\",\n    author = \"Zeinalipour, Kamyar  and\n      Saad, Moahmmad  and\n      Maggini, Marco  and\n      Gori, Marco\",\n    editor = \"Hettiarachchi, Hansi  and\n      Ranasinghe, Tharindu  and\n      Rayson, Paul  and\n      Mitkov, Ruslan  and\n      Gaber, Mohamed  and\n      Premasiri, Damith  and\n      Tan, Fiona Anting  and\n      Uyangodage, Lasitha\",\n    booktitle = \"Proceedings of the First Workshop on Language Models for Low-Resource Languages\",\n    month = jan,\n    year = \"2025\",\n    address = \"Abu Dhabi, United Arab Emirates\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2025.loreslm-1.36/\",\n    pages = \"479--495\"\n}"
+ },
+ "Surprisal and Crossword Clues Difficulty: Evaluating Linguistic Processing between LLMs and Humans": {
+  "date": "2025-09-24",
+  "kind": "conference",
+  "authors": [
+   "Tommaso Iaquinta",
+   "Asya Zanollo",
+   "Achille Fusco",
+   "Kamyar Zeinalipour",
+   "Cristiano Chesi"
+  ],
+  "venue": "Proceedings of the Eleventh Italian Conference on Computational Linguistics (CLiC-it 2025), Cagliari, Italy, CEUR Workshop Proceedings",
+  "summary": "The paper measures the difficulty of Italian crossword clues as the surprisal of the answer given the clue, computed with three language models (Llama-3-8B, Llama-2-7B and Ita-GPT-2-121M), and compares it with 60 human solvers on 160 clues. Surprisal correlated negatively with human accuracy (r = -0.62 for nominal clues), so it can serve as an automatic difficulty measure for puzzle generation.",
+  "bib": "@inproceedings{iaquinta-etal-2025-surprisal,\n    title = \"Surprisal and Crossword Clues Difficulty: Evaluating Linguistic Processing between {LLM}s and Humans\",\n    author = \"Iaquinta, Tommaso  and\n      Zanollo, Asya  and\n      Fusco, Achille  and\n      Zeinalipour, Kamyar  and\n      Chesi, Cristiano\",\n    editor = \"Bosco, Cristina  and\n      Jezek, Elisabetta  and\n      Polignano, Marco  and\n      Sanguinetti, Manuela\",\n    booktitle = \"Proceedings of the Eleventh {I}talian Conference on Computational Linguistics ({CL}i{C}-it 2025)\",\n    month = sep,\n    year = \"2025\",\n    address = \"Cagliari, Italy\",\n    publisher = \"CEUR Workshop Proceedings\",\n    url = \"https://aclanthology.org/2025.clicit-1.50/\",\n    pages = \"512--525\",\n    ISBN = \"979-12-243-0587-3\"\n}"
+ },
+ "Italian Crossword Generator: An In-depth Linguistic Analysis in Educational Word Puzzles": {
+  "date": "2025-08-20",
+  "kind": "journal-online",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Tommaso Iaquinta",
+   "Asya Zanollo",
+   "Giovanni Angelini",
+   "Leonardo Rigutini",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "Italian Journal of Computational Linguistics (IJCoL), vol. 11, n. 1 (June 2025), Accademia University Press, DOI 10.17454/ijcol111.03",
+  "summary": "This extended journal version of the authors' Italian crossword generator, which uses fine-tuned language models to write and check clues from keywords or texts, adds a syntactic analysis of crossword clues. The analysis shows how clues derive from full sentences and which structures are preferred, as groundwork for personalized puzzles in education and medicine.",
+  "bib": "@article{Zeinalipour_2025, title={Italian Crossword Generator: An In-depth Linguistic Analysis in Educational Word Puzzles}, volume={1}, ISSN={2499-4553}, url={http://dx.doi.org/10.17454/ijcol111.03}, DOI={10.17454/ijcol111.03}, number={11}, journal={Italian Journal of Computational Linguistics}, publisher={Lexis srl}, author={Zeinalipour, Kamyar and Iaquinta, Tommaso and Zanollo, Asya and Angelini, Giovanni and Rigutini, Leonardo and Maggini, Marco and Gori, Marco}, year={2025}, pages={20} }"
+ },
+ "Adaptive NOx Emissions Forecasting for Gas Turbines via Dynamic PCA-Driven Clustering": {
+  "date": "2025-10-08",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Laure Barriere",
+   "David Ghelardi",
+   "Marco Gori"
+  ],
+  "venue": "2025 5th International Conference on AI-ML-Systems (AIMLSystems 2025), Bangalore, India, pages 290-298, IEEE",
+  "summary": "The paper proposes an adaptive framework for predicting NOx emissions from gas turbines that clusters incoming data with dynamic PCA, based on reconstruction error, and pairs the clusters with SVR, MLP and XGBoost regressors. On real turbine data the clustered approach coped with shifts in operating conditions better than baseline models.",
+  "bib": "@inproceedings{Zeinalipour_2025, title={Adaptive NOX Emissions Forecasting for Gas Turbines via Dynamic PCA-Driven Clustering}, url={http://dx.doi.org/10.1109/AIMLSystems67835.2025.11331232}, DOI={10.1109/aimlsystems67835.2025.11331232}, booktitle={2025 5th International Conference on AI-ML-Systems (AIMLSystems)}, publisher={IEEE}, author={Zeinalipour, Kamyar and Barriere, Laure and Ghelardi, David and Gori, Marco}, year={2025}, month=Oct, pages={290–298} }"
+ },
+ "Clue-Instruct: Text-Based Clue Generation for Educational Crossword Puzzles": {
+  "date": "2024-05-22",
+  "kind": "conference",
+  "authors": [
+   "Andrea Zugarini",
+   "Kamyar Zeinalipour",
+   "Surya Sai Kadali",
+   "Marco Maggini",
+   "Marco Gori",
+   "Leonardo Rigutini"
+  ],
+  "venue": "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024), Torino, Italy",
+  "summary": "The paper proposes a way to build educational crossword clue datasets by pairing Wikipedia content with keywords and having LLMs write clues, producing clue-instruct with 44,075 examples. LLMs instructed on it generated educational clues whose quality was confirmed by human and automatic evaluation.",
+  "bib": "@inproceedings{zugarini-etal-2024-clue,\n    title = \"Clue-Instruct: Text-Based Clue Generation for Educational Crossword Puzzles\",\n    author = \"Zugarini, Andrea  and\n      Zeinalipour, Kamyar  and\n      Kadali, Surya Sai  and\n      Maggini, Marco  and\n      Gori, Marco  and\n      Rigutini, Leonardo\",\n    editor = \"Calzolari, Nicoletta  and\n      Kan, Min-Yen  and\n      Hoste, Veronique  and\n      Lenci, Alessandro  and\n      Sakti, Sakriani  and\n      Xue, Nianwen\",\n    booktitle = \"Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation ({LREC}-{COLING} 2024)\",\n    month = may,\n    year = \"2024\",\n    address = \"Torino, Italia\",\n    publisher = \"ELRA and ICCL\",\n    url = \"https://aclanthology.org/2024.lrec-main.297/\",\n    pages = \"3347--3356\"\n}"
+ },
+ "Automating Turkish Educational Quiz Generation Using Large Language Models": {
+  "date": "2024-06-26",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Yusuf Gökberk Keptiğ",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "4th International Conference on Intelligent Systems and Pattern Recognition (ISPR 2024), Istanbul, Turkey",
+  "summary": "The paper introduces Turkish-Quiz-Instruct, a dataset of Turkish educational texts paired with multiple-choice and short-answer questions, and uses GPT-4-Turbo, GPT-3.5-Turbo and Llama-2 models to generate quizzes from Turkish content. The results show these models can produce coherent and relevant Turkish quiz questions.",
+  "bib": "@inproceedings{zeinalipour2024automating,\n  title = {Automating Turkish Educational Quiz Generation Using Large Language Models},\n  author = {Kamyar Zeinalipour and Yusuf Gökberk Keptiğ and Marco Maggini and Marco Gori},\n  booktitle = {4th International Conference on Intelligent Systems and Pattern Recognition (ISPR 2024)},\n  year = {2024},\n  url = {https://arxiv.org/abs/2406.03397}\n}"
+ },
+ "A Turkish Educational Crossword Puzzle Generator": {
+  "date": "2024-07-08",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Yusuf Gökberk Keptiğ",
+   "Marco Maggini",
+   "Leonardo Rigutini",
+   "Marco Gori"
+  ],
+  "venue": "25th International Conference on Artificial Intelligence in Education (AIED 2024), Late-Breaking Results track, Recife, Brazil",
+  "summary": "The paper presents the first Turkish crossword puzzle generator based on LLMs, with two new datasets: over 180,000 answer-clue pairs and over 35,000 samples that link text, answer, category and clue. The tool is aimed at classroom use to support vocabulary, memory and problem solving.",
+  "bib": "@inproceedings{zeinalipour2024a,\n  title = {A Turkish Educational Crossword Puzzle Generator},\n  author = {Kamyar Zeinalipour and Yusuf Gökberk Keptiğ and Marco Maggini and Leonardo Rigutini and Marco Gori},\n  booktitle = {Artificial Intelligence in Education, 25th International Conference (AIED 2024), Late-Breaking Results},\n  year = {2024},\n  url = {https://arxiv.org/abs/2405.07035}\n}"
+ },
+ "Harnessing LLMs for Educational Content-Driven Italian Crossword Generation": {
+  "date": "2024-12-04",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Achille Fusco",
+   "Asya Zanollo",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "Proceedings of the Tenth Italian Conference on Computational Linguistics (CLiC-it 2024), Pisa, Italy, CEUR Workshop Proceedings",
+  "summary": "The paper builds a tool that generates Italian crossword puzzles from educational text using GPT-4o, Mistral-7B-Instruct-v0.3 and Llama3-8B-Instruct, supported by Italian-Clue-Instruct, a dataset of over 30,000 entries. It covers four clue styles: unconstrained clues, definite determiner phrases, copular sentences and bare noun phrases.",
+  "bib": "@inproceedings{zeinalipour-etal-2024-harnessing,\n    title = \"Harnessing {LLM}s for Educational Content-Driven {I}talian Crossword Generation\",\n    author = \"Zeinalipour, Kamyar  and\n      Fusco, Achille  and\n      Zanollo, Asya  and\n      Maggini, Marco  and\n      Gori, Marco\",\n    editor = \"Dell'Orletta, Felice  and\n      Lenci, Alessandro  and\n      Montemagni, Simonetta  and\n      Sprugnoli, Rachele\",\n    booktitle = \"Proceedings of the Tenth {I}talian Conference on Computational Linguistics ({CL}i{C}-it 2024)\",\n    month = dec,\n    year = \"2024\",\n    address = \"Pisa, Italy\",\n    publisher = \"CEUR Workshop Proceedings\",\n    url = \"https://aclanthology.org/2024.clicit-1.110/\",\n    pages = \"1013--1023\",\n    ISBN = \"979-12-210-7060-6\"\n}"
+ },
+ "Design Proteins Using Large Language Models: Enhancements and Comparative Analyses": {
+  "date": "2024-08-15",
+  "kind": "workshop",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Neda Jamshidi",
+   "Monica Bianchini",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "Proceedings of the 1st Workshop on Language + Molecules (L+M 2024), at ACL 2024, Bangkok, Thailand",
+  "summary": "The paper retrains Mistral-7B, Llama-2-7B, Llama-3-8B and Gemma-7B on 42,000 human protein sequences to generate new protein sequences. Despite the small dataset, the models performed comparably to protein-specific models trained on millions of sequences, measured by pLDDT, RMSD, TM-score and REU.",
+  "bib": "@inproceedings{zeinalipour-etal-2024-design,\n    title = \"Design Proteins Using Large Language Models: Enhancements and Comparative Analyses\",\n    author = \"Zeinalipour, Kamyar  and\n      Jamshidi, Neda  and\n      Bianchini, Monica  and\n      Maggini, Marco  and\n      Gori, Marco\",\n    editor = \"Edwards, Carl  and\n      Wang, Qingyun  and\n      Li, Manling  and\n      Zhao, Lawrence  and\n      Hope, Tom  and\n      Ji, Heng\",\n    booktitle = \"Proceedings of the 1st Workshop on Language + Molecules ({L}+{M} 2024)\",\n    month = aug,\n    year = \"2024\",\n    address = \"Bangkok, Thailand\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2024.langmol-1.5/\",\n    doi = \"10.18653/v1/2024.langmol-1.5\",\n    pages = \"34--47\"\n}"
+ },
+ "Advancing Student Writing Through Automated Syntax Feedback": {
+  "date": "2024-10-19",
+  "kind": "workshop",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Mehak Mehak",
+   "Fatemeh Parsamotamed",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "International Workshop on AI in Education and Educational Research (AIEER 2024), part of the 27th European Conference on Artificial Intelligence (ECAI 2024), Santiago de Compostela, Spain",
+  "summary": "The paper introduces Essay-Syntax-Instruct, a dataset for helping students find and fix English syntax errors, and fine-tunes GPT-3.5-Turbo, Llama-2-7B-chat, Llama-2-13B-chat and Mistral-7B-Instruct on it. The fine-tuned models showed clear improvements on syntax correction.",
+  "bib": "@inproceedings{zeinalipour2024advancing,\n  title = {Advancing Student Writing Through Automated Syntax Feedback},\n  author = {Kamyar Zeinalipour and Mehak Mehak and Fatemeh Parsamotamed and Marco Maggini and Marco Gori},\n  booktitle = {International Workshop on AI in Education and Educational Research (AIEER 2024), at ECAI 2024},\n  year = {2024},\n  url = {https://arxiv.org/abs/2501.07740}\n}"
+ },
+ "ECWCA, Educational Crossword Clues Answering: A CALAMITA Challenge": {
+  "date": "2024-12-04",
+  "kind": "conference",
+  "authors": [
+   "Andrea Zugarini",
+   "Kamyar Zeinalipour",
+   "Achille Fusco",
+   "Asya Zanollo"
+  ],
+  "venue": "Proceedings of the Tenth Italian Conference on Computational Linguistics (CLiC-it 2024), Pisa, Italy, CEUR Workshop Proceedings (CALAMITA challenge papers)",
+  "summary": "The paper presents ECWCA, a CALAMITA challenge that tests the knowledge and reasoning of LLMs by asking them to solve Italian crossword clues, with and without hints about answer length. The clues were generated from Italian Wikipedia entities and facts and then hand-selected for correctness and clarity.",
+  "bib": "@inproceedings{zugarini-etal-2024-ecwca,\n    title = \"{ECWCA} - Educational {C}ross{W}ord Clues Answering: A {CALAMITA} Challenge\",\n    author = \"Zugarini, Andrea  and\n      Zeinalipour, Kamyar  and\n      Fusco, Achille  and\n      Zanollo, Asya\",\n    editor = \"Dell'Orletta, Felice  and\n      Lenci, Alessandro  and\n      Montemagni, Simonetta  and\n      Sprugnoli, Rachele\",\n    booktitle = \"Proceedings of the Tenth {I}talian Conference on Computational Linguistics ({CL}i{C}-it 2024)\",\n    month = dec,\n    year = \"2024\",\n    address = \"Pisa, Italy\",\n    publisher = \"CEUR Workshop Proceedings\",\n    url = \"https://aclanthology.org/2024.clicit-1.138/\",\n    pages = \"1239--1244\",\n    ISBN = \"979-12-210-7060-6\"\n}"
+ },
+ "ArabIcros: AI-Powered Arabic Crossword Puzzle Generation for Educational Applications": {
+  "date": "2023-12-07",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Mohamed Saad",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "Proceedings of ArabicNLP 2023 (First Arabic Natural Language Processing Conference), co-located with EMNLP 2023, Singapore (hybrid)",
+  "summary": "The paper presents the first AI-driven Arabic crossword puzzle generator, using GPT-4, GPT-3 variants and BERT with fine-tuning, few/zero-shot prompting and quality filtering. It builds on a dataset of over 50,000 clue-answer pairs to produce clues for educational crosswords.",
+  "bib": "@inproceedings{zeinalipour-etal-2023-arabicros,\n    title = \"{A}rab{I}cros: {AI}-Powered {A}rabic Crossword Puzzle Generation for Educational Applications\",\n    author = \"Zeinalipour, Kamyar  and\n      Saad, Mohamed  and\n      Maggini, Marco  and\n      Gori, Marco\",\n    editor = \"Sawaf, Hassan  and\n      El-Beltagy, Samhaa  and\n      Zaghouani, Wajdi  and\n      Magdy, Walid  and\n      Abdelali, Ahmed  and\n      Tomeh, Nadi  and\n      Abu Farha, Ibrahim  and\n      Habash, Nizar  and\n      Khalifa, Salam  and\n      Keleg, Amr  and\n      Haddad, Hatem  and\n      Zitouni, Imed  and\n      Mrini, Khalil  and\n      Almatham, Rawan\",\n    booktitle = \"Proceedings of {A}rabic{NLP} 2023\",\n    month = dec,\n    year = \"2023\",\n    address = \"Singapore (Hybrid)\",\n    publisher = \"Association for Computational Linguistics\",\n    url = \"https://aclanthology.org/2023.arabicnlp-1.23/\",\n    doi = \"10.18653/v1/2023.arabicnlp-1.23\",\n    pages = \"288--301\"\n}"
+ },
+ "Italian Crossword Generator: Enhancing Education through Interactive Word Puzzles": {
+  "date": "2023-11-30",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Tommaso Iaquinta",
+   "Asya Zanollo",
+   "Giovanni Angelini",
+   "Leonardo Rigutini",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "Proceedings of the Ninth Italian Conference on Computational Linguistics (CLiC-it 2023), Venice, Italy, CEUR Workshop Proceedings Vol-3596",
+  "summary": "The paper builds a system that generates and checks Italian crossword clues, fine-tuning GPT-3 models and BERT on a large set of clue-answer pairs and using zero/few-shot prompting to draw clues from texts. Classifiers trained on human-labeled data filter out weak clues, and the evaluation showed the approach produces good educational crosswords.",
+  "bib": "@inproceedings{zeinalipour2023italian,\n  title = {Italian Crossword Generator: Enhancing Education through Interactive Word Puzzles},\n  author = {Kamyar Zeinalipour and Tommaso Iaquinta and Asya Zanollo and Giovanni Angelini and Leonardo Rigutini and Marco Maggini and Marco Gori},\n  booktitle = {Proceedings of the Ninth Italian Conference on Computational Linguistics (CLiC-it 2023)},\n  year = {2023},\n  series = {CEUR Workshop Proceedings},\n  volume = {3596},\n  url = {https://arxiv.org/abs/2311.15723}\n}"
+ },
+ "Building Bridges of Knowledge: Innovating Education with Automated Crossword Generation": {
+  "date": "2023-12-15",
+  "kind": "conference",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Tommaso Iaquinta",
+   "Giovanni Angelini",
+   "Leonardo Rigutini",
+   "Marco Maggini",
+   "Marco Gori"
+  ],
+  "venue": "2023 International Conference on Machine Learning and Applications (ICMLA 2023), Jacksonville, FL, USA, pages 1228-1236, IEEE",
+  "summary": "The paper combines GPT-3, GPT2-XL and BERT into a system that generates and verifies crossword clues for educational use, trained on over seven million clue-answer pairs from 1913 to mid-2021. Fine-tuned classifiers and zero-shot checks remove weak clue-answer pairs, and the evaluation results were positive.",
+  "bib": "@inproceedings{Zeinalipour_2023, title={Building Bridges of Knowledge: Innovating Education with Automated Crossword Generation}, url={http://dx.doi.org/10.1109/ICMLA58977.2023.00185}, DOI={10.1109/icmla58977.2023.00185}, booktitle={2023 International Conference on Machine Learning and Applications (ICMLA)}, publisher={IEEE}, author={Zeinalipour, Kamyar and Iaquinta, Tommaso and Angelini, Giovanni and Rigutini, Leonardo and Maggini, Marco and Gori, Marco}, year={2023}, month=Dec, pages={1228–1236} }"
+ },
+ "Graph Neural Networks for Topological Feature Extraction in ECG Classification": {
+  "date": "2023-08-02",
+  "kind": "journal-online",
+  "authors": [
+   "Kamyar Zeinalipour",
+   "Marco Gori"
+  ],
+  "venue": "Applications of Artificial Intelligence and Neural Systems to Data Science, Smart Innovation, Systems and Technologies, Springer, pages 17-27 (proceedings of WIRN 2022)",
+  "summary": "The paper proposes three ways to extract topological features from ECG signals and classify heartbeats with a graph isomorphism network, a type of graph neural network. On the PTB Diagnostic dataset the three methods reached 99.38%, 98.76% and 91.93% accuracy.",
+  "bib": "@inbook{Zeinalipour_2023, title={Graph Neural Networks for Topological Feature Extraction in ECG Classification}, ISBN={9789819935925}, ISSN={2190-3026}, url={http://dx.doi.org/10.1007/978-981-99-3592-5_2}, DOI={10.1007/978-981-99-3592-5_2}, booktitle={Applications of Artificial Intelligence and Neural Systems to Data Science}, publisher={Springer Nature Singapore}, author={Zeinalipour, Kamyar and Gori, Marco}, year={2023}, pages={17–27} }"
+ },
+ "The WebCrow French Crossword Solver": {
+  "date": "2023-11-27",
+  "kind": "conference",
+  "authors": [
+   "Giovanni Angelini",
+   "Marco Ernandes",
+   "Tommaso Iaquinta",
+   "Caroline Stehlé",
+   "Fanny Simões",
+   "Kamyar Zeinalipour",
+   "Andrea Zugarini",
+   "Marco Gori"
+  ],
+  "venue": "Intelligent Technologies for Interactive Entertainment: 14th EAI International Conference, INTETAIN 2023, Lucca, Italy, Proceedings, LNICST, Springer, pages 193-209",
+  "summary": "The paper extends the WebCrow 2.0 crossword solver to French, making it the first automatic solver for French crosswords, with modules that draw on the web, knowledge graphs and linguistic rules to make up for scarce past puzzle data. In two challenges against human solvers it was faster and more accurate than the humans.",
+  "bib": "@inbook{Angelini_2024, title={The WebCrow French Crossword Solver}, ISBN={9783031557224}, ISSN={1867-822X}, url={http://dx.doi.org/10.1007/978-3-031-55722-4_14}, DOI={10.1007/978-3-031-55722-4_14}, booktitle={Intelligent Technologies for Interactive Entertainment}, publisher={Springer Nature Switzerland}, author={Angelini, Giovanni and Ernandes, Marco and Iaquinta, Tommaso and Stehlé, Caroline and Simões, Fanny and Zeinalipour, Kamyar and Zugarini, Andrea and Gori, Marco}, year={2024}, pages={193–209} }"
+ }
+}

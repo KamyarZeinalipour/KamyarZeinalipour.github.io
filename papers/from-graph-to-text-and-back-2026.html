@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Graph to Text and Back, 2026: Kamyar Zeinalipour</title>
+<meta name="description" content="From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs. Kamyar Zeinalipour, Silvia Severini, Alessia Borghini, Sara Cardarelli, Marco Maggini, Marco Gori. Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 6: Industry Trac">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141110" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://kamyarzeinalipour.github.io/papers/from-graph-to-text-and-back-2026.html">
+<meta property="og:title" content="From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs">
+<meta property="og:description" content="The paper proposes a self-supervised round-trip pipeline that turns knowledge-graph triples into text, rebuilds the graph from that text, and keeps only verbalizations that allow full recovery of the original graph. The round-trip score correlates strongly with expert judgment, and fine-tuning LLMs on the retained data improves both triple extraction and faithful text generation without manual annotation.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kamyarzeinalipour.github.io/papers/from-graph-to-text-and-back-2026.html">
+<meta property="og:site_name" content="Kamyar Zeinalipour">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs">
+<meta name="citation_author" content="Kamyar Zeinalipour">
+<meta name="citation_author" content="Silvia Severini">
+<meta name="citation_author" content="Alessia Borghini">
+<meta name="citation_author" content="Sara Cardarelli">
+<meta name="citation_author" content="Marco Maggini">
+<meta name="citation_author" content="Marco Gori">
+<meta name="citation_publication_date" content="2026/07/05">
+<meta name="citation_conference_title" content="Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 6: Industry Track), ACL 2026, San Diego, California, USA">
+<meta name="citation_pdf_url" content="https://aclanthology.org/2026.acl-industry.140.pdf">
+<meta name="citation_abstract_html_url" content="https://kamyarzeinalipour.github.io/papers/from-graph-to-text-and-back-2026.html">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs",
+ "name": "From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs",
+ "datePublished": "2026-07-05",
+ "url": "https://kamyarzeinalipour.github.io/papers/from-graph-to-text-and-back-2026.html",
+ "description": "The paper proposes a self-supervised round-trip pipeline that turns knowledge-graph triples into text, rebuilds the graph from that text, and keeps only verbalizations that allow full recovery of the original graph. The round-trip score correlates strongly with expert judgment, and fine-tuning LLMs on the retained data improves both triple extraction and faithful text generation without manual annotation.",
+ "author": [
+  {
+   "@type": "Person",
+   "@id": "https://kamyarzeinalipour.github.io/#person",
+   "name": "Kamyar Zeinalipour",
+   "url": "https://kamyarzeinalipour.github.io/"
+  },
+  {
+   "@type": "Person",
+   "name": "Silvia Severini"
+  },
+  {
+   "@type": "Person",
+   "name": "Alessia Borghini"
+  },
+  {
+   "@type": "Person",
+   "name": "Sara Cardarelli"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Maggini"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Gori"
+  }
+ ],
+ "isPartOf": {
+  "@type": "PublicationEvent",
+  "name": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 6: Industry Track), ACL 2026, San Diego, California, USA"
+ },
+ "sameAs": [
+  "https://aclanthology.org/2026.acl-industry.140/"
+ ],
+ "about": [
+  "Science and industry"
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body class="paper-page has-scene">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" aria-current="page">Publications</a>
+      <a href="../teaching.html">Teaching</a>
+      <a href="../updates.html">Updates</a>
+      <a href="../about.html">About</a></div>
+  </nav>
+</header>
+
+<main id="main">
+  <article>
+    <section class="page-head paper-head">
+      <div class="wrap paper-head-in">
+        <div class="paper-head-text">
+        <p class="crumbs"><a href="../publications.html">Publications</a> / <a href="../publications.html#from-graph-to-text-and-back-2026">2026</a></p>
+        <h1>From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs</h1>
+        <p class="paper-authors"><strong>Kamyar Zeinalipour</strong>, Silvia Severini, Alessia Borghini, Sara Cardarelli, Marco Maggini, Marco Gori</p>
+        <p class="paper-venue">Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 6: Industry Track), ACL 2026, San Diego, California, USA<br><span>Presented on <time datetime="2026-07-05">5 July 2026</time>, 1 citation on Google Scholar</span></p>
+        <p class="home-go paper-links">
+        <a class="go-main" href="https://aclanthology.org/2026.acl-industry.140/">Read the paper</a>
+        <a href="https://aclanthology.org/2026.acl-industry.140.pdf">PDF</a>
+        <a href="https://github.com/KamyarZeinalipour/round-trip-kg">Code</a>
+        <a href="https://huggingface.co/collections/Kamyar-zeinalipour/from-graph-to-text-and-back-acl-2026-6af4841166cf330a92294b6c">Models and data</a>
+        </p>
+        </div>
+        <figure class="paper-scene">
+          <div id="paper-scene" data-href="https://aclanthology.org/2026.acl-industry.140/"></div>
+          <figcaption>The idea of the paper in one short animation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap paper-body">
+        <h2>In short</h2>
+        <p class="paper-summary">The paper proposes a self-supervised round-trip pipeline that turns knowledge-graph triples into text, rebuilds the graph from that text, and keeps only verbalizations that allow full recovery of the original graph. The round-trip score correlates strongly with expert judgment, and fine-tuning LLMs on the retained data improves both triple extraction and faithful text generation without manual annotation.</p>
+        <p class="paper-topics"><a class="chip" href="../research.html">Science and industry</a></p>
+
+        <h2 id="cite-h">Cite</h2>
+        <pre class="bib" aria-labelledby="cite-h"><code id="bib">@inproceedings{zeinalipour-etal-2026-graph,
+    title = &quot;From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs&quot;,
+    author = &quot;Zeinalipour, Kamyar  and
+      Severini, Silvia  and
+      Borghini, Alessia  and
+      Cardarelli, Sara  and
+      Maggini, Marco  and
+      Gori, Marco&quot;,
+    editor = &quot;Li, Yunyao  and
+      Rehm, Georg  and
+      Tu, Mei&quot;,
+    booktitle = &quot;Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 6: Industry Track)&quot;,
+    month = jul,
+    year = &quot;2026&quot;,
+    address = &quot;San Diego, California, USA&quot;,
+    publisher = &quot;Association for Computational Linguistics&quot;,
+    url = &quot;https://aclanthology.org/2026.acl-industry.140/&quot;,
+    doi = &quot;10.18653/v1/2026.acl-industry.140&quot;,
+    pages = &quot;2095--2111&quot;,
+    ISBN = &quot;979-8-89176-394-4&quot;
+}</code></pre>
+        <p><button class="chip copy-bib" type="button" data-target="bib">Copy BibTeX</button></p>
+
+        <h2>Related papers</h2>
+        <ul class="related">
+          <li><a href="pharmaqa-it-2026.html">PharmaQA.IT: an Italian dataset for Q&amp;A in the pharmaceutical domain</a><span>EACL 2026, industry track</span></li>
+          <li><a href="pharmistral-2026.html">PharMistral: Drug generation for novel protein targets by Mistral Large Language Model</a><span>Computer Methods and Programs in Biomedicine Update 10</span></li>
+          <li><a href="application-of-machine-learning-models-for-carbon-monoxide-a.html">Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines</a><span>Neural Networks: Overview of Current Theories and Applications, Springer</span></li>
+          <li><a href="adaptive-nox-emissions-forecasting-for-gas-turbines-via-dyna.html">Adaptive NOx Emissions Forecasting for Gas Turbines via Dynamic PCA-Driven Clustering</a><span>AI-ML-Systems 2025</span></li>
+        </ul>
+        <p class="cite"><a href="../publications.html">All thirty-one papers</a></p>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ECWCA, Educational Crossword Clues Answering, 2024: Kamyar Zeinalipour</title>
+<meta name="description" content="ECWCA, Educational Crossword Clues Answering: A CALAMITA Challenge. Andrea Zugarini, Kamyar Zeinalipour, Achille Fusco, Asya Zanollo. Proceedings of the Tenth Italian Conference on Computational Linguistics (CLiC-it 2024), Pisa, Italy, CEUR Workshop Proceedings (CALAMITA challenge papers), 2024.">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141110" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://kamyarzeinalipour.github.io/papers/ecwca-educational-crossword-clues-answering-2024.html">
+<meta property="og:title" content="ECWCA, Educational Crossword Clues Answering: A CALAMITA Challenge">
+<meta property="og:description" content="The paper presents ECWCA, a CALAMITA challenge that tests the knowledge and reasoning of LLMs by asking them to solve Italian crossword clues, with and without hints about answer length. The clues were generated from Italian Wikipedia entities and facts and then hand-selected for correctness and clarity.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kamyarzeinalipour.github.io/papers/ecwca-educational-crossword-clues-answering-2024.html">
+<meta property="og:site_name" content="Kamyar Zeinalipour">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="ECWCA, Educational Crossword Clues Answering: A CALAMITA Challenge">
+<meta name="citation_author" content="Andrea Zugarini">
+<meta name="citation_author" content="Kamyar Zeinalipour">
+<meta name="citation_author" content="Achille Fusco">
+<meta name="citation_author" content="Asya Zanollo">
+<meta name="citation_publication_date" content="2024/12/04">
+<meta name="citation_conference_title" content="Proceedings of the Tenth Italian Conference on Computational Linguistics (CLiC-it 2024), Pisa, Italy, CEUR Workshop Proceedings (CALAMITA challenge papers)">
+<meta name="citation_pdf_url" content="https://aclanthology.org/2024.clicit-1.138.pdf">
+<meta name="citation_abstract_html_url" content="https://kamyarzeinalipour.github.io/papers/ecwca-educational-crossword-clues-answering-2024.html">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "ECWCA, Educational Crossword Clues Answering: A CALAMITA Challenge",
+ "name": "ECWCA, Educational Crossword Clues Answering: A CALAMITA Challenge",
+ "datePublished": "2024-12-04",
+ "url": "https://kamyarzeinalipour.github.io/papers/ecwca-educational-crossword-clues-answering-2024.html",
+ "description": "The paper presents ECWCA, a CALAMITA challenge that tests the knowledge and reasoning of LLMs by asking them to solve Italian crossword clues, with and without hints about answer length. The clues were generated from Italian Wikipedia entities and facts and then hand-selected for correctness and clarity.",
+ "author": [
+  {
+   "@type": "Person",
+   "name": "Andrea Zugarini"
+  },
+  {
+   "@type": "Person",
+   "@id": "https://kamyarzeinalipour.github.io/#person",
+   "name": "Kamyar Zeinalipour",
+   "url": "https://kamyarzeinalipour.github.io/"
+  },
+  {
+   "@type": "Person",
+   "name": "Achille Fusco"
+  },
+  {
+   "@type": "Person",
+   "name": "Asya Zanollo"
+  }
+ ],
+ "isPartOf": {
+  "@type": "PublicationEvent",
+  "name": "Proceedings of the Tenth Italian Conference on Computational Linguistics (CLiC-it 2024), Pisa, Italy, CEUR Workshop Proceedings (CALAMITA challenge papers)"
+ },
+ "sameAs": [
+  "https://aclanthology.org/2024.clicit-1.138/"
+ ],
+ "about": [
+  "Linguistics and evaluation"
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body class="paper-page has-scene">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" aria-current="page">Publications</a>
+      <a href="../teaching.html">Teaching</a>
+      <a href="../updates.html">Updates</a>
+      <a href="../about.html">About</a></div>
+  </nav>
+</header>
+
+<main id="main">
+  <article>
+    <section class="page-head paper-head">
+      <div class="wrap paper-head-in">
+        <div class="paper-head-text">
+        <p class="crumbs"><a href="../publications.html">Publications</a> / <a href="../publications.html#ecwca-educational-crossword-clues-answering-2024">2024</a></p>
+        <h1>ECWCA, Educational Crossword Clues Answering: A CALAMITA Challenge</h1>
+        <p class="paper-authors">Andrea Zugarini, <strong>Kamyar Zeinalipour</strong>, Achille Fusco, Asya Zanollo</p>
+        <p class="paper-venue">Proceedings of the Tenth Italian Conference on Computational Linguistics (CLiC-it 2024), Pisa, Italy, CEUR Workshop Proceedings (CALAMITA challenge papers)<br><span>Presented on <time datetime="2024-12-04">4 December 2024</time>, 5 citations on Google Scholar</span></p>
+        <p class="home-go paper-links">
+        <a class="go-main" href="https://aclanthology.org/2024.clicit-1.138/">Read the paper</a>
+        <a href="https://aclanthology.org/2024.clicit-1.138.pdf">PDF</a>
+        </p>
+        </div>
+        <figure class="paper-scene">
+          <div id="paper-scene" data-href="https://aclanthology.org/2024.clicit-1.138/"></div>
+          <figcaption>The idea of the paper in one short animation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap paper-body">
+        <h2>In short</h2>
+        <p class="paper-summary">The paper presents ECWCA, a CALAMITA challenge that tests the knowledge and reasoning of LLMs by asking them to solve Italian crossword clues, with and without hints about answer length. The clues were generated from Italian Wikipedia entities and facts and then hand-selected for correctness and clarity.</p>
+        <p class="paper-topics"><a class="chip" href="../research.html">Linguistics and evaluation</a></p>
+
+        <h2 id="cite-h">Cite</h2>
+        <pre class="bib" aria-labelledby="cite-h"><code id="bib">@inproceedings{zugarini-etal-2024-ecwca,
+    title = &quot;{ECWCA} - Educational {C}ross{W}ord Clues Answering: A {CALAMITA} Challenge&quot;,
+    author = &quot;Zugarini, Andrea  and
+      Zeinalipour, Kamyar  and
+      Fusco, Achille  and
+      Zanollo, Asya&quot;,
+    editor = &quot;Dell'Orletta, Felice  and
+      Lenci, Alessandro  and
+      Montemagni, Simonetta  and
+      Sprugnoli, Rachele&quot;,
+    booktitle = &quot;Proceedings of the Tenth {I}talian Conference on Computational Linguistics ({CL}i{C}-it 2024)&quot;,
+    month = dec,
+    year = &quot;2024&quot;,
+    address = &quot;Pisa, Italy&quot;,
+    publisher = &quot;CEUR Workshop Proceedings&quot;,
+    url = &quot;https://aclanthology.org/2024.clicit-1.138/&quot;,
+    pages = &quot;1239--1244&quot;,
+    ISBN = &quot;979-12-210-7060-6&quot;
+}</code></pre>
+        <p><button class="chip copy-bib" type="button" data-target="bib">Copy BibTeX</button></p>
+
+        <h2>Related papers</h2>
+        <ul class="related">
+          <li><a href="elections-go-bananas-2026.html">Elections go bananas: A First Large-scale Multilingual Study of Pluralia Tantum using LLMs</a><span>EACL 2026</span></li>
+          <li><a href="challenging-the-abilities-of-large-language-models-in-italia.html">Challenging the Abilities of Large Language Models in Italian: a Community Initiative</a><span>Italian Journal of Computational Linguistics</span></li>
+          <li><a href="iterative-in-context-learning-to-enhance-llms-abstract-reaso.html">Iterative In-Context Learning to Enhance LLMs Abstract Reasoning: The Case-Study of Algebraic Tasks</a><span>ACM SAC 2026</span></li>
+          <li><a href="surprisal-and-crossword-clues-difficulty-2025.html">Surprisal and Crossword Clues Difficulty: Evaluating Linguistic Processing between LLMs and Humans</a><span>CLiC-it 2025</span></li>
+        </ul>
+        <p class="cite"><a href="../publications.html">All thirty-one papers</a></p>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="../assets/app.js"></script>
+</body>
+</html>

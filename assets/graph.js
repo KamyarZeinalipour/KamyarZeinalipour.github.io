@@ -190,7 +190,7 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
       g.append(svgEl("circle", { r: 4.2 }));
       g.addEventListener("mouseenter", () => { status.textContent = `${n.paper.y}. ${n.paper.t}`; });
       g.addEventListener("mouseleave", () => { status.textContent = active ? active.msg : idle; });
-      g.addEventListener("click", () => { window.location.href = `publications.html#${slug(n.paper)}`; });
+      g.addEventListener("click", () => { window.location.href = `papers/${slug(n.paper).replace(/-+$/, "")}.html`; });
     } else {
       const r = n.lead ? 13 : n.kind === "topic" ? 10 : 7;
       g.append(svgEl("circle", { r }));
@@ -324,7 +324,7 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
     mount.append(card);
     const linkedTo = (n) => { const set = new Set([n]); for (const e of edges) if (e.b === n) set.add(e.a); return set; };
     const describe = (n) => {
-      if (n.kind === "paper") return [n.paper.t, `${n.paper.v}, ${n.paper.y}`, "Click to open in Publications"];
+      if (n.kind === "paper") return [n.paper.t, `${n.paper.v}, ${n.paper.y}`, "Click to open its page"];
       if (n.kind === "release") return [n.release.name, `${n.release.when}. ${n.release.what}`, "Click to see the models"];
       const set = linkedTo(n);
       const papers = [...set].filter((m) => m.kind === "paper").length;

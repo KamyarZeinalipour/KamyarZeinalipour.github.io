@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Turkish Educational Crossword Puzzle Generator, 2024: Kamyar Zeinalipour</title>
+<meta name="description" content="A Turkish Educational Crossword Puzzle Generator. Kamyar Zeinalipour, Yusuf Gökberk Keptiğ, Marco Maggini, Leonardo Rigutini, Marco Gori. 25th International Conference on Artificial Intelligence in Education (AIED 2024), Late-Breaking Results track, Recife, Brazil, 2024.">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141110" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://kamyarzeinalipour.github.io/papers/a-turkish-educational-crossword-puzzle-generator-2024.html">
+<meta property="og:title" content="A Turkish Educational Crossword Puzzle Generator">
+<meta property="og:description" content="The paper presents the first Turkish crossword puzzle generator based on LLMs, with two new datasets: over 180,000 answer-clue pairs and over 35,000 samples that link text, answer, category and clue. The tool is aimed at classroom use to support vocabulary, memory and problem solving.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kamyarzeinalipour.github.io/papers/a-turkish-educational-crossword-puzzle-generator-2024.html">
+<meta property="og:site_name" content="Kamyar Zeinalipour">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="A Turkish Educational Crossword Puzzle Generator">
+<meta name="citation_author" content="Kamyar Zeinalipour">
+<meta name="citation_author" content="Yusuf Gökberk Keptiğ">
+<meta name="citation_author" content="Marco Maggini">
+<meta name="citation_author" content="Leonardo Rigutini">
+<meta name="citation_author" content="Marco Gori">
+<meta name="citation_publication_date" content="2024/07/08">
+<meta name="citation_conference_title" content="25th International Conference on Artificial Intelligence in Education (AIED 2024), Late-Breaking Results track, Recife, Brazil">
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2405.07035">
+<meta name="citation_abstract_html_url" content="https://kamyarzeinalipour.github.io/papers/a-turkish-educational-crossword-puzzle-generator-2024.html">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "A Turkish Educational Crossword Puzzle Generator",
+ "name": "A Turkish Educational Crossword Puzzle Generator",
+ "datePublished": "2024-07-08",
+ "url": "https://kamyarzeinalipour.github.io/papers/a-turkish-educational-crossword-puzzle-generator-2024.html",
+ "description": "The paper presents the first Turkish crossword puzzle generator based on LLMs, with two new datasets: over 180,000 answer-clue pairs and over 35,000 samples that link text, answer, category and clue. The tool is aimed at classroom use to support vocabulary, memory and problem solving.",
+ "author": [
+  {
+   "@type": "Person",
+   "@id": "https://kamyarzeinalipour.github.io/#person",
+   "name": "Kamyar Zeinalipour",
+   "url": "https://kamyarzeinalipour.github.io/"
+  },
+  {
+   "@type": "Person",
+   "name": "Yusuf Gökberk Keptiğ"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Maggini"
+  },
+  {
+   "@type": "Person",
+   "name": "Leonardo Rigutini"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Gori"
+  }
+ ],
+ "isPartOf": {
+  "@type": "PublicationEvent",
+  "name": "25th International Conference on Artificial Intelligence in Education (AIED 2024), Late-Breaking Results track, Recife, Brazil"
+ },
+ "sameAs": [
+  "https://arxiv.org/abs/2405.07035"
+ ],
+ "about": [
+  "Educational content"
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body class="paper-page has-scene">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" aria-current="page">Publications</a>
+      <a href="../teaching.html">Teaching</a>
+      <a href="../updates.html">Updates</a>
+      <a href="../about.html">About</a></div>
+  </nav>
+</header>
+
+<main id="main">
+  <article>
+    <section class="page-head paper-head">
+      <div class="wrap paper-head-in">
+        <div class="paper-head-text">
+        <p class="crumbs"><a href="../publications.html">Publications</a> / <a href="../publications.html#a-turkish-educational-crossword-puzzle-generator-2024">2024</a></p>
+        <h1>A Turkish Educational Crossword Puzzle Generator</h1>
+        <p class="paper-authors"><strong>Kamyar Zeinalipour</strong>, Yusuf Gökberk Keptiğ, Marco Maggini, Leonardo Rigutini, Marco Gori</p>
+        <p class="paper-venue">25th International Conference on Artificial Intelligence in Education (AIED 2024), Late-Breaking Results track, Recife, Brazil<br><span>Presented on <time datetime="2024-07-08">8 July 2024</time>, 10 citations on Google Scholar</span></p>
+        <p class="home-go paper-links">
+        <a class="go-main" href="https://arxiv.org/abs/2405.07035">Read the paper</a>
+        <a href="https://arxiv.org/pdf/2405.07035">PDF</a>
+        <a href="https://github.com/KamyarZeinalipour/CW_Clue_Gen_tr">Code</a>
+        <a href="https://huggingface.co/collections/Kamyar-zeinalipour/turkish-educational-crosswords-aied-2024-6af4852ff9a91556f58237ca">Models and data</a>
+        </p>
+        </div>
+        <figure class="paper-scene">
+          <div id="paper-scene" data-href="https://arxiv.org/abs/2405.07035"></div>
+          <figcaption>The idea of the paper in one short animation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap paper-body">
+        <h2>In short</h2>
+        <p class="paper-summary">The paper presents the first Turkish crossword puzzle generator based on LLMs, with two new datasets: over 180,000 answer-clue pairs and over 35,000 samples that link text, answer, category and clue. The tool is aimed at classroom use to support vocabulary, memory and problem solving.</p>
+        <p class="paper-topics"><a class="chip" href="../research.html">Educational content</a></p>
+
+        <h2 id="cite-h">Cite</h2>
+        <pre class="bib" aria-labelledby="cite-h"><code id="bib">@inproceedings{zeinalipour2024a,
+  title = {A Turkish Educational Crossword Puzzle Generator},
+  author = {Kamyar Zeinalipour and Yusuf Gökberk Keptiğ and Marco Maggini and Leonardo Rigutini and Marco Gori},
+  booktitle = {Artificial Intelligence in Education, 25th International Conference (AIED 2024), Late-Breaking Results},
+  year = {2024},
+  url = {https://arxiv.org/abs/2405.07035}
+}</code></pre>
+        <p><button class="chip copy-bib" type="button" data-target="bib">Copy BibTeX</button></p>
+
+        <h2>Related papers</h2>
+        <ul class="related">
+          <li><a href="multihint-9k-2026.html">MultiHint-9K: Orchestrating Human and AI Agency for Scalable Pedagogical Hint Generation</a><span>AIED 2026 workshops, CEUR 4248</span></li>
+          <li><a href="persianmcq-instruct-2025.html">PersianMCQ-Instruct: A Comprehensive Resource for Generating Multiple-Choice Questions in Persian</a><span>LoResLM 2025</span></li>
+          <li><a href="from-arabic-text-to-puzzles-2025.html">From Arabic Text to Puzzles: LLM-Driven Development of Arabic Educational Crosswords</a><span>LoResLM 2025</span></li>
+          <li><a href="italian-crossword-generator-2025.html">Italian Crossword Generator: An In-depth Linguistic Analysis in Educational Word Puzzles</a><span>Italian Journal of Computational Linguistics 11</span></li>
+        </ul>
+        <p class="cite"><a href="../publications.html">All thirty-one papers</a></p>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PharMistral, 2026: Kamyar Zeinalipour</title>
+<meta name="description" content="PharMistral: Drug generation for novel protein targets by Mistral Large Language Model. Asma Bendjeddou, Kamyar Zeinalipour, Dalal Bardou, Marco Maggini, Franco Scarselli, Monica Bianchini. Computer Methods and Programs in Biomedicine Update, vol. 10 (2026), article 100257, Elsevier, 2026.">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141110" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://kamyarzeinalipour.github.io/papers/pharmistral-2026.html">
+<meta property="og:title" content="PharMistral: Drug generation for novel protein targets by Mistral Large Language Model">
+<meta property="og:description" content="The paper presents PharMistral, a Mistral-7B model first trained on over 300,000 human protein sequences and over 1 million drug-like SMILES, then fine-tuned on about 300,000 protein-ligand pairs from ChEMBL to generate candidate drug molecules directly from a protein sequence. On unseen proteins, 99.5% of generated molecules were chemically valid, and 3,383 unique molecules passed drug-likeness and toxicity filters.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kamyarzeinalipour.github.io/papers/pharmistral-2026.html">
+<meta property="og:site_name" content="Kamyar Zeinalipour">
+<meta property="og:image" content="https://kamyarzeinalipour.github.io/images/og-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="citation_title" content="PharMistral: Drug generation for novel protein targets by Mistral Large Language Model">
+<meta name="citation_author" content="Asma Bendjeddou">
+<meta name="citation_author" content="Kamyar Zeinalipour">
+<meta name="citation_author" content="Dalal Bardou">
+<meta name="citation_author" content="Marco Maggini">
+<meta name="citation_author" content="Franco Scarselli">
+<meta name="citation_author" content="Monica Bianchini">
+<meta name="citation_publication_date" content="2026/06/12">
+<meta name="citation_journal_title" content="Computer Methods and Programs in Biomedicine Update">
+<meta name="citation_doi" content="10.1016/j.cmpbup.2026.100257">
+<meta name="citation_abstract_html_url" content="https://kamyarzeinalipour.github.io/papers/pharmistral-2026.html">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "PharMistral: Drug generation for novel protein targets by Mistral Large Language Model",
+ "name": "PharMistral: Drug generation for novel protein targets by Mistral Large Language Model",
+ "datePublished": "2026-06-12",
+ "url": "https://kamyarzeinalipour.github.io/papers/pharmistral-2026.html",
+ "description": "The paper presents PharMistral, a Mistral-7B model first trained on over 300,000 human protein sequences and over 1 million drug-like SMILES, then fine-tuned on about 300,000 protein-ligand pairs from ChEMBL to generate candidate drug molecules directly from a protein sequence. On unseen proteins, 99.5% of generated molecules were chemically valid, and 3,383 unique molecules passed drug-likeness and toxicity filters.",
+ "author": [
+  {
+   "@type": "Person",
+   "name": "Asma Bendjeddou"
+  },
+  {
+   "@type": "Person",
+   "@id": "https://kamyarzeinalipour.github.io/#person",
+   "name": "Kamyar Zeinalipour",
+   "url": "https://kamyarzeinalipour.github.io/"
+  },
+  {
+   "@type": "Person",
+   "name": "Dalal Bardou"
+  },
+  {
+   "@type": "Person",
+   "name": "Marco Maggini"
+  },
+  {
+   "@type": "Person",
+   "name": "Franco Scarselli"
+  },
+  {
+   "@type": "Person",
+   "name": "Monica Bianchini"
+  }
+ ],
+ "isPartOf": {
+  "@type": "Periodical",
+  "name": "Computer Methods and Programs in Biomedicine Update, vol. 10 (2026), article 100257, Elsevier"
+ },
+ "sameAs": [
+  "https://doi.org/10.1016/j.cmpbup.2026.100257"
+ ],
+ "identifier": {
+  "@type": "PropertyValue",
+  "propertyID": "DOI",
+  "value": "10.1016/j.cmpbup.2026.100257"
+ },
+ "about": [
+  "Science and industry"
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300&family=Vazirmatn:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+<script>
+  try {
+    var t = localStorage.getItem("kz-theme");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    else document.documentElement.removeAttribute("data-theme");
+  } catch (e) { document.documentElement.removeAttribute("data-theme"); }
+</script>
+</head>
+<body class="paper-page has-scene">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-in">
+    <a class="wordmark" href="../index.html"><span class="kz" aria-hidden="true">KZ</span> Kamyar Zeinalipour</a>
+    <a class="mast-link" href="https://github.com/KamyarZeinalipour">GitHub</a>
+    <a class="mast-link" href="https://huggingface.co/Kamyar-zeinalipour">Hugging&nbsp;Face</a>
+    <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+      <span id="theme-label">Dark</span>
+    </button>
+  </div>
+  <nav class="nav" aria-label="Pages">
+    <div class="wrap nav-in"><a href="../index.html">Home</a>
+      <a href="../research.html">Research</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" aria-current="page">Publications</a>
+      <a href="../teaching.html">Teaching</a>
+      <a href="../updates.html">Updates</a>
+      <a href="../about.html">About</a></div>
+  </nav>
+</header>
+
+<main id="main">
+  <article>
+    <section class="page-head paper-head">
+      <div class="wrap paper-head-in">
+        <div class="paper-head-text">
+        <p class="crumbs"><a href="../publications.html">Publications</a> / <a href="../publications.html#pharmistral-2026">2026</a></p>
+        <h1>PharMistral: Drug generation for novel protein targets by Mistral Large Language Model</h1>
+        <p class="paper-authors">Asma Bendjeddou, <strong>Kamyar Zeinalipour</strong>, Dalal Bardou, Marco Maggini, Franco Scarselli, Monica Bianchini</p>
+        <p class="paper-venue">Computer Methods and Programs in Biomedicine Update, vol. 10 (2026), article 100257, Elsevier<br><span>Published online on <time datetime="2026-06-12">12 June 2026</time>, 1 citation on Google Scholar</span></p>
+        <p class="home-go paper-links">
+        <a class="go-main" href="https://doi.org/10.1016/j.cmpbup.2026.100257">Read the paper</a>
+        <a href="https://github.com/KamyarZeinalipour/PharMistral">Code</a>
+        <a href="https://huggingface.co/collections/Kamyar-zeinalipour/pharmistral-cmpb-update-2026-6af48fca521e8481db608782">Models and data</a>
+        </p>
+        </div>
+        <figure class="paper-scene">
+          <div id="paper-scene" data-href="https://doi.org/10.1016/j.cmpbup.2026.100257"></div>
+          <figcaption>The idea of the paper in one short animation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap paper-body">
+        <h2>In short</h2>
+        <p class="paper-summary">The paper presents PharMistral, a Mistral-7B model first trained on over 300,000 human protein sequences and over 1 million drug-like SMILES, then fine-tuned on about 300,000 protein-ligand pairs from ChEMBL to generate candidate drug molecules directly from a protein sequence. On unseen proteins, 99.5% of generated molecules were chemically valid, and 3,383 unique molecules passed drug-likeness and toxicity filters.</p>
+        <p class="paper-topics"><a class="chip" href="../research.html">Science and industry</a></p>
+
+        <h2 id="cite-h">Cite</h2>
+        <pre class="bib" aria-labelledby="cite-h"><code id="bib">@article{Bendjeddou_2026,
+ title={PharMistral: Drug generation for novel protein targets by Mistral Large Language Model},
+ volume={10},
+ ISSN={2666-9900},
+ url={http://dx.doi.org/10.1016/j.cmpbup.2026.100257},
+ DOI={10.1016/j.cmpbup.2026.100257},
+ journal={Computer Methods and Programs in Biomedicine Update},
+ publisher={Elsevier BV},
+ author={Bendjeddou, Asma and Zeinalipour, Kamyar and Bardou, Dalal and Maggini, Marco and Scarselli, Franco and Bianchini, Monica},
+ year={2026},
+ month=Dec,
+ pages={100257} 
+}</code></pre>
+        <p><button class="chip copy-bib" type="button" data-target="bib">Copy BibTeX</button></p>
+
+        <h2>Related papers</h2>
+        <ul class="related">
+          <li><a href="pharmaqa-it-2026.html">PharmaQA.IT: an Italian dataset for Q&amp;A in the pharmaceutical domain</a><span>EACL 2026, industry track</span></li>
+          <li><a href="from-graph-to-text-and-back-2026.html">From Graph to Text and Back: Semantic Fidelity in Automated Industrial Knowledge Graphs</a><span>ACL 2026, industry track</span></li>
+          <li><a href="application-of-machine-learning-models-for-carbon-monoxide-a.html">Application of Machine Learning Models for Carbon Monoxide and Nitrogen Oxides Emission Prediction in Gas Turbines</a><span>Neural Networks: Overview of Current Theories and Applications, Springer</span></li>
+          <li><a href="adaptive-nox-emissions-forecasting-for-gas-turbines-via-dyna.html">Adaptive NOx Emissions Forecasting for Gas Turbines via Dynamic PCA-Driven Clustering</a><span>AI-ML-Systems 2025</span></li>
+        </ul>
+        <p class="cite"><a href="../publications.html">All thirty-one papers</a></p>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Kamyar Zeinalipour, DIISM, University of Siena, Via Roma 56, 53100 Siena, Italy.</p>
+    <p><a href="mailto:kamyar.zeinalipour2@unisi.it">kamyar.zeinalipour2@unisi.it</a>
+       · <a href="https://github.com/KamyarZeinalipour/KamyarZeinalipour.github.io">Source</a></p>
+  </div>
+</footer>
+
+<script type="module" src="../assets/app.js"></script>
+</body>
+</html>
