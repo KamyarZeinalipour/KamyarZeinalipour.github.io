@@ -1,4 +1,4 @@
-import { PUZZLE, PAPERS, TOPICS, RELEASES, PATH, BUILT, TEACHING, UPDATES, SERVICE, TALKS, CERTS } from "./data.js";
+import { PUZZLE, PAPERS, TOPICS, RELEASES, PATH, BUILT, TEACHING, UPDATES, SERVICE, TALKS, CERTS, AWARDS } from "./data.js";
 import { buildFigures } from "./figures.js";
 import { buildStage, buildPaperScene } from "./stage.js";
 import { buildGraph } from "./graph.js";
@@ -541,6 +541,9 @@ function buildService() {
   buildRows("#service-out", SERVICE, (x) => ({ when: x.when, title: x.role, where: x.where, note: x.note,
     links: x.href ? [{ href: x.href, label: "Page" }] : [] }));
 }
+function buildAwards() {
+  buildRows("#awards-out", AWARDS, (x) => ({ when: x.when, title: x.what, where: x.where, note: x.note }));
+}
 function buildTalks() {
   buildRows("#talks-out", TALKS, (x) => ({ when: x.when, title: x.what, where: x.where,
     links: x.href ? [{ href: x.href, label: x.hrefLabel || "More" }] : [] }));
@@ -579,6 +582,7 @@ try {
   buildUpdates();
   buildTeaching();
   buildPath();
+  buildAwards();
   buildService();
   buildTalks();
   buildCerts();

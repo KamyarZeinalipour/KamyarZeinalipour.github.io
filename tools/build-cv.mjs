@@ -6,7 +6,7 @@
    prints both to PDF. */
 import fs from "node:fs";
 import path from "node:path";
-import { PROFILE, CV, PATH, PAPERS, RELEASES, TEACHING, SERVICE, TALKS, CERTS } from "../assets/data.js";
+import { PROFILE, CV, PATH, PAPERS, RELEASES, TEACHING, SERVICE, TALKS, CERTS, AWARDS } from "../assets/data.js";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const SITE = "https://kamyarzeinalipour.github.io";
@@ -33,9 +33,10 @@ function wrapPage(file, title, desc, main) {
 
 /* ---------- pieces ---------- */
 const host = (u) => u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
-const contacts = (extra = []) => {
+// The resume uses the personal address (CV.email); the academic CV the university one.
+const contacts = (extra = [], email = CV.email) => {
   const items = [
-    [`mailto:${CV.email}`, CV.email],
+    [`mailto:${email}`, email],
     [CV.site, host(CV.site)],
     [PROFILE.linkedin, host(PROFILE.linkedin)],
     [PROFILE.github, host(PROFILE.github)],
@@ -107,6 +108,7 @@ function full() {
   const rel = `<ul class="cv-plain cv-cols">${RELEASES.map((r) => `<li><a href="${esc(r.repo || r.hf)}">${esc(r.name)}</a>: ${esc(r.what)}</li>`).join("")}</ul>`;
   const teach = TEACHING.map((t) => row(t.when, `${esc(t.role)}, <span class="cv-where">${esc(t.where)}</span>`, `<p>${esc(t.body.replace(" in the list on this site", " in the list above"))}</p>`)).join("");
   const serv = SERVICE.map((s) => row(s.when, `${esc(s.role)}, <span class="cv-where">${esc(s.where)}</span>`, s.note ? `<p>${esc(s.note)}</p>` : "")).join("");
+  const awards = AWARDS.map((a) => row(a.when, `${esc(a.what)}, <span class="cv-where">${esc(a.where)}</span>`, `<p>${esc(a.note)}</p>`)).join("");
   const talks = TALKS.map((t) => row(t.when, `${esc(t.what)}, <span class="cv-where">${esc(t.where)}</span>`)).join("");
   const certs = CERTS.map((c) => row(c.year, `${esc(c.name)}, <span class="cv-where">${esc(c.by)}</span>`)).join("");
   const skills = `<dl class="cv-skills">${CV.skills.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}
@@ -121,11 +123,12 @@ function full() {
       <header class="cv-top">
         <h1>${esc(PROFILE.name)}</h1>
         <p class="cv-headline">${esc(PROFILE.role)}</p>
-        ${contacts([[PROFILE.orcid, "ORCID " + PROFILE.orcid.split("/").pop()], [PROFILE.scholar, "Google Scholar"]])}
+        ${contacts([[PROFILE.orcid, "ORCID " + PROFILE.orcid.split("/").pop()], [PROFILE.scholar, "Google Scholar"]], PROFILE.email)}
       </header>
       ${section("c-int", "Research interests", `<p>${esc(CV.interests)}</p>`)}
       ${section("c-pos", "Positions", pos)}
       ${section("c-edu", "Education", edu)}
+      ${section("c-award", "Awards", awards)}
       ${section("c-pub", `Publications (${PAPERS.length}, ${firstAuthor} as first author)`, pubs)}
       ${section("c-rel", "Open research releases", `<p>Each with its code on GitHub and its models and data on Hugging Face.</p>${rel}`)}
       ${section("c-teach", "Teaching and supervision", teach)}

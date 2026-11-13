@@ -1048,6 +1048,13 @@ pre.bib { background: var(--cell); border: 1px solid var(--rule); border-radius:
 .related a { font-weight: 600; }
 .related span { display: block; font-size: 0.85rem; color: var(--ink-2); margin-top: 0.15rem; }
 
+/* Award photos on the About page: the stage wide, the certificate square. */
+.award-photos { display: grid; gap: 1.2rem; margin-top: 1.8rem; }
+@media (min-width: 48rem) { .award-photos { grid-template-columns: 1.75fr 1fr; align-items: start; } }
+.award-photos figure { margin: 0; }
+.award-photos img { display: block; width: 100%; height: auto; border-radius: 2px; }
+.award-photos figcaption { font-size: 0.85rem; color: var(--ink-2); margin-top: 0.45rem; }
+
 /* ---------- CV: cv.html, resume.html, cv-full.html ----------
    On screen the CV is one sheet on the page; the sheet's edge and shadow say
    "this is the document you can download". In print the site's header, menu and

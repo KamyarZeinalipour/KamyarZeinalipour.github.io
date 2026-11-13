@@ -416,8 +416,8 @@ export const UPDATES = [
     href: "https://tildea.ai", hrefLabel: "tildea.ai" },
   { when: "2026-11", date: "November 2026", page: "research.html#code", pageLabel: "All seventeen releases",
     text: "Finished publishing seventeen research releases: every paper with code now has one repository and one model collection, cross-linked." },
-  { when: "2026-09", date: "September 2026", page: "about.html#service", pageLabel: "Service",
-    text: "At CLiC-it 2026 in Palermo I co-organised the Turing Hotel, a live Turing test in Italian where people and artificial agents share a table and try to tell each other apart, and the Villanova.AI team presented the Villanova-2B models." },
+  { when: "2026-09", date: "September 2026", page: "about.html#awards", pageLabel: "Awards",
+    text: "At CLiC-it 2026 in Palermo, the YUKAI! agent I built won Best Fooling AI Agent at Turing Hotel Italy: in the live Turing test in Italian, it was the agent most often mistaken for a human, especially in longer conversations. I also co-organised the competition, and the Villanova.AI team presented the Villanova-2B models." },
   { when: "2026-08", date: "August 2026", page: "about.html", pageLabel: "About",
     text: "Started as a postdoctoral researcher at DIISM, University of Siena, with Marco Gori and Marco Maggini, alongside my work at Villanova.AI and YUKAI!." },
   { when: "2026-06", date: "June 2026", ref: "From Graph to Text and Back",
@@ -475,6 +475,12 @@ export const SERVICE = [
     href: "https://lifelong-ml.cc/Conferences/2024" },
   { role: "Challenge co-proposer, ECWCA", where: "CALAMITA at CLiC-it 2024", when: "2024",
     href: "https://aclanthology.org/2024.clicit-1.138/" },
+];
+
+/* Awards, newest first. Shown on the About page and in both CVs. */
+export const AWARDS = [
+  { when: "Sep 2026", what: "Best Fooling AI Agent, Turing Hotel Italy", where: "CLiC-it 2026, Palermo",
+    note: "With team YUKAI!, for the AI agent that was most often mistaken for a human, especially in longer conversations. Awarded at the live Turing test of the Twelfth Italian Conference on Computational Linguistics, supported by Villanova.AI and AILC." },
 ];
 
 export const TALKS = [
@@ -914,11 +920,11 @@ export const CV = {
     ] },
     { what: "AI engineer", where: "Villanova.AI, Cagliari", when: "Nov 2025 to now", points: [
       "Built Villanova-SFT-2603, the instruction-tuning data for Villanova-2B-2603: 1,711,114 conversations in five languages, curated, deduplicated and language-checked, released under Apache 2.0.",
-      "Part of the team behind Villanova2: a dense 2.4B model and a 15.5B mixture of experts with 3.9B active parameters and a 131k-token context, with open weights and documented open data.",
-      "Co-author of Multi-SFT, the permissively licensed multilingual instruction data that all four Villanova2 models cite.",
+      "Part of the team behind Villanova2, a dense 2.4B model and a 15.5B mixture of experts (3.9B active, 131k context) with open weights and data; co-author of Multi-SFT, the instruction data all four models cite.",
     ] },
     { what: "Generative AI engineer", where: "YUKAI!, Siena", when: "Nov 2025 to now", points: [
       "Fine-tuned models, retrieval pipelines and agentic systems in production, for domain-specific assistants and content generation in educational and creative applications.",
+      "Built the agent that won Best Fooling AI Agent at Turing Hotel Italy (CLiC-it 2026): the one most often mistaken for a human.",
     ] },
     { what: "Visiting researcher", where: "UMass Amherst, Inria Nice, University of Gothenburg", when: "Sep 2024 to Jun 2025", points: [
       "Built a 22,000-pair human-verified dataset for detoxification that keeps the original meaning (UMass Amherst), the Detoxification Fidelity Index and a reinforcement learning pipeline for it (Inria), and a multilingual LLM study of plural nouns published at EACL 2026 (Gothenburg).",

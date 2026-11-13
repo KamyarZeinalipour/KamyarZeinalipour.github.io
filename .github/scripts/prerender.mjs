@@ -11,7 +11,7 @@ import os from "node:os";
 const SITE = path.resolve(process.argv[2] || "new");
 const BASE = process.env.BASE || "http://localhost:8731/";
 const MOUNTS = ["papers-out", "releases-out", "built-out", "updates-out", "teaching-out",
-  "path-out", "service-out", "talks-out", "certs-out"];
+  "path-out", "awards-out", "service-out", "talks-out", "certs-out"];
 const PAGES = ["index", "research", "projects", "publications", "teaching", "updates", "about"];
 const MARK = "<!-- prerendered from data.js; app.js redraws it -->";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
