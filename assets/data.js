@@ -522,7 +522,9 @@ export const PATH = [
     note: "Built the Detoxification Fidelity Index and a reinforcement learning pipeline for detoxification that preserves meaning." },
   { when: "Sep 2024 to Jan 2025", what: "Visiting researcher", where: "University of Massachusetts Amherst",
     note: "Built a 22,000-pair human-verified dataset for detoxification that does not destroy the original meaning." },
-  { when: "2021 to 2023", what: "Data scientist, with Baker Hughes", where: "University of Siena",
+  { when: "Apr 2022 to May 2023", what: "Machine learning specialist", where: "University of Siena",
+    note: "Graph neural networks for ECG classification: signals turned into graphs and classified with a Graph Isomorphism Network, published at WIRN 2022." },
+  { when: "Jan 2022 to Mar 2023", what: "Data scientist, with Baker Hughes", where: "University of Siena",
     note: "Emission forecasting for gas turbines, deployed as a service, published at WIRN and AI-ML-Systems." },
   { when: "2017 to 2021", what: "M.Sc. in Applied Mathematics (Data Science)", where: "University of Siena",
     note: "Thesis on classifying ECG signals by turning time series into graphs, which became the ts2g package." },
@@ -929,7 +931,10 @@ export const CV = {
     { what: "Visiting researcher", where: "UMass Amherst, Inria Nice, University of Gothenburg", when: "Sep 2024 to Jun 2025", points: [
       "Built a 22,000-pair human-verified dataset for detoxification that keeps the original meaning (UMass Amherst), the Detoxification Fidelity Index and a reinforcement learning pipeline for it (Inria), and a multilingual LLM study of plural nouns published at EACL 2026 (Gothenburg).",
     ] },
-    { what: "Data scientist", where: "Baker Hughes, with the University of Siena", when: "Nov 2021 to Mar 2023", points: [
+    { what: "Machine learning specialist", where: "University of Siena", when: "Apr 2022 to May 2023", points: [
+      "Graph neural networks for ECG classification, from signals turned into graphs; published at WIRN 2022.",
+    ] },
+    { what: "Data scientist", where: "Baker Hughes, with the University of Siena", when: "Jan 2022 to Mar 2023", points: [
       "Models predicting the carbon monoxide and nitrogen oxide output of gas turbines, served as a REST API handling over a million predictions a day; cut tuning time by 20%. Two papers.",
     ] },
   ],

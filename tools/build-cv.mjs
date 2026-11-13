@@ -84,7 +84,7 @@ function resume() {
       ${section("r-skills", "Skills", skills)}
       ${section("r-edu", "Education", edu)}
       ${section("r-more", "Teaching and languages", `<ul class="cv-plain">
-          <li>${esc(teach.role)}, ${esc(teach.where)}, ${esc(teach.when)}: a 20-hour course from the transformer to production systems, with a lab for every lecture. Teaching assistant for Machine Learning at the University of Siena, 2022 to 2026; supervised ten master's theses.</li>
+          <li>${esc(teach.role)}, ${esc(teach.where)}, ${esc(teach.when)}: 20 hours, a lab for every lecture. Teaching assistant, Machine Learning, University of Siena, 2022 to 2026; supervised ten master's theses.</li>
           <li>${CV.spoken.map(([l, lv]) => `${esc(l)} (${esc(lv)})`).join(", ")}.</li>
         </ul>`)}
       <p class="cv-foot">${PAPERS.length} papers, ${firstAuthor} as first author, and 17 open releases: <a href="${SITE}/publications.html">${host(SITE)}/publications.html</a></p>
