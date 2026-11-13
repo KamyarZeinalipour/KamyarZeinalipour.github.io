@@ -116,12 +116,11 @@ p { margin: 0 0 1em; max-width: var(--measure); }
   letter-spacing: 0.01em; text-decoration: none; margin-right: auto;
   display: inline-flex; align-items: center; gap: 0.55rem;
 }
-.wordmark span.kz {
-  display: grid; place-items: center;
-  width: 1.6rem; height: 1.6rem;
-  border: 1.5px solid var(--ink); border-radius: 3px;
-  font-size: 0.8rem; font-family: var(--sans); font-weight: 700;
-}
+/* The mark: a K drawn as a small graph, its lead node in the accent, as on the home graph. */
+.wordmark .mark { width: 1.75rem; height: 1.75rem; flex: none; overflow: visible; }
+.mark .mk-l { fill: none; stroke: var(--ink-2); stroke-width: 2.6; stroke-linecap: round; }
+.mark .mk-n { fill: var(--ink); }
+.mark .mk-a { fill: var(--accent); }
 .mast-link {
   font-size: 0.85rem; color: var(--ink-2); text-decoration: none;
   border-bottom: 1px solid var(--rule-strong); padding-bottom: 1px;
