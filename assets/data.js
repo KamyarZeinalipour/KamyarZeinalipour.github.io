@@ -894,3 +894,49 @@ export const BANANAS = {
   case: { sg: "rifiuto", sgGloss: "refusal", pl: "rifiuti", plGloss: "waste", from: 1910, to: 2005, at: 1930 },
   kept: [["Italian", 70], ["Russian", 60], ["English", 241]],
 };
+
+/* ---------- CV and resume (cv.html, resume.html, cv-full.html) ----------
+   tools/build-cv.mjs builds both from this file: positions, degrees, papers,
+   teaching, service, talks and certificates come from the lists above; only
+   what a CV needs and the site does not show lives here. The deploy workflow
+   rebuilds them and prints the PDFs on every push.
+   Kept off the public CV on purpose: phone, home address, referees' emails. */
+export const CV = {
+  headline: "AI engineer and NLP researcher: language models, instruction data and evaluation",
+  email: "kamyar.zeinalipour2@unisi.it",
+  site: "https://kamyarzeinalipour.github.io/",
+  summary: "I build and fine-tune language models and the data they learn from. At Villanova.AI I built the 1.71-million-conversation instruction dataset for its open European models; at YUKAI! I take fine-tuned models, retrieval pipelines and agents to production. Ph.D. in artificial intelligence from the University of Siena (2026, eccellente), with 31 papers, 19 as first author, at venues including ACL, EACL, LREC-COLING and IJCNLP-AACL.",
+  interests: "Language models for languages with little data; generating and evaluating educational material with language models; instruction data and fine-tuning for open European models; evaluation that checks meaning, not only form.",
+  /* The one-page resume: what was built and what it did, newest first. */
+  jobs: [
+    { what: "Postdoctoral researcher", where: "University of Siena, DIISM", when: "Aug 2026 to now", points: [
+      "Language models for education and for languages with few resources. Published 17 open releases: each paper with its code, data and LoRA adapters, reproducible on a single GPU.",
+    ] },
+    { what: "AI engineer", where: "Villanova.AI, Cagliari", when: "Nov 2025 to now", points: [
+      "Built Villanova-SFT-2603, the instruction-tuning data for Villanova-2B-2603: 1,711,114 conversations in five languages, curated, deduplicated and language-checked, released under Apache 2.0.",
+      "Part of the team behind Villanova2: a dense 2.4B model and a 15.5B mixture of experts with 3.9B active parameters and a 131k-token context, with open weights and documented open data.",
+      "Co-author of Multi-SFT, the permissively licensed multilingual instruction data that all four Villanova2 models cite.",
+    ] },
+    { what: "Generative AI engineer", where: "YUKAI!, Siena", when: "Nov 2025 to now", points: [
+      "Fine-tuned models, retrieval pipelines and agentic systems in production, for domain-specific assistants and content generation in educational and creative applications.",
+    ] },
+    { what: "Visiting researcher", where: "UMass Amherst, Inria Nice, University of Gothenburg", when: "Sep 2024 to Jun 2025", points: [
+      "Built a 22,000-pair human-verified dataset for detoxification that keeps the original meaning (UMass Amherst), the Detoxification Fidelity Index and a reinforcement learning pipeline for it (Inria), and a multilingual LLM study of plural nouns published at EACL 2026 (Gothenburg).",
+    ] },
+    { what: "Data scientist", where: "Baker Hughes, with the University of Siena", when: "Nov 2021 to Mar 2023", points: [
+      "Models predicting the carbon monoxide and nitrogen oxide output of gas turbines, served as a REST API handling over a million predictions a day; cut tuning time by 20%. Two papers.",
+    ] },
+  ],
+  projects: [
+    { name: "Tildea", href: "https://tildea.ai", text: "a product I run: it writes a resume for a job posting from the user's own profile and removes every claim they cannot back up." },
+    { name: "Educational crossword generator", href: "https://kamyarzeinalipour.github.io/projects.html", text: "turns course material into crosswords in Italian, Arabic, Turkish and English, with fine-tuned clue models." },
+    { name: "ts2g", href: "https://pypi.org/project/ts2g/", text: "a Python package that turns time series into graphs for graph neural networks." },
+  ],
+  skills: [
+    ["Language models", "fine-tuning (LoRA, QLoRA, PEFT), RLHF, instruction-data curation, retrieval-augmented generation and graph RAG, agents, evaluation"],
+    ["Frameworks", "PyTorch, Hugging Face Transformers and PEFT, vLLM, DeepSpeed, LangChain, scikit-learn, XGBoost"],
+    ["Infrastructure", "Linux, Docker, Git, CUDA, Slurm, Weights & Biases, Azure ML, Google Cloud"],
+    ["Programming", "Python, SQL, R, Bash"],
+  ],
+  spoken: [["Farsi", "native"], ["English", "C1"], ["Italian", "A2"]],
+};

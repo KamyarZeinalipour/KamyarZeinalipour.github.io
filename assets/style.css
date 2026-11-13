@@ -1047,3 +1047,89 @@ pre.bib { background: var(--cell); border: 1px solid var(--rule); border-radius:
 .related li { padding: 0.8rem 0; border-bottom: 1px solid var(--rule); }
 .related a { font-weight: 600; }
 .related span { display: block; font-size: 0.85rem; color: var(--ink-2); margin-top: 0.15rem; }
+
+/* ---------- CV: cv.html, resume.html, cv-full.html ----------
+   On screen the CV is one sheet on the page; the sheet's edge and shadow say
+   "this is the document you can download". In print the site's header, menu and
+   footer go, and the sheet becomes plain A4: the PDFs are printed from this. */
+.cv-pick { display: grid; gap: 2.2rem; }
+@media (min-width: 48rem) { .cv-pick { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+.cv-pick article { border-top: 2px solid var(--ink); padding-top: 1.1rem; }
+.cv-pick h2 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); margin-bottom: 0.3rem; }
+.cv-pick h2 a { text-decoration: none; }
+.cv-pick h2 a:hover { color: var(--accent); }
+.cv-for { color: var(--ink-2); font-weight: 500; }
+.cv-pick .links a { color: var(--accent); font-weight: 500; }
+
+.cv-page { padding-block: clamp(1.4rem, 4vw, 2.6rem) clamp(3rem, 7vw, 5rem); }
+.cv-bar, .cv-doc { max-width: 54rem; margin-inline: auto; }
+.cv-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.3rem 1.5rem;
+  font-size: 0.9rem; color: var(--ink-2); margin-bottom: 1rem; }
+.cv-bar p { margin: 0; }
+.cv-bar a { color: var(--accent); font-weight: 500; }
+.cv-doc { background: var(--cell); border: 1px solid var(--rule); box-shadow: var(--shadow);
+  padding: clamp(1.25rem, 5vw, 3.2rem); }
+.cv-top h1 { font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.6rem); }
+.cv-headline { color: var(--ink-2); margin: 0.35rem 0 0.7rem; }
+.cv-contact { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.15rem 1.2rem; font-size: 0.88rem; }
+.cv-contact a { overflow-wrap: anywhere; }
+.cv-summary { margin: 1.3rem 0 0; max-width: none; }
+.cv-sec { margin-top: 1.8rem; }
+.cv-sec > h2 { font-size: 1.2rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--rule-strong); margin-bottom: 0.5rem; }
+.cv-sec > p { max-width: none; font-size: 0.95rem; }
+.cv-row { display: grid; gap: 0.05rem 1.2rem; padding-block: 0.5rem; }
+@media (min-width: 40rem) { .cv-row { grid-template-columns: 8.6rem minmax(0, 1fr); } }
+.cv-when { margin: 0; font-size: 0.83rem; color: var(--ink-2); font-variant-numeric: tabular-nums; padding-top: 0.12rem; }
+.cv-row h3 { font-family: var(--sans); font-size: 0.98rem; line-height: 1.4; }
+.cv-where { color: var(--accent); font-weight: 500; }
+.cv-row p, .cv-row li { font-size: 0.91rem; color: var(--ink-2); max-width: none; }
+.cv-row p { margin: 0.15rem 0 0; }
+.cv-row ul { margin: 0.2rem 0 0; padding-left: 1.1rem; }
+.cv-plain { margin: 0; padding-left: 1.1rem; }
+.cv-plain li { font-size: 0.92rem; margin-block: 0.25rem; }
+.cv-plain a, .cv-pubs a { color: var(--ink); }
+.cv-plain a { font-weight: 600; }
+@media (min-width: 48rem) { .cv-cols { columns: 2; column-gap: 2.4rem; } .cv-cols li { break-inside: avoid; } }
+.cv-skills { margin: 0; }
+.cv-skills div { display: grid; gap: 0 1.2rem; padding-block: 0.2rem; }
+@media (min-width: 40rem) { .cv-skills div { grid-template-columns: 8.6rem minmax(0, 1fr); } }
+.cv-skills dt { font-weight: 600; font-size: 0.9rem; }
+.cv-skills dd { margin: 0; font-size: 0.91rem; color: var(--ink-2); }
+.cv-year { font-size: 1rem; margin: 1rem 0 0.2rem; }
+.cv-pubs { margin: 0; padding-left: 2.1rem; }
+.cv-pubs li { font-size: 0.9rem; color: var(--ink-2); margin-block: 0.35rem; }
+.cv-pubs li::marker { font-variant-numeric: tabular-nums; }
+.cv-pubs strong { color: var(--ink); font-weight: 600; }
+.cv-foot { margin: 1.8rem 0 0; padding-top: 0.8rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-2); max-width: none; }
+
+@media print {
+  :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {
+    color-scheme: light;
+    --paper: #fff; --cell: #fff; --ink: #1c1917; --ink-2: #3f3a36;
+    --rule: #d6d0c7; --rule-strong: #a8a29e; --accent: #9a3412;
+  }
+  @page { size: A4; margin: 12mm 14mm; }
+  html { font-size: 12.4px; }
+  body { font-size: 1rem; line-height: 1.4; background: #fff; }
+  .skip, .masthead, .site-foot, .cv-bar { display: none !important; }
+  .cv-page { padding: 0; max-width: none; }
+  .cv-doc { max-width: none; border: 0; box-shadow: none; padding: 0; background: none; }
+  a { text-decoration: none; }
+  .cv-row { grid-template-columns: 9.6rem minmax(0, 1fr); padding-block: 0.28rem; break-inside: avoid; }
+  .cv-skills div { grid-template-columns: 9.6rem minmax(0, 1fr); }
+  .cv-sec { margin-top: 1rem; }
+  .cv-sec > h2 { break-after: avoid; }
+  .cv-year { break-after: avoid; }
+  .cv-pubs li, .cv-plain li { break-inside: avoid; }
+  .cv-cols { columns: 2; column-gap: 2rem; }
+  /* The resume has to fit one sheet. */
+  html:has(.cv-short) { font-size: 12px; }
+  .cv-short .cv-top h1 { font-size: 2rem; }
+  .cv-short .cv-summary { margin-top: 0.7rem; }
+  .cv-short .cv-sec { margin-top: 0.7rem; }
+  .cv-short .cv-sec > h2 { font-size: 1.1rem; margin-bottom: 0.15rem; }
+  .cv-short .cv-row { padding-block: 0.18rem; }
+  .cv-short .cv-row ul { margin-top: 0.05rem; }
+  .cv-short .cv-row li, .cv-short .cv-plain li { margin-block: 0.05rem; }
+  .cv-short .cv-foot { margin-top: 0.7rem; padding-top: 0.4rem; }
+}

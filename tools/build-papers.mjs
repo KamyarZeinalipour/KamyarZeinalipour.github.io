@@ -145,7 +145,8 @@ ${JSON.stringify(ld, null, 1).replace(/</g, "\\u003c")}
       <a href="../publications.html" aria-current="page">Publications</a>
       <a href="../teaching.html">Teaching</a>
       <a href="../updates.html">Updates</a>
-      <a href="../about.html">About</a></div>
+      <a href="../about.html">About</a>
+      <a href="../cv.html">CV</a></div>
   </nav>
 </header>
 

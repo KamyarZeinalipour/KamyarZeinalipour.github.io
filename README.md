@@ -12,6 +12,7 @@ publications.html   all papers, filterable, with a papers-per-year chart
 teaching.html       teaching and supervision
 updates.html        news, most recent first
 about.html          bio and path
+cv.html             the CV in two versions: resume.html (one page) and cv-full.html (academic)
 crossword.html      a playable crossword built from the research vocabulary
 assets/data.js      ALL content: papers, releases, projects, news, teaching, figures
 assets/app.js       renders the content into whichever page is open
@@ -36,6 +37,10 @@ Everything lives in `assets/data.js`, and each entry shows up on every page it b
 - **Announcing a paper or project in one step:** give its `PAPERS` or `BUILT` entry a
   `news: { when, date, text }` field. It is added to Updates automatically.
 - **Teaching:** add to `TEACHING`.
+- **The CV:** positions, degrees, papers, teaching, service, talks and certificates come from
+  the lists above. Resume bullets, skills and languages are in `CV`. On every push the deploy
+  rebuilds `cv.html`, `resume.html` and `cv-full.html` (`node tools/build-cv.mjs`) and prints
+  both PDFs; it warns if the resume no longer fits one page.
 - **The home page graph** reads `PAPERS` and `TOPICS` directly. To link a paper to a language,
   add its title start to `PAPER_LANGS`.
 
