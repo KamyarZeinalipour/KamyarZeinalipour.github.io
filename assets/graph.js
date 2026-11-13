@@ -209,18 +209,22 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
     gNodes.append(g);
   }
 
-  // Highlighting, shared by the graph and the button row.
-  let active = null;
+  // Highlighting, shared by hover, click and the button row: a node, everything it
+  // links to, and the links between them. light(null) puts the graph back.
+  const nbrs = new Map(nodes.map((n) => [n, new Set([n])]));
+  for (const e of edges) { nbrs.get(e.a).add(e.b); nbrs.get(e.b).add(e.a); }
+  const light = (n) => {
+    svg.classList.toggle("focus", !!n);
+    const set = n ? nbrs.get(n) : null;
+    for (const m of nodes) m.el.classList.toggle("on", !!set && set.has(m));
+    for (const e of edges) e.el.classList.toggle("on", !!n && (e.a === n || e.b === n));
+  };
+  let active = null, hot = null;
   const buttons = new Map();
   const toggle = (n) => {
     if (active && active.node === n) { clear(); return; }
-    const linked = new Set([n]);
-    for (const e of edges) {
-      if (e.b === n) linked.add(e.a);
-    }
-    svg.classList.add("focus");
-    for (const m of nodes) m.el.classList.toggle("on", linked.has(m));
-    for (const e of edges) e.el.classList.toggle("on", e.b === n);
+    const linked = nbrs.get(n);
+    light(n);
     const papers = [...linked].filter((m) => m.kind === "paper").length;
     const releases = [...linked].filter((m) => m.kind === "release").length;
     const label = n.kind === "lang" ? n.name : n.label;
@@ -232,9 +236,7 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
   };
   const clear = () => {
     active = null;
-    svg.classList.remove("focus");
-    nodes.forEach((m) => m.el.classList.remove("on"));
-    edges.forEach((e) => e.el.classList.remove("on"));
+    light(hot);
     buttons.forEach((b) => b.setAttribute("aria-pressed", "false"));
     status.textContent = idle;
   };
@@ -272,14 +274,16 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
   // Assemble: topics, then languages, then papers fly out from the centre; edges last.
   const place = (n, x, y, s) => n.el.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s.toFixed(3)})`);
 
-  /* Play: once assembled, nodes can be dragged (their links stretch, and they spring
-     back when let go), and nearby nodes lean away from the pointer. The node under the
-     pointer stays still, so it can always be clicked. Off under reduced motion. */
+  /* Play: once assembled, nodes can be dragged (their links stretch and they spring
+     back when let go). Hovering a node lights it and what it links to, with a slow pulse
+     along those links; moving straight to the next node never passes through the
+     unlit state, so nothing blinks. Now and then a spark runs from a paper to its line
+     of work. All of it is off under reduced motion. */
   function enablePlay() {
     svg.classList.add("play");
     for (const n of nodes) { n.hx = n.x; n.hy = n.y; n.vx = 0; n.vy = 0; }
     const rest = new Map(edges.map((e) => [e, Math.hypot(e.b.x - e.a.x, e.b.y - e.a.y)]));
-    let ptr = null, drag = null, running = false;
+    let drag = null, running = false;
     const toSvg = (ev) => new DOMPoint(ev.clientX, ev.clientY).matrixTransform(svg.getScreenCTM().inverse());
     const drawEdges = () => {
       for (const e of edges) {
@@ -297,17 +301,13 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
       for (const n of nodes) {
         if (drag && drag.n === n) { n.vx = 0; n.vy = 0; place(n, n.x, n.y, 1.25); continue; }
         n.vx += (n.hx - n.x) * 0.045; n.vy += (n.hy - n.y) * 0.045;
-        if (ptr && !drag) {
-          const dx = n.x - ptr.x, dy = n.y - ptr.y, d = Math.hypot(dx, dy);
-          if (d > 16 && d < 90) { const f = ((90 - d) / 74) * 0.55; n.vx += (dx / d) * f; n.vy += (dy / d) * f; }
-        }
         n.vx *= 0.82; n.vy *= 0.82;
         n.x += n.vx; n.y += n.vy;
         energy += Math.abs(n.vx) + Math.abs(n.vy) + Math.abs(n.hx - n.x) + Math.abs(n.hy - n.y);
         place(n, n.x, n.y, 1);
       }
       drawEdges();
-      if (ptr || drag || energy > 0.6) requestAnimationFrame(tick);
+      if (drag || energy > 0.6) requestAnimationFrame(tick);
       else {
         running = false;
         for (const n of nodes) { n.x = n.hx; n.y = n.hy; place(n, n.x, n.y, 1); }
@@ -316,78 +316,77 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
     };
     const wake = () => { if (!running) { running = true; requestAnimationFrame(tick); } };
 
-    /* Hover card: what a node is, next to it. Lines of work and languages also light up
-       their links while the pointer is on them; a click still pins the highlight. */
+    /* Hover card: what a node is, next to it. A click on a line of work or a language
+       still pins its highlight. */
     mount.style.position = "relative";
     const card = el("div", { className: "wg-tip" });
     card.setAttribute("aria-hidden", "true");
     mount.append(card);
-    const linkedTo = (n) => { const set = new Set([n]); for (const e of edges) if (e.b === n) set.add(e.a); return set; };
     const describe = (n) => {
       if (n.kind === "paper") return [n.paper.t, `${n.paper.v}, ${n.paper.y}`, "Click to open its page"];
       if (n.kind === "release") return [n.release.name, `${n.release.when}. ${n.release.what}`, "Click to see the models"];
-      const set = linkedTo(n);
+      const set = nbrs.get(n);
       const papers = [...set].filter((m) => m.kind === "paper").length;
       const rel = [...set].filter((m) => m.kind === "release").length;
       const name = n.kind === "lang" ? `${n.name} (${n.label})` : n.label;
       return [name, `${papers} ${papers === 1 ? "paper" : "papers"}${rel ? ` and ${rel} Villanova ${rel === 1 ? "release" : "releases"}` : ""}`, "Click to keep it highlighted"];
     };
-    const preview = (n) => {
-      if (active || (n.kind !== "lang" && n.kind !== "topic")) return;
-      const set = linkedTo(n);
-      svg.classList.add("focus");
-      for (const m of nodes) m.el.classList.toggle("on", set.has(m));
-      for (const e of edges) e.el.classList.toggle("on", e.b === n);
-    };
-    const unpreview = () => {
-      if (active) return;
-      svg.classList.remove("focus");
-      nodes.forEach((m) => m.el.classList.remove("on"));
-      edges.forEach((e) => e.el.classList.remove("on"));
-    };
     const showCard = (n) => {
-      if (drag) return;
       const [title, line, hint] = describe(n);
+      const wasOn = card.classList.contains("on");
       card.replaceChildren(el("b", { textContent: title }), el("span", { textContent: line }), el("small", { textContent: hint }));
+      // The first card appears in place; after that it glides from node to node.
+      card.style.transition = wasOn ? "" : "none";
       const box = mount.getBoundingClientRect(), r = n.el.getBoundingClientRect();
-      card.classList.add("on");
       const w = card.offsetWidth, h = card.offsetHeight;
       let x = r.left + r.width / 2 - box.left - w / 2, y = r.top - box.top - h - 12;
       if (y < 4) y = r.bottom - box.top + 12;
       x = Math.max(4, Math.min(box.width - w - 4, x));
       card.style.transform = `translate(${x.toFixed(0)}px, ${y.toFixed(0)}px)`;
+      if (!wasOn) { card.getBoundingClientRect(); card.style.transition = ""; }
+      card.classList.add("on");
     };
-    const hideCard = () => card.classList.remove("on");
+    const setHot = (n) => {
+      if (n === hot) return;
+      if (hot) hot.el.classList.remove("hot");
+      hot = n;
+      if (n) n.el.classList.add("hot");
+      if (!active) light(n);
+      if (n) showCard(n); else card.classList.remove("on");
+    };
+    let leaving = 0;
     for (const n of nodes) {
-      n.el.addEventListener("pointerenter", (ev) => { if (ev.pointerType === "touch") return; preview(n); showCard(n); });
-      n.el.addEventListener("pointerleave", () => { unpreview(); hideCard(); });
-      n.el.addEventListener("pointerdown", hideCard);
+      n.el.addEventListener("pointerenter", (ev) => {
+        if (ev.pointerType === "touch" || drag) return;
+        clearTimeout(leaving);
+        setHot(n);
+      });
+      // A short grace period, so the gap between two dots does not flash the whole graph.
+      n.el.addEventListener("pointerleave", () => { clearTimeout(leaving); leaving = setTimeout(() => setHot(null), 380); });
     }
     svg.addEventListener("pointermove", (ev) => {
-      if (ev.pointerType === "touch" && !drag) return;
-      ptr = toSvg(ev);
-      if (drag) {
-        if (Math.hypot(ev.clientX - drag.sx, ev.clientY - drag.sy) > 4) drag.moved = true;
-        drag.n.x = ptr.x; drag.n.y = ptr.y;
-      }
+      if (!drag) return;
+      const p = toSvg(ev);
+      if (Math.hypot(ev.clientX - drag.sx, ev.clientY - drag.sy) > 4) drag.moved = true;
+      drag.n.x = p.x; drag.n.y = p.y;
       wake();
     });
-    svg.addEventListener("pointerleave", () => { if (!drag) { ptr = null; wake(); } });
     for (const n of nodes) {
       n.el.addEventListener("pointerdown", (ev) => {
         if (ev.button !== 0) return;
+        clearTimeout(leaving);
+        setHot(null);
         drag = { n, sx: ev.clientX, sy: ev.clientY, moved: false };
         n.el.setPointerCapture(ev.pointerId);
         n.el.classList.add("grabbed");
         ev.preventDefault();
         wake();
       });
-      const end = (ev) => {
+      const end = () => {
         if (!drag || drag.n !== n) return;
         n.el.classList.remove("grabbed");
         if (drag.moved) n.el.dataset.dragged = "1";
         drag = null;
-        if (ev.pointerType === "touch") ptr = null;
         wake();
       };
       n.el.addEventListener("pointerup", end);
@@ -397,6 +396,31 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
         if (n.el.dataset.dragged) { delete n.el.dataset.dragged; ev.stopImmediatePropagation(); ev.preventDefault(); }
       }, true);
     }
+
+    /* Signals: a spark runs along a paper's link to its line of work, and the link
+       glows while it passes. Only while the graph is on screen, the tab is visible and
+       nobody is hovering, dragging or has something highlighted. */
+    const gSparks = svgEl("g", { class: "wg-sparks" });
+    svg.insertBefore(gSparks, gNodes);
+    const feeds = edges.filter((e) => e.kind === "topic");
+    let seen = true;
+    if ("IntersectionObserver" in window) new IntersectionObserver((es) => { seen = es[0].isIntersecting; }).observe(svg);
+    const timer = setInterval(() => {
+      if (!svg.isConnected) { clearInterval(timer); return; }
+      if (!seen || document.hidden || hot || drag || running || active || gSparks.childElementCount > 2) return;
+      const e = feeds[Math.floor(Math.random() * feeds.length)];
+      const dot = svgEl("circle", { r: 2.6, class: "wg-spark" });
+      gSparks.append(dot);
+      e.el.classList.add("lit");
+      const len = Math.hypot(e.b.x - e.a.x, e.b.y - e.a.y);
+      const run = dot.animate([
+        { transform: `translate(${e.a.x}px, ${e.a.y}px)`, opacity: 0 },
+        { opacity: 1, offset: 0.15 },
+        { opacity: 1, offset: 0.85 },
+        { transform: `translate(${e.b.x}px, ${e.b.y}px)`, opacity: 0 },
+      ], { duration: 900 + len * 6, easing: "cubic-bezier(0.45, 0, 0.55, 1)" });
+      run.onfinish = run.oncancel = () => { dot.remove(); e.el.classList.remove("lit"); };
+    }, 1300);
   }
   if (calm()) {
     nodes.forEach((n) => place(n, n.x, n.y, 1));

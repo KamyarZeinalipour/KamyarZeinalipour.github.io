@@ -590,7 +590,9 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .wg-edge { stroke: var(--rule-strong); stroke-width: 0.8; opacity: 0; transition: opacity 600ms ease, stroke 200ms ease; }
 .wg-edge.lang { stroke-dasharray: 2 3; }
 .wg.assembled .wg-edge { opacity: 0.75; }
-.wg-node circle { transition: opacity 200ms ease, fill 200ms ease; }
+.wg-node { transition: opacity 240ms ease; }
+.wg-node circle { transform-box: fill-box; transform-origin: center;
+  transition: opacity 200ms ease, fill 200ms ease, transform 260ms cubic-bezier(0.3, 1.5, 0.5, 1); }
 .wg-node.topic circle { fill: var(--ink); }
 .wg-node.lang circle { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
 .wg-node.paper circle { fill: var(--ink-2); }
@@ -990,6 +992,16 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
 .wg.play .wg-node { cursor: grab; touch-action: none; }
 .wg.play .wg-node.grabbed { cursor: grabbing; }
 .wg.play .wg-node.grabbed circle, .wg.play .wg-node.grabbed rect { fill: var(--accent); }
+/* Hover and signals on the home graph. Settled links fade quickly instead of the slow
+   assembly fade; a lit link carries a slow pulse toward its line of work. */
+.wg.assembled .wg-edge { transition: opacity 260ms ease, stroke 260ms ease, stroke-width 260ms ease; }
+.wg-node.hot circle { transform: scale(1.6); }
+.wg-node.paper.hot circle { fill: var(--accent); }
+.wg.play.focus .wg-edge.on { stroke-dasharray: 4 4; animation: wg-flow 1s linear infinite; }
+@keyframes wg-flow { to { stroke-dashoffset: -8; } }
+.wg:not(.focus) .wg-edge.lit { stroke: var(--accent); opacity: 0.6; }
+.wg-spark { fill: var(--accent); pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .wg.play.focus .wg-edge.on { animation: none; stroke-dasharray: none; } }
 
 /* home graph: a fixed, comfortable size centred in its panel, so it never outgrows the text beside it */
 .home-graph #home-graph { width: min(100%, 34rem); margin-inline: auto; }
@@ -1001,7 +1013,7 @@ h1 .line2 { display: block; font-style: italic; font-weight: 300; color: var(--i
   position: absolute; left: 0; top: 0; z-index: 2; max-width: 19rem; pointer-events: none;
   background: var(--cell); color: var(--ink); border: 1px solid var(--rule-strong); border-radius: 8px;
   padding: 0.6rem 0.75rem; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-  opacity: 0; transition: opacity 140ms ease;
+  opacity: 0; transition: opacity 160ms ease, transform 180ms ease;
 }
 .wg-tip.on { opacity: 1; }
 .wg-tip b { display: block; font: 600 0.95rem/1.3 var(--serif); }
