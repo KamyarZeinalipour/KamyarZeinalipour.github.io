@@ -520,7 +520,7 @@ export const PATH = [
     note: "Emission forecasting for gas turbines, deployed as a service, published at WIRN and AI-ML-Systems." },
   { when: "2017 to 2021", what: "M.Sc. in Applied Mathematics (Data Science)", where: "University of Siena",
     note: "Thesis on classifying ECG signals by turning time series into graphs, which became the ts2g package." },
-  { when: "2012 to 2017", what: "B.Sc. in Applied Statistics", where: "University of Hormozgan, Iran",
+  { when: "Sep 2013 to Jan 2017", what: "B.Sc. in Applied Statistics", where: "University of Hormozgan, Iran",
     note: "Alongside it, statistician at Gilda Research and data analyst at the State Management and Planning Organization in Bandar Abbas." },
 ];
 
@@ -903,7 +903,7 @@ export const BANANAS = {
    Kept off the public CV on purpose: phone, home address, referees' emails. */
 export const CV = {
   headline: "AI engineer and NLP researcher: language models, instruction data and evaluation",
-  email: "kamyar.zeinalipour2@unisi.it",
+  email: "k4myar@gmail.com",
   site: "https://kamyarzeinalipour.github.io/",
   summary: "I build and fine-tune language models and the data they learn from. At Villanova.AI I built the 1.71-million-conversation instruction dataset for its open European models; at YUKAI! I take fine-tuned models, retrieval pipelines and agents to production. Ph.D. in artificial intelligence from the University of Siena (2026, eccellente), with 31 papers, 19 as first author, at venues including ACL, EACL, LREC-COLING and IJCNLP-AACL.",
   interests: "Language models for languages with little data; generating and evaluating educational material with language models; instruction data and fine-tuning for open European models; evaluation that checks meaning, not only form.",
@@ -938,5 +938,5 @@ export const CV = {
     ["Infrastructure", "Linux, Docker, Git, CUDA, Slurm, Weights & Biases, Azure ML, Google Cloud"],
     ["Programming", "Python, SQL, R, Bash"],
   ],
-  spoken: [["Farsi", "native"], ["English", "C1"], ["Italian", "A2"]],
+  spoken: [["Farsi", "native"], ["English", "C1"], ["Italian", "B1"]],
 };
