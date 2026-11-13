@@ -258,6 +258,12 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
     if (ev.key === "Escape" && active) clear();
   };
   document.addEventListener("keydown", onKey);
+  // A click anywhere that is not a node or a button lets go of the highlight.
+  const onAway = (ev) => {
+    if (!mount.isConnected) { document.removeEventListener("click", onAway); return; }
+    if (active && !ev.target.closest(".wg-node, .wg-keys")) clear();
+  };
+  document.addEventListener("click", onAway);
 
   mount.append(svg, status, row);
   untangle(nodes);
@@ -329,7 +335,7 @@ export function buildGraph(mount = $("#fig-graph"), opts = {}) {
       const papers = [...set].filter((m) => m.kind === "paper").length;
       const rel = [...set].filter((m) => m.kind === "release").length;
       const name = n.kind === "lang" ? `${n.name} (${n.label})` : n.label;
-      return [name, `${papers} ${papers === 1 ? "paper" : "papers"}${rel ? ` and ${rel} Villanova ${rel === 1 ? "release" : "releases"}` : ""}`, "Click to keep it highlighted"];
+      return [name, `${papers} ${papers === 1 ? "paper" : "papers"}${rel ? ` and ${rel} Villanova ${rel === 1 ? "release" : "releases"}` : ""}`, active && active.node === n ? "Click it again, or anywhere else, to see everything" : "Click to keep it highlighted"];
     };
     const showCard = (n) => {
       const [title, line, hint] = describe(n);
