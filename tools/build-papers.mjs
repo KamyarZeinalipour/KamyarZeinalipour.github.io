@@ -93,9 +93,9 @@ function page(p, m, related) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(p.t.split(":")[0])}, ${year}: Kamyar Zeinalipour</title>
 <meta name="description" content="${esc(desc)}">
-<link rel="icon" href="../favicon.ico" sizes="48x48">
-<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="icon" href="../favicon.ico?v=2" sizes="48x48">
+<link rel="icon" href="../images/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png?v=2">
 <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141110" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="${url}">
