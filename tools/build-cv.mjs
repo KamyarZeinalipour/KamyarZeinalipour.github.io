@@ -175,10 +175,11 @@ function choose() {
 
 resume(); full(); choose();
 
-// List the three pages in the sitemap once.
+// List the three pages and the two PDFs (printed in CI by cv-pdf.mjs) in the sitemap once.
 const smPath = path.join(ROOT, "sitemap.xml");
 let sm = fs.readFileSync(smPath, "utf8");
-for (const f of ["cv.html", "resume.html", "cv-full.html"]) {
+for (const f of ["cv.html", "resume.html", "cv-full.html",
+                 "Kamyar-Zeinalipour-Resume.pdf", "Kamyar-Zeinalipour-CV.pdf"]) {
   if (!sm.includes(`${SITE}/${f}<`)) sm = sm.replace("</urlset>",
     `  <url><loc>${SITE}/${f}</loc><lastmod>${now.toISOString().slice(0, 10)}</lastmod><priority>0.7</priority></url>\n</urlset>`);
 }
