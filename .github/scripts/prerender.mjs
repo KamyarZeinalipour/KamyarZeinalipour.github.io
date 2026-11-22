@@ -68,4 +68,12 @@ for (const pg of PAGES) {
   fs.writeFileSync(file, html);
   console.log(pg, Object.keys(got).join(", ") || "(no lists)");
 }
-ws.close(); chrome.kill(); process.exit(0);
+ws.close(); chrome.kill();
+
+// A plain-text copy of sitemap.xml (one URL per line), so it never drifts from the XML one.
+const sitemap = fs.readFileSync(path.join(SITE, "sitemap.xml"), "utf8");
+const locs = [...sitemap.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map((m) => m[1]);
+if (!locs.length) throw new Error("sitemap.xml lists no URLs");
+fs.writeFileSync(path.join(SITE, "sitemap.txt"), locs.join("\n") + "\n");
+console.log("sitemap.txt", locs.length, "URLs");
+process.exit(0);
